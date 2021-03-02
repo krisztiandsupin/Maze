@@ -312,8 +312,8 @@ def edge_color(screen, edge, color, graph = True, graph_color = Color.black):
     """
     wall = edge_wall(edge)
     pygame.draw.line(screen, color, wall[0], wall[1])
-    pygame.draw.line(screen, Color.black, wall[0], wall[0])
-    pygame.draw.line(screen, Color.black, wall[1], wall[1])
+    pygame.draw.line(screen, color, wall[0], wall[0])
+    pygame.draw.line(screen, color, wall[1], wall[1])
 
     if graph == True:
         pygame.draw.line(screen, graph_color, edge[0].graph_position, edge[1].graph_position)

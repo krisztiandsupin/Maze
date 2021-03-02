@@ -8,6 +8,7 @@ from Color import MazeColor
 from Settings import screen as screen_settings
 import Settings
 from Text import Text
+from Maze import Maze
 
 import MazeFunctions
 
@@ -44,11 +45,20 @@ MazeFunctions.text_display(gameDisplay, screen_size[0] // 2, int(screen_size[1] 
 
 def menu_set():
     gameDisplay.fill(Color.white)
+    maze_background = Maze(20, 'square', 'kruskal')
+    maze_background.color_line = Color.grey_light
+    maze_background.color_start = Color.white
+    maze_background.color_end = Color.white
+
+    maze_background.create((screen_size[0] // 2, screen_size[1] // 2), 1, graph_bool=False)
+    maze_background.draw(gameDisplay, graph_bool=False, step_bool=False, delay=0)
+
     text_title.show(gameDisplay)
 
     text_algorithm.show(gameDisplay)
     text_game.show(gameDisplay)
     text_exit.show(gameDisplay)
+
 
 menu_set()
 
