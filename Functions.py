@@ -103,3 +103,26 @@ def buttonpress_reset():
 
 def mouse_reset():
     Settings.mouse_click_position = None
+
+def wait_for_arrow():
+    if Settings.keyboard_left_press or \
+            Settings.keyboard_right_press or \
+            Settings.keyboard_up_press or \
+            Settings.keyboard_down_press or \
+            Settings.keyboard_w_press or \
+            Settings.keyboard_s_press or \
+            Settings.keyboard_a_press or \
+            Settings.keyboard_d_press:
+        return True
+
+def timer_string(time_int):
+    """
+    :param int time_sec: time in seconds
+    :param str: time on format mm:ss (e.g.: 01:23 = 1 minute and 23 seconds)
+    """
+    time_sec = str(time_int % 60)
+    if len(time_sec) < 2:
+        time_sec = '0' + time_sec
+
+    time_min = str(time_int // 60)
+    return time_min + ':' + time_sec

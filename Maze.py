@@ -77,17 +77,18 @@ class Maze:
 
         self.graph_cell_size = MazeFunctions.graph_cell_size_calculate(self.type_value, self.cell_size)
 
-        CellList.create_square(self.cell_list, self.type_value, maze_position, display_type, graph_bool, self.cell_size)
+        CellList.create(self.cell_list, self.type_value, maze_position, display_type, graph_bool, self.cell_size)
         self.frame_list = MazeFunctions.frame_generation(self.type_value, self.cell_list)
 
 
-    def draw(self, screen, graph_bool = True, step_bool = False, delay = 100,
+    def draw(self, screen, graph_bool = True, step_bool = False, visibility_bool = True, delay = 100,
              position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1])):
         """
         :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
         :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
         :param bool graph_bool: if True displays the graph of the maze; delfault = True
         :param bool step_bool: if True displays steps of generation; default = False
+        :param bool visibility_bool: if True all cells with walls can be seen
         :param int delay: delay between steps in ms; default = 100
         :param tuple position: center of position; default: middle of screen
         """
@@ -95,9 +96,12 @@ class Maze:
         if graph_bool == True:
             pygame.draw.line(screen, Color.navy, (screen_settings.screen_size[0] // 2, 50), position, 5)
 
+        if visibility_bool == True:
+            self.color_background = Color.grey_dark
+            self.color_line = Color.grey_dark
+
         for cell in self.cell_list:
             cell.color_grid(screen, self.color_background, graph_bool, self.color_line)
-
             #cell.text_display(screen, str(cell.index), 12)
 
         MazeFunctions.system_pause()
@@ -106,7 +110,7 @@ class Maze:
             pygame.draw.line(screen, Color.black, wall[0], wall[1], 3)
 
         for edge in self.maze_order:
-            MazeFunctions.edge_color(screen, edge, self.color_background, graph_bool)
+            MazeFunctions.edge_color(screen, edge, self.color_background, graph_bool, self.color_line)
             MazeFunctions.system_pause()
 
             # pygame.draw.line(screen, Color.green, edge[0].position, edge[1].position)
@@ -122,9 +126,12 @@ class Maze:
 
 
         for wall in self.frame_list:
-            pygame.draw.line(screen, self.color_line, wall[0], wall[1], 3)
+            pygame.draw.line(screen, Color.black, wall[0], wall[1], 3)
 
         MazeFunctions.system_pause()
+
+
+    # maze solving visualisation
 
     def solve(self, algorithm):
         maze_list = self.maze_list.copy()

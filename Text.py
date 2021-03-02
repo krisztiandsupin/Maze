@@ -26,10 +26,10 @@ class Text:
     def calculate_box(self):
         rectangle = Functions.text_box(self.position[0], self.position[1], self.text, self.size)
 
-        return ((rectangle[0], rectangle[1]),
-                (rectangle[0] + rectangle[2], rectangle[1]),
-                (rectangle[0] + rectangle[2], rectangle[1] + rectangle[3]),
-                (rectangle[0], rectangle[1] + rectangle[3]))
+        return ((rectangle[0] - 1, rectangle[1] - 1),
+                (rectangle[0] + 1 + rectangle[2], rectangle[1] - 1),
+                (rectangle[0] + 1 + rectangle[2], rectangle[1] + rectangle[3] + 1),
+                (rectangle[0] - 1, rectangle[1] + rectangle[3] + 1))
 
 
     def show(self, screen, color = None):
@@ -37,8 +37,10 @@ class Text:
             color = self.color
         Functions.text_display(screen, self.position[0], self.position[1], self.text, self.size, color)
 
-    def show_box(self, screen):
-        pygame.draw.polygon(screen, self.color, self.box, 1)
+    def show_box(self, screen, color = None, line_thickness = 1):
+        if color == None:
+            color = self.color
+        pygame.draw.polygon(screen, color, self.box, line_thickness)
 
     def is_clicked(self):
         mouse_click_position = Settings.mouse_click_position

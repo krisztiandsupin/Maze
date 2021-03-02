@@ -19,16 +19,12 @@ text_color = Color.navy
 text_color_light = Color.navy_light
 text_size = 25
 
-mode = 1 #single_player = 0, multiplayer = 1
-computer = None #is computer serching in paralell with player
-
 
 def settings():
     maze_size = Settings.maze_size
 
     game_display.fill(Color.white)
     text_title = Text((int(screen_size[0] * 0.5), int(screen_size[1] * 0.1)), 'Maze game', int(text_size * 3), text_color, text_color_light)
-
     text_mode = Text((int(screen_size[0] * 0.3), int(screen_size[1] * 0.3)), 'Game mode', int(text_size * 1.5), text_color,
                           text_color_light)
     text_single_player = Text((int(screen_size[0] * 0.58), int(screen_size[1] * 0.3)), 'Single player', int(text_size * 1.25),
@@ -43,18 +39,21 @@ def settings():
 
 
     text_computer = Text((int(screen_size[0] * 0.3), int(screen_size[1] * 0.4)), 'Computer', int(text_size * 1.5), text_color, text_color_light)
+    ai_box = Box((int(screen_size[0] * 0.65), int(screen_size[1] * 0.4)), int(text_size * 1.25), text_color, text_color_light, Settings.ai_mode)
 
-    ai_x_position = (int(screen_size[0] * 0.65), int(screen_size[1] * 0.4))
-    ai_x_size = int(text_size * 1.25)
+    text_visibility = Text((int(screen_size[0] * 0.3), int(screen_size[1] * 0.5)), 'Invisible mode', int(text_size * 1.5),
+                         text_color, text_color_light)
+    visibility_box = Box((int(screen_size[0] * 0.65), int(screen_size[1] * 0.5)), int(text_size * 1.25), text_color,
+                         text_color_light, Settings.invisible_mode)
 
-    ai_box = Box(ai_x_position, ai_x_size, text_color, text_color_light, True)
-
-    text_maze_size = Text((int(screen_size[0] * 0.3), int(screen_size[1] * 0.5)), 'Maze size', int(text_size * 1.5), text_color, text_color_light)
-    text_maze_size_actual = Text((int(screen_size[0] * 0.65), int(screen_size[1] * 0.5)), '{0}'.format(maze_size), int(text_size * 1.5),
+    # maze size line
+    maze_size_vertical = int(screen_size[1] * 0.6)
+    text_maze_size = Text((int(screen_size[0] * 0.3), maze_size_vertical), 'Maze size', int(text_size * 1.5), text_color, text_color_light)
+    text_maze_size_actual = Text((int(screen_size[0] * 0.65), maze_size_vertical), '{0}'.format(maze_size), int(text_size * 1.5),
                           text_color, text_color_light)
-    text_maze_minus = Text((int(screen_size[0] * 0.62), int(screen_size[1] * 0.5)), '-', int(text_size * 1.6),
+    text_maze_minus = Text((int(screen_size[0] * 0.62), maze_size_vertical), '-', int(text_size * 1.6),
                           text_color_light, text_color)
-    text_maze_plus = Text((int(screen_size[0] * 0.68), int(screen_size[1] * 0.5)), '+', int(text_size * 1.6),
+    text_maze_plus = Text((int(screen_size[0] * 0.68), maze_size_vertical), '+', int(text_size * 1.6),
                            text_color_light, text_color)
 
     text_start = Text((screen_size[0] // 2, int(screen_size[1] * 0.8)), 'Start', int(text_size * 2.5), text_color, text_color_light)
@@ -69,6 +68,8 @@ def settings():
 
     text_computer.show(game_display)
     ai_box.show(game_display)
+    text_visibility.show(game_display)
+    visibility_box.show(game_display)
     text_maze_size.show(game_display)
     text_maze_size_actual.show(game_display)
     text_maze_plus.show(game_display)
@@ -96,29 +97,39 @@ def settings():
             text_maze_size_actual.show(game_display)
             Functions.mouse_reset()
 
-        if text_single_player.is_clicked() and Settings.game_mode == 1:
+        if text_single_player.is_clicked() and Settings.player_mode:
             text_single_player.show(game_display, text_color)
             text_multiplayer.show(game_display, text_color_light)
 
             text_computer.show(game_display, text_color)
             ai_box.show_click(game_display)
 
-            Settings.game_mode = 0
+            Settings.player_mode = True
+            Settings.game_mode = Settings.game_mode_calculate()
 
-        if text_multiplayer.is_clicked() and Settings.game_mode == 0:
+        if text_multiplayer.is_clicked() and Settings.player_mode:
             text_single_player.show(game_display, text_color_light)
             text_multiplayer.show(game_display, text_color)
 
             text_computer.show(game_display, Color.grey)
             ai_box.show(game_display, Color.grey)
 
-            Settings.game_mode = 1
+            Settings.player_mode = False
+            Settings.game_mode = Settings.game_mode_calculate()
 
-        if ai_box.is_clicked() and Settings.game_mode == 0:
-            Settings.ai_bool = not Settings.ai_bool
+        if ai_box.is_clicked() and Settings.player_mode:
+            Settings.ai_mode = not Settings.ai_mode
             ai_box.is_active = not ai_box.is_active
 
             ai_box.show_click(game_display)
+            Settings.game_mode = Settings.game_mode_calculate()
+
+        if visibility_box.is_clicked():
+            Settings.invisible_mode = not Settings.invisible_mode
+            visibility_box.is_active = not visibility_box.is_active
+
+            visibility_box.show_click(game_display)
+            Settings.game_mode = Settings.game_mode_calculate()
 
         if text_start.is_clicked():
             text_start.show_click(game_display)

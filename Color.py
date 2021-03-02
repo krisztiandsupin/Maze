@@ -5,7 +5,7 @@ class Color:
     grey = (192, 192, 192)
     grey_light = (211, 211, 211)
     grey_dark = (169, 169, 169)
-    grey_extra_dark = (79, 79, 79)
+    grey_extra_dark = (100, 100, 100)
 
     red = (255, 0, 0)
     red_light = (250, 160, 150)

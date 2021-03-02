@@ -17,6 +17,7 @@ def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cel
     edge_list[end_cell].remove(start_cell)
 
     maze_edge[start_cell].append(end_cell)
+
     maze_edge[end_cell].append(start_cell)
 
     MazeFunctions.border_update(maze_type, cell_list[start_cell], cell_list[end_cell])

@@ -188,15 +188,15 @@ def astar(type, cell_list, edges, start, end):
         print(a.cell, a.parent)'''
 
     temp_cell = visited_cells.pop()
-    shortest_path = [cell_list[temp_cell.cell]]
+    shortest_path = [cell_list[temp_cell.cell].index]
 
     highlight = []
 
-    while temp_cell.parent != start.index or temp_cell.cell != shortest_path[-1].index:
+    while temp_cell.parent != start.index or temp_cell.cell != shortest_path[-1]:
         highlight.append(([cell_list[temp_cell.cell]], [] ))
         '''print('cell:', temp_cell.cell, temp_cell.parent, shortest_path[-1].index)'''
-        if temp_cell.cell == shortest_path[-1].index:
-            shortest_path.append(cell_list[temp_cell.parent])
+        if temp_cell.cell == shortest_path[-1]:
+            shortest_path.append(cell_list[temp_cell.parent].index)
 
         temp_cell = visited_cells.pop()
         '''print('next', temp_cell.cell, temp_cell.parent, start.index)'''

@@ -9,18 +9,32 @@ PI = math.pi
 def graph_position(cell_position):
     return (cell_position[0] + screen_settings.screen_size[0] // 2, cell_position[1])
 
-def generate(type, size):
-    if type == 0:
+def generate(type_value, size):
+    if type_value == 0:
         return generate_square(size)
-    elif type == 1:
+    elif type_value == 1:
         return generate_circle(size)
-    elif type == 2:
+    elif type_value == 2:
         return generate_hexagon(size)
-    elif type == 3:
+    elif type_value == 3:
         return generate_triangle(size)
     else:
-        print('invalid maze type:', type)
+        print('error: invalid maze type in cell list generation, cell type:', type_value)
         return []
+
+def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_size):
+    if type_value == 0:
+        return create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
+    elif type_value == 1:
+        return create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
+    elif type_value == 2:
+        return generate_hexagon(10)
+    elif type_value == 3:
+        return generate_triangle(10)
+    else:
+        print('error: invalid maze type in cell list creation, cell type:', type_value)
+        return []
+
 
 def generate_square(n):
     cell_list = []
@@ -28,7 +42,7 @@ def generate_square(n):
     for row in range(0, n):
         for column in range(0, n):
             cell_index = row * n + column
-            cell_walls_bool = [True, True, True, True]
+            cell_walls_bool = [True, True, True, True] # order: [left, up, right, down]
 
             cell = Cell((row, column), cell_index, cell_walls_bool)
 
@@ -36,13 +50,13 @@ def generate_square(n):
 
     return cell_list
 
-def create_square(cell_list, type_value, maze_position, display_type, graph_bool, cell_size):
+def create_square(cell_list, maze_position, display_type, graph_bool, cell_size):
     if bool(cell_list):
         maze_size = int(math.sqrt(len(cell_list))) # number of rows and columns
 
         half_size = cell_size // 2
-        # upper left corner of the grid
 
+        # upper left corner of the grid
         grid_start_horizontal = int((maze_position[0] - maze_size * cell_size / 2))
         grid_start_vertical = int((maze_position[1] - maze_size * cell_size / 2))
 
@@ -68,15 +82,44 @@ def create_square(cell_list, type_value, maze_position, display_type, graph_bool
     else:
         print('maze is not generated')
 
-def generate_circle(n, a):
+def generate_circle(n):
+    cell_index = 0
+
+    center_walls_bool = [True for _ in range(0, 8)]
+    cell_center = Cell((0, 0), cell_index, center_walls_bool)
+
+    cell_list = [cell_center]
+    cell_index += 1
+
+    for i in range(1, n):
+        cell_number = 2 ** (math.ceil(math.log(i + 1, 2)) + 2)  # cell number in a ring
+
+        for j in range(0, cell_number):
+            if math.log(i, 2).is_integer() == True and i > 1:
+                cell_walls_bool = [True for _ in range(0, 4)]
+
+            else:
+                if math.log(i + 1, 2).is_integer() == True:  # pentagon
+                     cell_walls_bool = [True for _ in range(0, 5)]
+
+                else:  # Quadrilateral
+                    cell_walls_bool = [True for _ in range(0, 4)]
+
+            cell = Cell((i, j), cell_index, cell_walls_bool)
+            cell_list.append(cell)  # list of cell type objects
+
+            cell_index += 1
+
+    return cell_list
+
+def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size):
     # center cell
-    x = screen_settings.screen_size[0] // 4
-    y = screen_settings.screen_size[1] // 2
+    n = cell_list[-1].coordinate[0] + 1
+    (x,y) = maze_position
 
     center_walls = []
-    center_borders = []
+    center_border_points = []
     cell_number = 8
-    cell_index = 0
 
     # rotation angle: plus rotation to guarantee adjacency
     if math.log(n, 2).is_integer() == True:
@@ -87,19 +130,24 @@ def generate_circle(n, a):
     for i in range(0, cell_number):
         ring_angle = 1 / cell_number * 2 * PI
         angle = i * ring_angle - (ring_angle / 2) - rotation_angle
-        start_wall_point = (round(x + 0.5 * a * math.cos(angle)), round(y + 0.5 * a * math.sin(angle)))
+        start_wall_point = (round(x + 0.5 * cell_size * math.cos(angle)), round(y + 0.5 * cell_size * math.sin(angle)))
 
         angle = (i + 1) % cell_number * ring_angle - (ring_angle / 2) - rotation_angle
-        end_wall_point = (round(x + 0.5 * a * math.cos(angle)), round(y + 0.5 * a * math.sin(angle)))
+        end_wall_point = (round(x + 0.5 * cell_size * math.cos(angle)), round(y + 0.5 * cell_size * math.sin(angle)))
 
         center_walls.append((start_wall_point, end_wall_point))
-        center_borders.append(start_wall_point)
+        center_border_points.append(start_wall_point)
 
-    center_wall_bool = [True for _ in range(0, 8)]
-    cell_center = Cell((0, 0), (x, y), graph_position((x, y)), cell_index, center_walls, center_wall_bool, center_borders)
-    cell_list = [cell_center]
-    cell_index += 1
+    cell_list[0].position = (x,y)
+    if graph_bool == True:
+        translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
+        graph_center = (x + translation, y)
+        cell_list[0].graph_position = graph_center
 
+    cell_list[0].border_points = center_border_points
+    cell_list[0].walls = center_walls
+
+    cell_index = 1
     for i in range(1, n):
         cell_number = 2 ** (math.ceil(math.log(i + 1, 2)) + 2)  # cell number in a ring
 
@@ -108,16 +156,16 @@ def generate_circle(n, a):
 
             if math.log(i, 2).is_integer() == True and i > 1:
                 angle = j * ring_angle - (ring_angle / 2) - rotation_angle
-                cell_center = (round(x + i * a * math.cos(angle)), round(y + i * a * math.sin(angle)))
+                cell_center = (round(x + i * cell_size * math.cos(angle)), round(y + i * cell_size * math.sin(angle)))
                 graph_center = graph_position(cell_center)
 
                 angle = j * ring_angle - 2 * (ring_angle / 2) - rotation_angle
-                border_point1 = (round(x + (i - 0.5) * a * math.cos(angle)), round(y + (i - 0.5) * a * math.sin(angle)))
-                border_point2 = (round(x + (i + 0.5) * a * math.cos(angle)), round(y + (i + 0.5) * a * math.sin(angle)))
+                border_point1 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point2 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle + 0 * (ring_angle / 2) - rotation_angle
-                border_point3 = (round(x + (i + 0.5) * a * math.cos(angle)), round(y + (i + 0.5) * a * math.sin(angle)))
-                border_point4 = (round(x + (i - 0.5) * a * math.cos(angle)), round(y + (i - 0.5) * a * math.sin(angle)))
+                border_point3 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point4 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
 
                 cell_border_points = [border_point1, border_point2, border_point3, border_point4]
                 cell_walls = [(border_point1, border_point2), (border_point2, border_point3),
@@ -126,38 +174,40 @@ def generate_circle(n, a):
 
             else:
                 angle = j * ring_angle - rotation_angle
-                cell_center = (round(x + i * a * math.cos(angle)), round(y + i * a * math.sin(angle)))
-                graph_center = graph_position(cell_center)
+                cell_center = (round(x + i * cell_size * math.cos(angle)), round(y + i * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle - 1 * (1 / cell_number * PI) - rotation_angle
-                border_point1 = (round(x + (i - 0.5) * a * math.cos(angle)), round(y + (i - 0.5) * a * math.sin(angle)))
-                border_point2 = (round(x + (i + 0.5) * a * math.cos(angle)), round(y + (i + 0.5) * a * math.sin(angle)))
+                border_point1 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point2 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle + 1 * (1 / cell_number * PI) - rotation_angle
-                border_point3 = (round(x + (i + 0.5) * a * math.cos(angle)), round(y + (i + 0.5) * a * math.sin(angle)))
-                border_point4 = (round(x + (i - 0.5) * a * math.cos(angle)), round(y + (i - 0.5) * a * math.sin(angle)))
+                border_point3 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point4 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
 
                 if math.log(i + 1, 2).is_integer() == True:  # pentagon
                     angle = j * ring_angle - 0 * (1 / cell_number * PI) - rotation_angle
                     border_point5 = (
-                    round(x + (i + 0.5) * a * math.cos(angle)), round(y + (i + 0.5) * a * math.sin(angle)))
+                    round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
                     cell_border_points = [border_point1, border_point2, border_point5, border_point3, border_point4]
                     cell_walls = [(border_point1, border_point2), (border_point2, border_point5),
                                   (border_point5, border_point3), (border_point4, border_point3),
                                   (border_point1, border_point4)]
-                    cell_walls_bool = [True for _ in range(0, 5)]
 
                 else:  # Quadrilateral
                     cell_border_points = [border_point1, border_point2, border_point3, border_point4]
                     cell_walls = [(border_point1, border_point2), (border_point2, border_point3),
                                   (border_point4, border_point3), (border_point1, border_point4)]
-                    cell_walls_bool = [True for _ in range(0, 4)]
 
-            cell = Cell((i, j), cell_center, graph_center, cell_index, cell_walls, cell_walls_bool, cell_border_points)
-            cell_list.append(cell)  # list of cell type objects
+            cell_list[cell_index].position = cell_center
+            if graph_bool == True:
+                translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
+                graph_center = (cell_center[0] + translation, cell_center[1])
+                cell_list[cell_index].graph_position = graph_center
+
+            cell_list[cell_index].border_points = cell_border_points
+            cell_list[cell_index].walls = cell_walls
 
             cell_index += 1
-
         if math.log(i, 2).is_integer() == True and i > 1:
             rotation_angle += (1 / cell_number * PI)
 

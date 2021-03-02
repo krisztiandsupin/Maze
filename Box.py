@@ -2,9 +2,7 @@ import Functions
 import Settings
 import pygame
 
-from Color import Color
 from Text import Text
-
 
 class Box:
     def __init__(self, position, size, color, color_click, is_active):

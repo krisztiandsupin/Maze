@@ -18,6 +18,8 @@ class Cell:
         self.walls_bool = walls_bool   # tuple of walls, if they exists or not
         self.border_points = None        # points of walls
 
+        self.visible = None         # used in discovery of a maze
+
     def color_graph(self, screen, color, size = maze_settings.graph_cell_size):
         '''pygame.draw.circle(screen, MazeColor.background, MazeFunctions.graph_position(self.position), maze_settings.graph_cell_size)
         pygame.draw.circle(screen, color, MazeFunctions.graph_position(self.position), size)'''
@@ -61,3 +63,6 @@ class Cell:
 
     def text_display(self, screen, text, text_size, text_color = Color.black, highlight_color = Color.white):
         MazeFunctions.text_display(screen, self.position[0], self.position[1], text, text_size, text_color, highlight_color)
+
+    def draw_sign(self, screen, color, sign_size = 0):
+        pygame.draw.circle(screen, color, self.position, sign_size)

@@ -312,8 +312,8 @@ def edge_color(screen, edge, color, graph = True, graph_color = Color.black):
     """
     wall = edge_wall(edge)
     pygame.draw.line(screen, color, wall[0], wall[1])
-    pygame.draw.line(screen, color, wall[0], wall[0])
-    pygame.draw.line(screen, color, wall[1], wall[1])
+    pygame.draw.line(screen, graph_color, wall[0], wall[0])
+    pygame.draw.line(screen, graph_color, wall[1], wall[1])
 
     if graph == True:
         pygame.draw.line(screen, graph_color, edge[0].graph_position, edge[1].graph_position)
@@ -472,6 +472,7 @@ def border_update(maze_type, start_cell, end_cell):
 
 def border_update_square(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
     # in the same row
+
     if cell1.coordinate[0] == cell2.coordinate[0]:
         if cell1.coordinate[1] < cell2.coordinate[1]:
             cell1.walls_bool[2] = False
@@ -491,6 +492,10 @@ def border_update_square(cell1, cell2):  # suppose that they are adjacent, and c
 
 def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
     # in the same ring
+    if cell2.coordinate[0] < cell1.coordinate[0] or (cell2.coordinate[0] == cell1.coordinate[0] and \
+                                                     cell2.coordinate[1] < cell1.coordinate[1]):
+        cell1, cell2 = cell2, cell1
+
     if cell1.coordinate[0] == cell2.coordinate[0]:
         if math.log(cell2.coordinate[0] + 1, 2).is_integer() == True:
             cell1.walls_bool[3] = False
@@ -575,3 +580,44 @@ def graph_cell_size_calculate(type, cell_size):
 
     maze_settings.graph_cell_size = graph_cell_size
     return graph_cell_size
+
+def visible_cells(Maze, cell):
+    if Maze.type_value == 0:
+        return visible_cells_square(Maze, cell)
+
+    else:
+        print('error: wrong type in visible cells')
+
+def visible_cells_square(maze, cell):
+    visible_cells_list = []
+
+    # search downwards
+    temp_cell = cell
+    while temp_cell.walls_bool[3] == False:
+        new_index = coordinate_to_index_square((temp_cell.coordinate[0] + 1, temp_cell.coordinate[1]), maze.size)
+        temp_cell = maze.cell_list[new_index]
+        visible_cells_list.append(temp_cell)
+
+    # search upward
+    temp_cell = cell
+    while temp_cell.walls_bool[1] == False:
+        new_index = coordinate_to_index_square((temp_cell.coordinate[0] - 1, temp_cell.coordinate[1]), maze.size)
+        temp_cell = maze.cell_list[new_index]
+        visible_cells_list.append(temp_cell)
+
+    # search right
+    temp_cell = cell
+    while temp_cell.walls_bool[2] == False:
+        new_index = coordinate_to_index_square((temp_cell.coordinate[0], temp_cell.coordinate[1] + 1), maze.size)
+        temp_cell = maze.cell_list[new_index]
+        visible_cells_list.append(temp_cell)
+
+    # search left
+    temp_cell = cell
+    while temp_cell.walls_bool[0] == False:
+        new_index = coordinate_to_index_square((temp_cell.coordinate[0], temp_cell.coordinate[1] - 1), maze.size)
+        temp_cell = maze.cell_list[new_index]
+        visible_cells_list.append(temp_cell)
+
+    return set(visible_cells_list)
+
