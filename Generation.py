@@ -68,7 +68,9 @@ def kruskal(maze_type, cell_list, edge_list):
             edge_list[end_cell].remove(start_cell)
 
             maze_order.append((cell_list[start_cell], cell_list[end_cell]))'''
+
             edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell, maze_type)
+
 
             edge_number += 1
 

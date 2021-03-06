@@ -68,7 +68,7 @@ class Maze:
                display_type = 0, graph_bool = False):
         """
         :param tuple maze_position: center of position; default: middle of screen
-        :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
+        :param int display_type: fullscreen = 0, half screen = 1, quarter_screen = 2
         :param bool graph_bool: if True displays the graph of the maze; delfault = True
         """
         self.position = maze_position
@@ -82,7 +82,7 @@ class Maze:
 
 
     def draw(self, screen, graph_bool = True, step_bool = False, visibility_bool = True, delay = 100,
-             position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1])):
+             position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1]), coordinate_bool = False):
         """
         :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
         :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
@@ -93,8 +93,8 @@ class Maze:
         :param tuple position: center of position; default: middle of screen
         """
 
-        if graph_bool == True:
-            pygame.draw.line(screen, Color.navy, (screen_settings.screen_size[0] // 2, 50), position, 5)
+        '''if graph_bool == True:
+            pygame.draw.line(screen, Color.navy, (screen_settings.screen_size[0] // 2, 50), position, 5)'''
 
         if visibility_bool == True:
             self.color_background = Color.grey_dark
@@ -102,7 +102,8 @@ class Maze:
 
         for cell in self.cell_list:
             cell.color_grid(screen, self.color_background, graph_bool, self.color_line)
-            #cell.text_display(screen, str(cell.index), 12)
+            if coordinate_bool == True:
+                cell.text_display(screen, str(cell.coordinate), 15)
 
         MazeFunctions.system_pause()
 

@@ -31,7 +31,6 @@ text_algorithm = Text((screen_size[0] // 2, int(screen_size[1] * 0.3)), 'Algorit
 text_game = Text((screen_size[0] // 2, int(screen_size[1] * 0.4)), 'Game', text_size, text_color, text_color_light)
 text_exit = Text((screen_size[0] // 2, int(screen_size[1] * 0.8)), 'Exit', text_size, text_color, text_color_light)
 
-GameSettings.settings()
 
 def menu_set():
     gameDisplay.fill(Color.white)
@@ -41,13 +40,13 @@ def menu_set():
     maze_background.color_end = Color.white
 
     maze_background.create((screen_size[0] // 2, screen_size[1] // 2), 1, graph_bool=False)
-
     maze_background.draw(gameDisplay, graph_bool=False, step_bool=False, visibility_bool=False, delay=0)
 
     text_title.show(gameDisplay)
     text_algorithm.show(gameDisplay)
     text_game.show(gameDisplay)
     text_exit.show(gameDisplay)
+
 
 menu_set()
 

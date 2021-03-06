@@ -28,7 +28,7 @@ def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_
     elif type_value == 1:
         return create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
     elif type_value == 2:
-        return generate_hexagon(10)
+        return create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size)
     elif type_value == 3:
         return generate_triangle(10)
     else:
@@ -41,9 +41,8 @@ def generate_square(n):
 
     for row in range(0, n):
         for column in range(0, n):
+            cell_walls_bool = [True, True, True, True]  # order: [left, up, right, down]
             cell_index = row * n + column
-            cell_walls_bool = [True, True, True, True] # order: [left, up, right, down]
-
             cell = Cell((row, column), cell_index, cell_walls_bool)
 
             cell_list.append(cell)  # list of cell type objects
@@ -223,62 +222,73 @@ def cell_wall_hexagon(cell_border_points):
             (cell_border_points[3], cell_border_points[2]), (cell_border_points[4], cell_border_points[3]), \
             (cell_border_points[5], cell_border_points[4]), (cell_border_points[5], cell_border_points[0])]
 
-def generate_hexagon(n, a):
-    A = math.sqrt(3) / 2 * a
+def generate_hexagon(n):
+    cell_list = []
+
     walls_bool = [True for _ in range(0, 6)]
+    cell = Cell((0, 0), 0, walls_bool)
+
+    cell_list.append(cell)
+
+    for ring in range(1, n):
+        for j in range(0, 6*ring):
+            walls_bool = [True for _ in range(0, 6)]
+            cell_coordinate = (ring, j)
+            index = (ring * (ring + 1)) // 2 + j
+            cell = Cell(cell_coordinate, index, walls_bool)
+            cell_list.append(cell)
+    return cell_list
+
+def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size):
+    A = math.sqrt(3) / 2 * cell_size
 
     # center cell
-    x = screen_settings.screen_size[0] // 4
-    y = screen_settings.screen_size[1] // 2
-    cell_list = []
+    (x, y) = maze_position
+
     cell_position_list = []  # elements [tuple]: (coordinate [tuple], position [position])
 
     # center cell
-    cell_position_list.append(((0, 0), (x, y)))
+    cell_position_list.append((x, y))
 
+    n = cell_list[-1].coordinate[0] + 1
     for ring in range(1, n):
         for j in range(0, ring + 1):
-            cell_coordinate = (ring, j)
-            cell_position = (x + (2 * ring - j) * A, y + j * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x + (2 * ring - j) * A, y + j * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
         for j in range(1, ring + 1):
-            cell_coordinate = (ring, ring + j)
-            cell_position = (x + (ring - j * 2) * A, y + ring * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x + (ring - j * 2) * A, y + ring * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
         for j in range(1, ring):
-            cell_coordinate = (ring, 2 * ring + j)
-            cell_position = (x + (- 1 * ring - j) * A, y + (ring - j) * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x + (- 1 * ring - j) * A, y + (ring - j) * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
-        #(-1) * first three
+        # (-1) * first three
         for j in range(0, ring + 1):
-            cell_coordinate = (ring, 3 * ring + j)
-            cell_position = (x - (2 * ring - j) * A, y - j * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x - (2 * ring - j) * A, y - j * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
         for j in range(1, ring + 1):
-            cell_coordinate = (ring, 4 * ring + j)
-            cell_position = (x - (ring - j * 2) * A, y - ring * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x - (ring - j * 2) * A, y - ring * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
         for j in range(1, ring):
-            cell_coordinate = (ring, 5 * ring + j)
-            cell_position = (x - (- 1 * ring - j) * A, y - (ring - j) * 1.5 * a)
-            cell_position_list.append((cell_coordinate, cell_position))
+            cell_position = (x - (- 1 * ring - j) * A, y - (ring - j) * 1.5 * cell_size)
+            cell_position_list.append(cell_position)
 
-    for element in cell_position_list:
-        cell_position = (round(element[1][0]), round(element[1][1]))
-        cell_border_points = cell_border_points_hexagon(element[1], a)
-        walls = cell_wall_hexagon(cell_border_points)
-        walls_bool = [True for _ in range(0, 6)]
-        cell_graph_position = graph_position(cell_position)
-        index = MazeFunctions.coordinate_to_index_hexagonal(element[0])
-        cell = Cell(element[0], cell_position, cell_graph_position, index, walls, walls_bool, cell_border_points)
-        cell_list.append(cell)
+    for i in range(0, len(cell_list)):
+        element = cell_position_list[i]
 
-    return cell_list
+        if graph_bool == True:
+            translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
+            graph_center = (int(element[0] + translation), int(element[1]))
+            cell_list[i].graph_position = graph_center
+
+        cell_list[i].position = (round(element[0]), round(element[1]))
+        cell_list[i].border_points = cell_border_points_hexagon(element, cell_size)
+        cell_list[i].walls = cell_wall_hexagon(cell_list[i].border_points)
+
 
 def generate_triangle(n, a):
     A = math.sqrt(3) / 2 * a

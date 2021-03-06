@@ -27,6 +27,7 @@ ai_mode = True              # True: ai solution on other maze
 ai_level = 10               # int; 1 <= ai_level <= 10: delay in displays of the algorithms
 
 game_mode = 0
+
 def game_mode_calculate():
     """
     :param bool player_mode: singele_player = True; multiplayer = False

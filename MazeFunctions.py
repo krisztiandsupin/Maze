@@ -270,7 +270,7 @@ def coordinate_transform_hexagon(coordinate):
         x = (enum % (3 * ring)) - ring
         y = -6 * ring + enum
 
-    return (x,y)
+    return (x,-1 * y)
 
 def adjacent_cells_triangle(cell, cell_list):
     size = cell_list[-1].coordinate[0] + 1
@@ -490,6 +490,9 @@ def border_update_square(cell1, cell2):  # suppose that they are adjacent, and c
             cell1.walls_bool[1] = False
             cell2.walls_bool[3] = False
 
+
+
+
 def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
     # in the same ring
     if cell2.coordinate[0] < cell1.coordinate[0] or (cell2.coordinate[0] == cell1.coordinate[0] and \
@@ -527,11 +530,37 @@ def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and c
             cell2.walls_bool[3] = False
 
 def border_update_hexagon(cell1, cell2):
-    print('border update hexagon')
-    return None
+    coordinate1 = coordinate_transform_hexagon(cell1.coordinate)
+    coordinate2 = coordinate_transform_hexagon(cell2.coordinate)
+
+    if coordinate1[1] == coordinate2[1]:  # in the same vertical line
+        if coordinate1[0] < coordinate2[0]:
+            cell1.walls_bool[3] = False
+            cell2.walls_bool[0] = False
+        else:
+            cell1.walls_bool[0] = False
+            cell2.walls_bool[3] = False
+
+    elif coordinate1[1] > coordinate2[1]:
+        if coordinate1[0] > coordinate2[0]:  # increasing diagonal
+            cell1.walls_bool[5] = False
+            cell2.walls_bool[2] = False
+
+        else :  # decreasing diagonal
+            cell1.walls_bool[4] = False
+            cell2.walls_bool[1] = False
+
+    elif coordinate1[1] < coordinate2[1]:
+        if coordinate1[0] > coordinate2[0]:  # decreasing diagonal
+            cell1.walls_bool[1] = False
+            cell2.walls_bool[4] = False
+
+        else :  # decreasing diagonal
+            cell1.walls_bool[2] = False
+            cell2.walls_bool[5] = False
 
 def border_update_triangle(cell1, cell2):
-    print('border update triangle')
+    print("border update triangle not contructed yet")
     return None
 
 
@@ -550,7 +579,7 @@ def cell_size_calculate(display_type, type_value, maze_size, graph_bool):
     :param int display_type: fullscreen = 0, halfscreen = 1, quarterscreen = 2
     :param int type:value: square = 0, circle = 1, hexagon = 2, triangle = 3
     :param int maze_size: square = number of rows, circle = number of rings, hexagon = number of rings, \
-    triange = number of rows
+    triangle = number of rows
     :param bool graph_bool: if True graph is also displayed
     :return: size of the side (square) / radius (circle) / side (hexagon) / side (triangle)
     """
