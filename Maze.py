@@ -82,7 +82,7 @@ class Maze:
 
 
     def draw(self, screen, graph_bool = True, step_bool = False, visibility_bool = True, delay = 100,
-             position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1]), coordinate_bool = False):
+             position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1]), cell_text_bool = False, cell_text_type = 0):
         """
         :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
         :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
@@ -91,6 +91,8 @@ class Maze:
         :param bool visibility_bool: if True all cells with walls can be seen
         :param int delay: delay between steps in ms; default = 100
         :param tuple position: center of position; default: middle of screen
+        :param bool cell_text_bool: display text in the middle of all the circles
+        :param int cell_text_type: coordinate = 0, index = 1
         """
 
         '''if graph_bool == True:
@@ -102,8 +104,13 @@ class Maze:
 
         for cell in self.cell_list:
             cell.color_grid(screen, self.color_background, graph_bool, self.color_line)
-            if coordinate_bool == True:
-                cell.text_display(screen, str(cell.coordinate), 15)
+            if cell_text_bool == True:
+                if cell_text_type == 0:
+                    cell_text = str(cell.coordinate)
+                elif cell_text_type == 1:
+                    cell_text = str(cell.index)
+
+                cell.text_display(screen, cell_text, 15)
 
         MazeFunctions.system_pause()
 
@@ -160,7 +167,7 @@ class Maze:
 
         #del self.visited[-1]
 
-        for block in self.highlight:
+        for block in self.visited:
             visited = block[0]
             deadend = block[1]
 
@@ -179,8 +186,8 @@ class Maze:
         #del self.solution_path[0]
 
         for cell in self.solution_path:
-            cell.color(screen, color_path)
-            pygame.draw.circle(screen, color_path, cell.graph_position, self.graph_cell_size + 2)
+            self.cell_list[cell].color(screen, color_path)
+            pygame.draw.circle(screen, color_path, self.cell_list[cell].graph_position, self.graph_cell_size + 2)
             MazeFunctions.updete_delay(delay)
             MazeFunctions.system_pause()
 

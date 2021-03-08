@@ -160,6 +160,7 @@ def astar(type, cell_list, edges, start, end):
     temp_cell = candidates.pop()
 
     while temp_cell.cell != end_index:
+        print(temp_cell.cell)
         '''print('temp cell:', temp_cell.cell)'''
 
         visited_index.add(temp_cell.cell)
