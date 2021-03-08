@@ -42,9 +42,13 @@ def test():
 
     maze_test.create((screen_size[0] // 2, screen_size[1] // 2), 0, graph_bool=True)
 
-    maze_test.draw(algorithm_display, graph_bool=False, step_bool=False, visibility_bool=False, delay=0)
+    maze_test.draw(algorithm_display, graph_bool=False, step_bool=False, visibility_bool=False, delay=0, cell_text_bool=True, cell_text_type=1)
+    MazeFunctions.updete_delay(0)
 
 
+    maze_test.solve("astar")
+
+    print(maze_test.solution_path)
 
     while True:
         Functions.buttonpress_detect()

@@ -27,7 +27,9 @@ def generation():
     text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Maze game', int(text_size * 1.5), text_color, text_color_light)
     text_title.show(game_display)
 
-    maze_test = Maze(Settings.maze_size, 'square', 'kruskal')
+
+
+    maze_test = Maze(Settings.maze_size, Settings.maze_type, 'kruskal')
 
     if Settings.game_mode % 3 == 0: # single player - AI
         maze_position = (Settings.screen.screen_size[0] // 2, Settings.screen.screen_size[1] // 2)
