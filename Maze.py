@@ -1,3 +1,4 @@
+import Frame
 from Settings import screen as screen_settings
 from Color import Color
 import CellList
@@ -41,6 +42,7 @@ class Maze:
         self.delay = False
 
         (start, end) = MazeFunctions.cell_endpoints_calculate(self.type_value, self.size)
+
         self.start = self.cell_list[start]
         self.end = self.cell_list[end]
 
@@ -59,7 +61,6 @@ class Maze:
         print('cell_size:', self.cell_size)
         print('cell list:', len(self.cell_list))
         print('edge list:', len(self.edge_list))
-        #print('grid number:', len(self.grid))
         print('frame number:', len(self.frame_list))
         print('graph number:', len(self.graph_list))
         print()
@@ -78,7 +79,7 @@ class Maze:
         self.graph_cell_size = MazeFunctions.graph_cell_size_calculate(self.type_value, self.cell_size)
 
         CellList.create(self.cell_list, self.type_value, maze_position, display_type, graph_bool, self.cell_size)
-        self.frame_list = MazeFunctions.frame_generation(self.type_value, self.cell_list)
+        self.frame_list = Frame.generation(self.type_value, self.cell_list)
 
 
     def draw(self, screen, graph_bool = True, step_bool = False, visibility_bool = True, delay = 100,
@@ -159,11 +160,10 @@ class Maze:
 
         return self.solution_path, self.visited
 
-    def show(self, screen):
+    def show(self, screen, delay = 10):
         color_visited = Color.yellow_light
         color_deadend = Color.grey_light
         color_path = Color.blue_light
-        delay = 10
 
         #del self.visited[-1]
 
@@ -173,23 +173,33 @@ class Maze:
 
             for cell in visited:
                 cell.color(screen, color_visited)
-                pygame.draw.circle(screen, color_visited, cell.graph_position, self.graph_cell_size + 2)
-                MazeFunctions.updete_delay(delay)
-                MazeFunctions.system_pause()
+                if self.graph_bool:
+                    cell.color_graph(screen, color_visited)
+                # pygame.draw.circle(screen, color_visited, cell.graph_position, self.graph_cell_size + 2)
+                if delay > 0:
+                    MazeFunctions.updete_delay(delay)
+                    MazeFunctions.system_pause()
 
             for cell in deadend:
                 cell.color(screen, color_deadend)
-                pygame.draw.circle(screen, color_deadend, cell.graph_position, self.graph_cell_size + 2)
-                MazeFunctions.updete_delay(delay)
-                MazeFunctions.system_pause()
+                if self.graph_bool:
+                    cell.color_graph(screen, color_deadend)
+                # pygame.draw.circle(screen, color_deadend, cell.graph_position, self.graph_cell_size + 2)
+
+                if delay > 0:
+                    MazeFunctions.updete_delay(delay)
+                    MazeFunctions.system_pause()
 
         #del self.solution_path[0]
 
         for cell in self.solution_path:
             self.cell_list[cell].color(screen, color_path)
-            pygame.draw.circle(screen, color_path, self.cell_list[cell].graph_position, self.graph_cell_size + 2)
-            MazeFunctions.updete_delay(delay)
-            MazeFunctions.system_pause()
+            if self.graph_bool:
+                cell.color_graph(screen, color_path)
+            # pygame.draw.circle(screen, color_path, self.cell_list[cell].graph_position, self.graph_cell_size + 2)
+            if delay > 0:
+                MazeFunctions.updete_delay(delay)
+                MazeFunctions.system_pause()
 
         self.start.color(screen, Color.green_light)
         self.end.color(screen, Color.salmon)

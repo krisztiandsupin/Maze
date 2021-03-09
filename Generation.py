@@ -1,5 +1,4 @@
 import random
-import math
 from Edge import Edge
 import MazeFunctions
 
@@ -47,6 +46,8 @@ def kruskal(maze_type, cell_list, edge_list):
 
     region_list = [[i] for i in range(0, cell_number)]
 
+    '''print("Before generation:", edge_list)'''
+
     while edge_number != cell_number - 1:
         start_cell = random.randint(0, cell_number - 1)
 
@@ -81,6 +82,8 @@ def kruskal(maze_type, cell_list, edge_list):
             region_list.remove(region_list[end_region])
             # border_update(edge_random.start_cell, edge_random.end_cell)
 
+    '''print("After generation:", maze_edge)
+    print()'''
     return maze_edge, maze_order
 
 def prim(type, cell_list, edge_list):

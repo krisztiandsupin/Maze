@@ -8,6 +8,9 @@ global coordinate_text_size
 coordinate_text_size = 10
 
 class Cell:
+    """
+
+    """
     def __init__(self, coordinate, index, walls_bool):
         self.coordinate = coordinate
         self.position = None
@@ -26,6 +29,14 @@ class Cell:
         pygame.draw.circle(screen, color, self.graph_position, size)
 
     def color(self, screen, color, graph_bool = False, line_color = Color.black, coordinate_text_bool = False):
+        """
+
+        :param screen:
+        :param color:
+        :param graph_bool:
+        :param line_color:
+        :param coordinate_text_bool:
+        """
         pygame.draw.polygon(screen, color, self.border_points)
         l = len(self.walls)
 
@@ -47,6 +58,14 @@ class Cell:
             self.color_graph(screen, color, maze_settings.graph_cell_size)
 
     def color_grid(self, screen, color, graph_bool = False, line_color = Color.black, coordinate_text_bool = False):
+        """
+
+        :param screen:
+        :param color:
+        :param graph_bool:
+        :param line_color:
+        :param coordinate_text_bool:
+        """
         pygame.draw.polygon(screen, color, self.border_points)
         l = len(self.walls)
 
@@ -62,7 +81,21 @@ class Cell:
             self.color_graph(screen, color, maze_settings.graph_cell_size)
 
     def text_display(self, screen, text, text_size, text_color = Color.black, highlight_color = Color.white):
+        """
+
+        :param screen:
+        :param text:
+        :param text_size:
+        :param text_color:
+        :param highlight_color:
+        """
         MazeFunctions.text_display(screen, self.position[0], self.position[1], text, text_size, text_color, highlight_color)
 
     def draw_sign(self, screen, color, sign_size = 0):
+        """
+
+        :param screen:
+        :param color:
+        :param sign_size:
+        """
         pygame.draw.circle(screen, color, self.position, sign_size)

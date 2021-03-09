@@ -160,8 +160,8 @@ def astar(type, cell_list, edges, start, end):
     temp_cell = candidates.pop()
 
     while temp_cell.cell != end_index:
-        print(temp_cell.cell)
-        '''print('temp cell:', temp_cell.cell)'''
+        '''print(temp_cell.cell)
+        print('temp cell:', temp_cell.cell)'''
 
         visited_index.add(temp_cell.cell)
         visited_cells.append(temp_cell)
@@ -169,8 +169,9 @@ def astar(type, cell_list, edges, start, end):
         neighbor_edges = edges[temp_cell.cell] # with indexes
 
         neighbor_set = set(neighbor_edges)
-        '''print('visited:', visited_index)'''
-        '''print('neighbors:', neighbor_set)'''
+        '''print('visited:', visited_index)
+        print('neighbors:', neighbor_set)
+        '''
 
         next_cells = neighbor_set.difference(visited_index)
         '''print('next:', next_cells)'''

@@ -49,8 +49,8 @@ def menu_set():
 
 
 menu_set()
-#Algorithms.settings()
-#Algorithms.test()
+'''Algorithms.settings()
+Algorithms.test()'''
 
 while True:
     Functions.buttonpress_detect()

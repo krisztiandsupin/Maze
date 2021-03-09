@@ -5,14 +5,13 @@ import pygame
 from Text import Text
 
 class Box:
+    """
+    :param tuple position: center of the box
+    :param int size: side size of the box
+    :param tuple color: color of the text
+    :param bool is_active: True: 'X' is displayed in box
+    """
     def __init__(self, position, size, color, color_click, is_active):
-        """
-        :param tuple position: center of the box
-        :param int size: side size of the box
-        :param tuple color: color of the text
-        :param bool is_active: True: 'X' is displayed in box
-
-        """
         self.position = position
         self.size = size
         self.color = color
@@ -21,6 +20,10 @@ class Box:
         self.x = Text(position, 'X', self.size, color, self.color_click)
 
     def show(self, screen, color = None):
+        """
+        :param screen:
+        :param color:
+        """
         if color == None:
             color = self.color
 
@@ -32,6 +35,10 @@ class Box:
         Functions.text_display(screen, self.position[0], self.position[1], 'X', self.size, color)
 
     def is_clicked(self):
+        """
+
+        :return:
+        """
         mouse_click_position = Settings.mouse_click_position
 
         if (mouse_click_position != None and \
@@ -46,6 +53,10 @@ class Box:
             return False
 
     def show_click(self, screen):
+        """
+
+        :param screen:
+        """
         pygame.draw.rect(screen, self.color, [self.position[0] - self.size // 2, self.position[1] - self.size // 2, \
                                          self.size, self.size], 3)
         if self.is_active:

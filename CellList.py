@@ -7,9 +7,20 @@ from Settings import screen as screen_settings
 PI = math.pi
 
 def graph_position(cell_position):
+    """
+
+    :param cell_position:
+    :return:
+    """
     return (cell_position[0] + screen_settings.screen_size[0] // 2, cell_position[1])
 
 def generate(type_value, size):
+    """
+
+    :param type_value:
+    :param size:
+    :return:
+    """
     if type_value == 0:
         return generate_square(size)
     elif type_value == 1:
@@ -23,6 +34,16 @@ def generate(type_value, size):
         return []
 
 def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_size):
+    """
+
+    :param cell_list:
+    :param type_value:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size:
+    :return:
+    """
     if type_value == 0:
         return create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
     elif type_value == 1:
@@ -37,8 +58,19 @@ def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_
 
 
 def generate_square(n):
+    """
+
+    :param n:
+    :return:
+    """
     cell_list = []
 
+    # square walls_bool order
+    #       1.
+    #       ---
+    #   0.|    | 2.
+    #      ---
+    #       3.
     for row in range(0, n):
         for column in range(0, n):
             cell_walls_bool = [True, True, True, True]  # order: [left, up, right, down]
@@ -50,6 +82,14 @@ def generate_square(n):
     return cell_list
 
 def create_square(cell_list, maze_position, display_type, graph_bool, cell_size):
+    """
+
+    :param cell_list:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size:
+    """
     if bool(cell_list):
         maze_size = int(math.sqrt(len(cell_list))) # number of rows and columns
 
@@ -82,6 +122,11 @@ def create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
         print('maze is not generated')
 
 def generate_circle(n):
+    """
+
+    :param n:
+    :return:
+    """
     cell_index = 0
 
     center_walls_bool = [True for _ in range(0, 8)]
@@ -112,6 +157,15 @@ def generate_circle(n):
     return cell_list
 
 def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size):
+    """
+
+    :param cell_list:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size:
+    :return:
+    """
     # center cell
     n = cell_list[-1].coordinate[0] + 1
     (x,y) = maze_position
@@ -213,18 +267,38 @@ def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
     return cell_list
 
 def cell_border_points_hexagon(cell_center, a):
+    """
+
+    :param cell_center:
+    :param a:
+    :return:
+    """
     base_angle = 150 * PI / 180
     return [(round(cell_center[0] + a * math.cos(base_angle + j * PI / 3)), \
             round(cell_center[1] + a * math.sin(base_angle + j * PI / 3))) for j in range(0, 6)]
 
 def cell_wall_hexagon(cell_border_points):
+    """
+
+    :param cell_border_points:
+    :return:
+    """
     return [(cell_border_points[0], cell_border_points[1]), (cell_border_points[1], cell_border_points[2]), \
             (cell_border_points[3], cell_border_points[2]), (cell_border_points[4], cell_border_points[3]), \
             (cell_border_points[5], cell_border_points[4]), (cell_border_points[5], cell_border_points[0])]
 
 def generate_hexagon(n):
+    """
+
+    :param n:
+    :return:
+    """
     cell_list = []
 
+    # hexagon walls_bool order
+    #    1 / \ 2
+    #   0 |  | 3
+    #   5 \ / 4
     walls_bool = [True for _ in range(0, 6)]
     cell = Cell((0, 0), 0, walls_bool)
 
@@ -234,12 +308,20 @@ def generate_hexagon(n):
         for j in range(0, 6*ring):
             walls_bool = [True for _ in range(0, 6)]
             cell_coordinate = (ring, j)
-            index = (ring * (ring + 1)) // 2 + j
+            index = (ring * (ring - 1)) * 3 + 1 + j
             cell = Cell(cell_coordinate, index, walls_bool)
             cell_list.append(cell)
     return cell_list
 
 def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size):
+    """
+
+    :param cell_list:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size:
+    """
     A = math.sqrt(3) / 2 * cell_size
 
     # center cell
@@ -291,6 +373,12 @@ def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size
 
 
 def generate_triangle(n, a):
+    """
+
+    :param n:
+    :param a:
+    :return:
+    """
     A = math.sqrt(3) / 2 * a
     B = 2 * A / 3
     grid_upper_center = (screen_settings.screen_size[0]  // 4, \

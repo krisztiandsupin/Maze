@@ -10,6 +10,8 @@ import Functions
 from Maze import Maze
 from Settings import screen as screen_settings
 
+import Algorithms
+
 screen_size = screen_settings.screen_size
 
 game_display = pygame.display.set_mode(screen_size)
@@ -26,8 +28,6 @@ def generation():
     game_display.fill(Color.white)
     text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Maze game', int(text_size * 1.5), text_color, text_color_light)
     text_title.show(game_display)
-
-
 
     maze_test = Maze(Settings.maze_size, Settings.maze_type, 'kruskal')
 
