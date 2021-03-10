@@ -41,22 +41,22 @@ def buttonpress_detect():
                     pygame.quit()
                     raise SystemExit
 
-                elif e.key == pygame.K_SPACE:
+                if e.key == pygame.K_SPACE:
                     Settings.keyboard_space_press = True
 
-                elif e.key == pygame.K_LEFT:
+                if e.key == pygame.K_LEFT:
                     Settings.keyboard_left_press = True
 
-                elif e.key == pygame.K_RIGHT:
+                if e.key == pygame.K_RIGHT:
                     Settings.keyboard_right_press = True
 
-                elif e.key == pygame.K_UP:
+                if e.key == pygame.K_UP:
                     Settings.keyboard_up_press = True
 
-                elif e.key == pygame.K_DOWN:
+                if e.key == pygame.K_DOWN:
                     Settings.keyboard_down_press = True
 
-                elif e.key == pygame.K_r:
+                if e.key == pygame.K_r:
                     Settings.keyboard_r_press = True
 
                 elif e.key == pygame.K_BACKSPACE:
