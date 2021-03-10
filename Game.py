@@ -2,6 +2,7 @@ import copy
 import time
 import pygame
 
+import GameUI
 import Settings
 import MazeFunctions
 from Color import Color
@@ -122,8 +123,6 @@ def maze_game(maze1, maze2):
         pygame.display.update()
 
 
-
-
     # game start
     while True:
         time_current = time.time() - time_start
@@ -142,64 +141,25 @@ def maze_game(maze1, maze2):
         if not Settings.player_mode:
             new_index2 = player2_position.index
 
+        print('up:', Settings.keyboard_up_press)
+        print('down:', Settings.keyboard_down_press)
+        print('right:', Settings.keyboard_right_press)
+        print('left:', Settings.keyboard_left_press)
+
         # sigleplayer mode
         if Settings.player_mode:
-            if (Settings.keyboard_down_press or Settings.keyboard_s_press) and player1_position.coordinate[0] < maze1.size - 1:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0] + 1, \
-                                                                      player1_position.coordinate[1]), maze1.size)
-
-            if (Settings.keyboard_up_press or Settings.keyboard_w_press) and player1_position.coordinate[0] > 0:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0] - 1, \
-                                                                      player1_position.coordinate[1]), maze1.size)
-
-            if (Settings.keyboard_left_press or Settings.keyboard_a_press) and player1_position.coordinate[1] > 0:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0], \
-                                                                      player1_position.coordinate[1] - 1), maze1.size)
-
-            if Settings.keyboard_right_press or Settings.keyboard_d_press and player1_position.coordinate[1] < maze1.size:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0], \
-                                                                      player1_position.coordinate[1] + 1), maze1.size)
+            new_index = GameUI.single_player(Settings.maze_type, player1_position, maze1.size)
 
         # multiplayer
         elif not Settings.player_mode:
-            # player1 movments with w,s,a,d
-            if Settings.keyboard_s_press and player1_position.coordinate[0] < maze1.size - 1:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0] + 1, \
-                                                                      player1_position.coordinate[1]), maze1.size)
-
-            if Settings.keyboard_w_press and player1_position.coordinate[0] > 0:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0] - 1, \
-                                                                      player1_position.coordinate[1]), maze1.size)
-
-            if Settings.keyboard_a_press and player1_position.coordinate[1] > 0:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0], \
-                                                                      player1_position.coordinate[1] - 1), maze1.size)
-
-            if Settings.keyboard_d_press and player1_position.coordinate[1] < maze1.size:
-                new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0], \
-                                                                      player1_position.coordinate[1] + 1), maze1.size)
-
-            # player2 movements with arrows
-            if Settings.keyboard_down_press and player2_position.coordinate[0] < maze2.size - 1:
-                new_index2 = MazeFunctions.coordinate_to_index_square((player2_position.coordinate[0] + 1, \
-                                                                      player2_position.coordinate[1]), maze2.size)
-
-            if Settings.keyboard_up_press and player2_position.coordinate[0] > 0:
-                new_index2 = MazeFunctions.coordinate_to_index_square((player2_position.coordinate[0] - 1, \
-                                                                       player2_position.coordinate[1]), maze2.size)
-
-            if Settings.keyboard_left_press and player2_position.coordinate[1] > 0:
-                new_index2 = MazeFunctions.coordinate_to_index_square((player2_position.coordinate[0], \
-                                                                       player2_position.coordinate[1] - 1), maze2.size)
-
-            if Settings.keyboard_right_press and player2_position.coordinate[1] < maze1.size:
-                new_index2 = MazeFunctions.coordinate_to_index_square((player2_position.coordinate[0] , \
-                                                                       player2_position.coordinate[1] + 1), maze2.size)
+            new_index, new_index2 = GameUI.multi_player(player1_position, player2_position, maze1.size)
 
         else:
             print('error: invalid game mode type in Game')
 
-        if new_index in maze1.maze_list[player1_position.index]:
+        print()
+
+        if new_index >= 0 and new_index in maze1.maze_list[player1_position.index]:
             pygame.draw.circle(game_display, Color.yellow_light, player1_position.position, int(maze1.cell_size * 0.3))
             player1_position = maze1.cell_list[new_index]
             pygame.draw.circle(game_display, player_color, player1_position.position,
@@ -252,7 +212,7 @@ def maze_game(maze1, maze2):
                 maze_end(maze1, maze2, player1_position, player2_position)
 
         Functions.buttonpress_reset()
-        Functions.update_delay(10)
+        Functions.update_delay(50)
 
 def maze_end(maze1, maze2, player1_position, player2_position):
     solution_list = maze1.solution_path

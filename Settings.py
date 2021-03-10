@@ -25,7 +25,7 @@ player_mode = True          # singele_player = True; multiplayer = False
 invisible_mode = True       # if all cell is visible by default; visible = False, invisible = True
 maze_type = 'square'        # square = True, hexagon = False
 ai_mode = True              # True: ai solution on other maze
-ai_level = 10               # int; 1 <= ai_level <= 10: delay in displays of the algorithms
+ai_level = 3               # int; 1 <= ai_level <= 10: delay in displays of the algorithms
 
 game_mode = 0
 

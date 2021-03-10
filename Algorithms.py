@@ -42,8 +42,14 @@ def test():
 
     maze_test.create((screen_size[0] // 2, screen_size[1] // 2), 0, graph_bool=True)
 
-    maze_test.draw(algorithm_display, graph_bool=False, step_bool=False, visibility_bool=False, delay=0, cell_text_bool=False, cell_text_type=1)
-    MazeFunctions.updete_delay(1000)
+    maze_test.draw(algorithm_display, graph_bool=False, step_bool=False, visibility_bool=False, delay=0, cell_text_bool=True, cell_text_type=2)
+    MazeFunctions.updete_delay(0)
+
+    for cell in maze_test.cell_list:
+        coord_cand = MazeFunctions.coordinate_transform_inverse_hexagon(MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
+        if cell.coordinate != coord_cand:
+            print(cell.coordinate == coord_cand, cell.coordinate, coord_cand, \
+                  MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
 
 
     # maze_test.solve("astar")

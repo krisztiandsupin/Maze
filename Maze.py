@@ -110,6 +110,11 @@ class Maze:
                     cell_text = str(cell.coordinate)
                 elif cell_text_type == 1:
                     cell_text = str(cell.index)
+                elif cell_text_type == 2 and self.type_value == 2:
+                    cell_text = str(MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
+                else:
+                    print("error: invalid cell_text_bool type")
+                    cell_text = ''
 
                 cell.text_display(screen, cell_text, 15)
 

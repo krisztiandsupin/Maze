@@ -319,11 +319,11 @@ def adjacent_cells_hexagon(cell, cell_list):
 
 def coordinate_transform_hexagon(coordinate):
     """
-
-    :param coordinate:
-    :return:
+    transform from (ring, enum) -> (x: horizontal, y: vertical) form
+    :param tuple coordinate: (ring, enum)
+    :return tuplle (x,y): X: horizontal position in vertical level (increases by 2), y: vertical level
     """
-    # transform from (ring, enum) -> (x: horizontal,y: vertical)
+    #
     if coordinate == (0, 0):
         return coordinate
 
@@ -356,6 +356,49 @@ def coordinate_transform_hexagon(coordinate):
         y = -6 * ring + enum
 
     return (x,-1 * y)
+
+def coordinate_transform_inverse_hexagon(points):
+    """
+    inverse transform (x,y) -> (ring, enum)
+    :param tuple points: (x,y) pair
+    :return tuple coordinate: (ring, enum) format
+    """
+    (x,y) = points
+
+    ring_cand = (abs(x) + abs(y)) // 2
+    if ring_cand <= abs(x):
+        ring = ring_cand
+    else:
+        ring = abs(y)
+
+    if x == 0 and y == 0:
+        enum = 0
+    elif x > 0 and y <= 0 and abs(x) > abs(y):
+        case = 'case1'
+        enum = abs(y)
+    elif (y == -1 * ring) and x != y:
+        case = 'case2'
+        enum = ring + (ring - x) // 2
+    elif x < 0 and y < 0 and abs(x) >= abs(y):
+        case = 'case3'
+        enum = 2 * ring + (-1 * x + y) // 2
+    elif x < 0 and y >= 0 and abs(x) > abs(y):
+        case = 'case4'
+        enum = 3 * ring + y
+    elif y == ring and x != y:
+        case = 'case5'
+        enum = 4 * ring + (ring + x) // 2
+    elif x > 0 and y > 0 and x >= y:
+        case = 'case6'
+        enum = 5 * ring + ring - y
+    else:
+        enum = -1
+        case = 'case7'
+        print("error: invalid else case")
+
+    coordinate = (ring, enum)
+    return coordinate
+
 
 def adjacent_cells_triangle(cell, cell_list):
     """
