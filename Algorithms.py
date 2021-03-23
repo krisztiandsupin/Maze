@@ -27,13 +27,13 @@ def settings():
     text_title.show(algorithm_display)
 
     while True:
-        # kruskal_slide1()
+        kruskal_slide1()
         kruskal_slide2()
         Functions.update_delay(10000)
 
 def kruskal_slide1():
     algorithm_display.fill(Color.white)
-    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithms', int(text_size * 1.5), text_color,
+    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithm', int(text_size * 1.5), text_color,
                       text_color_light)
     text_title.show(algorithm_display)
 
@@ -68,7 +68,7 @@ def kruskal_slide1():
 
 def kruskal_slide2():
     algorithm_display.fill(Color.white)
-    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithms', int(text_size * 1.5),
+    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithm', int(text_size * 1.5),
                       text_color,
                       text_color_light)
     text_title.show(algorithm_display)

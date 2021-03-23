@@ -4,6 +4,7 @@ class Color:
 
     grey = (192, 192, 192)
     grey_light = (211, 211, 211)
+    grey_extra_light = (230, 230, 230)
     grey_dark = (169, 169, 169)
     grey_extra_dark = (100, 100, 100)
 

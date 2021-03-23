@@ -41,12 +41,12 @@ def generation():
 
     # create and display mazes
     maze_test.create(maze_position, 1, graph_bool=False)
-    maze_test.draw(game_display, graph_bool=False, step_bool=False, visibility_bool=Settings.invisible_mode, delay=0)
+    maze_test.draw(game_display, graph_bool=False, visibility_bool=Settings.invisible_mode)
     maze_test.solve('astar')
 
     if maze_test2 != None:
         maze_test2.create(maze_position2, 1, graph_bool=False)
-        maze_test2.draw(game_display, graph_bool=False, step_bool=False, visibility_bool=Settings.invisible_mode, delay=0)
+        maze_test2.draw(game_display, graph_bool=False, visibility_bool=Settings.invisible_mode)
         maze_test2.solve('astar')
 
     while True:
@@ -92,11 +92,11 @@ def maze_game(maze1, maze2):
 
     text_start.show_box(game_display, Color.white, 3)
 
-    maze1.draw(game_display, graph_bool=False, step_bool=False, visibility_bool=Settings.invisible_mode, delay=0)
+    maze1.draw(game_display, graph_bool=False, visibility_bool=Settings.invisible_mode)
     pygame.draw.circle(game_display, player_color, player1_position.position, int(maze1.cell_size * 0.3))
 
     if Settings.game_mode % 3 != 0:
-        maze2.draw(game_display, graph_bool=False, step_bool=False, visibility_bool=Settings.invisible_mode, delay=0)
+        maze2.draw(game_display, graph_bool=False, visibility_bool=Settings.invisible_mode)
         ai_index = 0
 
     if not Settings.player_mode:
