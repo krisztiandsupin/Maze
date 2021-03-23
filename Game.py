@@ -11,8 +11,6 @@ import Functions
 from Maze import Maze
 from Settings import screen as screen_settings
 
-import Algorithms
-
 screen_size = screen_settings.screen_size
 
 game_display = pygame.display.set_mode(screen_size)
@@ -57,6 +55,11 @@ def generation():
         Settings.back_to_menu
         break
 
+def timer_display(time):
+    timer_position = (int(screen_size[0] * 0.5), int(screen_size[1] * 0.9))
+    text_time = Text(timer_position, time, int(text_size * 0.8), text_color, text_color_light)
+    text_time.show(game_display)
+
 def maze_game(maze1, maze2):
     maze_sign_size = int(maze1.cell_size * 0.3)
 
@@ -69,14 +72,12 @@ def maze_game(maze1, maze2):
         player2_color = Color.green_dark
         player2_position.draw_sign(game_display, player2_color, maze_sign_size)
 
-    timer_position = (int(screen_size[0] * 0.5), int(screen_size[1] * 0.9))
+    # display timer
+    timer_display("0:00")
 
-    text_time = Text(timer_position, '0:00', int(text_size * 0.8), text_color, text_color_light)
-    text_time.show(game_display)
-
+    # start display
     text_start = Text((int(screen_size[0] * 0.5), int(screen_size[1] * 0.5)), 'Press any arrow to start', \
                       int(text_size * 1), text_color, text_color_light)
-
     text_start.show_box(game_display, 3)
     text_start.show(game_display)
     pygame.display.update()
@@ -122,7 +123,6 @@ def maze_game(maze1, maze2):
             
         pygame.display.update()
 
-
     # game start
     while True:
         time_current = time.time() - time_start
@@ -131,20 +131,12 @@ def maze_game(maze1, maze2):
         if time_temp > time_sec:
             time_sec = time_temp
 
-            text_time = Text(timer_position, Functions.timer_string(time_sec), int(text_size * 0.8),
-                              text_color, text_color_light)
-            text_time.show(game_display)
-
+        timer_display(Functions.timer_string(time_sec))
         Functions.buttonpress_detect()
 
         new_index = player1_position.index
         if not Settings.player_mode:
             new_index2 = player2_position.index
-
-        print('up:', Settings.keyboard_up_press)
-        print('down:', Settings.keyboard_down_press)
-        print('right:', Settings.keyboard_right_press)
-        print('left:', Settings.keyboard_left_press)
 
         # sigleplayer mode
         if Settings.player_mode:
@@ -156,8 +148,6 @@ def maze_game(maze1, maze2):
 
         else:
             print('error: invalid game mode type in Game')
-
-        print()
 
         if new_index >= 0 and new_index in maze1.maze_list[player1_position.index]:
             pygame.draw.circle(game_display, Color.yellow_light, player1_position.position, int(maze1.cell_size * 0.3))
@@ -244,3 +234,4 @@ def maze_end(maze1, maze2, player1_position, player2_position):
             break
 
         Functions.update_delay(10)
+

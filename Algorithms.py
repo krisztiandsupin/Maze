@@ -27,39 +27,118 @@ def settings():
     text_title.show(algorithm_display)
 
     while True:
-        Functions.update_delay(1000)
+        # kruskal_slide1()
+        kruskal_slide2()
+        Functions.update_delay(10000)
 
-        Settings.back_to_menu = True
-        break
-
-def test():
-    print("In algorithms test")
-    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Algorithms', int(text_size * 1.5), text_color,
+def kruskal_slide1():
+    algorithm_display.fill(Color.white)
+    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithms', int(text_size * 1.5), text_color,
                       text_color_light)
     text_title.show(algorithm_display)
 
-    maze_test = Maze(8, 'hexagon', 'kruskal')
+    maze_kruskal = Maze(8, 'square', 'kruskal')
+    maze_kruskal.create((screen_settings.screen_size[0] // 4, screen_settings.screen_size[1] //2), graph_bool=True)
+    maze_kruskal.draw_grid(algorithm_display, graph_bool=True, cell_text_bool=True, cell_text_type=1)
 
-    maze_test.create((screen_size[0] // 2, screen_size[1] // 2), 0, graph_bool=True)
+    highlight_color = Color.red_light
+    delay = 100
+    index_text_size = 15
 
-    maze_test.draw(algorithm_display, graph_bool=False, step_bool=False, visibility_bool=False, delay=0, cell_text_bool=True, cell_text_type=2)
-    MazeFunctions.updete_delay(0)
+    maze_kruskal.draw_frame(algorithm_display)
 
-    for cell in maze_test.cell_list:
-        coord_cand = MazeFunctions.coordinate_transform_inverse_hexagon(MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
-        if cell.coordinate != coord_cand:
-            print(cell.coordinate == coord_cand, cell.coordinate, coord_cand, \
-                  MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
+    for i in range(0, len(maze_kruskal.maze_order)):
+        cell0, cell1 = maze_kruskal.maze_order[i][0], maze_kruskal.maze_order[i][1]
+
+        highlight_edge_delete(algorithm_display, maze_kruskal, cell0, cell1, highlight_color, True, index_text_size, i)
+
+        Functions.update_delay(delay)
+        MazeFunctions.edge_color(algorithm_display, (cell0, cell1), highlight_color, graph = True, graph_color = maze_kruskal.color_line)
 
 
-    # maze_test.solve("astar")
-    # maze_test.show(algorithm_display, delay = 0)
+        highlight_edge_delete(algorithm_display, maze_kruskal, cell0, cell1, maze_kruskal.color_background, True, index_text_size, i)
+        MazeFunctions.edge_color(algorithm_display, (cell0, cell1), maze_kruskal.color_background, graph=True,
+                             graph_color=maze_kruskal.color_line)
 
-    while True:
+        maze_kruskal.draw_frame(algorithm_display)
+
+        Functions.update_delay(delay)
         Functions.buttonpress_detect()
 
-        Functions.update_delay(10)
 
+def kruskal_slide2():
+    algorithm_display.fill(Color.white)
+    text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Kruskal Algorithms', int(text_size * 1.5),
+                      text_color,
+                      text_color_light)
+    text_title.show(algorithm_display)
 
-        #break
+    maze_kruskal_hexagon = Maze(5, 'hexagon', 'kruskal')
+    maze_kruskal_hexagon.create((screen_settings.screen_size[0] // 4, screen_settings.screen_size[1] // 2), graph_bool=False)
+    maze_kruskal_hexagon.draw_grid(algorithm_display, graph_bool=False, cell_text_bool=True, cell_text_type=1)
+    maze_kruskal_hexagon.draw_frame(algorithm_display)
 
+    maze_kruskal_circle = Maze(5, 'circle', 'kruskal')
+    maze_kruskal_circle.create(((3 * screen_settings.screen_size[0]) // 4, screen_settings.screen_size[1] // 2), graph_bool=False)
+    maze_kruskal_circle.draw_grid(algorithm_display, graph_bool=False, cell_text_bool=True, cell_text_type=1)
+    maze_kruskal_circle.draw_frame(algorithm_display)
+
+    highlight_color = Color.red_light
+    delay = 100
+    index_text_size = 15
+
+    for i in range(0, min(len(maze_kruskal_hexagon.maze_order), len(maze_kruskal_circle.maze_order))):
+        cell0_hexagon, cell1_hexagon = maze_kruskal_hexagon.maze_order[i][0], maze_kruskal_hexagon.maze_order[i][1]
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_hexagon, cell0_hexagon, cell1_hexagon, highlight_color, False, index_text_size, i)
+
+        cell0_circle, cell1_circle = maze_kruskal_circle.maze_order[i][0], maze_kruskal_circle.maze_order[i][1]
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_circle, cell0_circle, cell1_circle, highlight_color, False, index_text_size, i)
+
+        Functions.update_delay(delay)
+
+        MazeFunctions.edge_color(algorithm_display, (cell0_hexagon, cell1_hexagon), highlight_color, graph=False)
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_hexagon, cell0_hexagon, cell1_hexagon, maze_kruskal_hexagon.color_background, False,
+                              index_text_size, i)
+        MazeFunctions.edge_color(algorithm_display, (cell0_hexagon, cell1_hexagon), maze_kruskal_hexagon.color_background, graph=False)
+
+        maze_kruskal_hexagon.draw_frame(algorithm_display)
+
+        MazeFunctions.edge_color(algorithm_display, (cell0_circle, cell1_circle), highlight_color, graph=False)
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_circle, cell0_circle, cell1_circle, maze_kruskal_circle.color_background, False,
+                              index_text_size, i)
+        MazeFunctions.edge_color(algorithm_display, (cell0_circle, cell1_circle), maze_kruskal_circle.color_background, graph=False)
+
+        maze_kruskal_circle.draw_frame(algorithm_display)
+
+        Functions.update_delay(delay)
+        Functions.buttonpress_detect()
+
+    for i in range(min(len(maze_kruskal_hexagon.maze_order), len(maze_kruskal_circle.maze_order)), len(maze_kruskal_circle.maze_order)):
+        cell0_circle, cell1_circle = maze_kruskal_circle.maze_order[i][0], maze_kruskal_circle.maze_order[i][1]
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_circle, cell0_circle, cell1_circle, highlight_color, False,
+                              index_text_size, i)
+        Functions.update_delay(delay)
+        MazeFunctions.edge_color(algorithm_display, (cell0_circle, cell1_circle), highlight_color, graph=False,
+                                 )
+
+        highlight_edge_delete(algorithm_display, maze_kruskal_circle, cell0_circle, cell1_circle,
+                              maze_kruskal_circle.color_background, False, index_text_size, i)
+        MazeFunctions.edge_color(algorithm_display, (cell0_circle, cell1_circle), maze_kruskal_circle.color_background,
+                                 graph=False)
+
+        maze_kruskal_circle.draw_frame(algorithm_display)
+
+        Functions.update_delay(delay)
+
+def highlight_edge_delete(screen, maze, cell0, cell1, highlight_color, graph_bool, index_text_size, step):
+    cell0.color_grid(screen, highlight_color, graph_bool, line_color=Color.black, \
+                     coordinate_text_bool=False, walls_bool = maze.maze_cell_borders[step][0])
+    cell1.color_grid(screen, highlight_color, graph_bool, line_color=Color.black, \
+                     coordinate_text_bool=False, walls_bool=maze.maze_cell_borders[step][1])
+    cell0.text_display(screen, str(cell0.index), index_text_size, background_color= highlight_color)
+    cell1.text_display(screen, str(cell1.index), index_text_size, background_color= highlight_color)

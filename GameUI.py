@@ -29,38 +29,31 @@ def single_player(type, position_cell, maze_size):
         position_transformed = MazeFunctions.coordinate_transform_hexagon(position_cell.coordinate)
         if (not Settings.keyboard_up_press and not Settings.keyboard_down_press and \
             Settings.keyboard_right_press and not Settings.keyboard_left_press):
-            print('right')
             new_position = (position_transformed[0] + 2, position_transformed[1])
 
         elif (not Settings.keyboard_up_press and Settings.keyboard_down_press and \
             Settings.keyboard_right_press and not Settings.keyboard_left_press):
-            print('right down')
             new_position = (position_transformed[0] + 1, position_transformed[1] - 1)
 
 
         elif (not Settings.keyboard_up_press and Settings.keyboard_down_press and \
               not Settings.keyboard_right_press and Settings.keyboard_left_press):
-            print('left down')
             new_position = (position_transformed[0] - 1, position_transformed[1] - 1)
 
 
         elif (not Settings.keyboard_up_press and not Settings.keyboard_down_press and \
               not Settings.keyboard_right_press and Settings.keyboard_left_press):
-            print('left')
             new_position = (position_transformed[0] - 2, position_transformed[1])
 
 
         elif (Settings.keyboard_up_press and not Settings.keyboard_down_press and \
               not Settings.keyboard_right_press and Settings.keyboard_left_press):
-            print('left up')
             new_position = (position_transformed[0] - 1, position_transformed[1] + 1)
 
         elif (Settings.keyboard_up_press and not Settings.keyboard_down_press and \
             Settings.keyboard_right_press and not Settings.keyboard_left_press):
-            print('up right')
             new_position = (position_transformed[0] + 1, position_transformed[1] + 1)
         else:
-            print('other')
             new_index = -1
             return new_index
 
@@ -69,6 +62,9 @@ def single_player(type, position_cell, maze_size):
 
 # player1 movments with w,s,a,d
 def multi_player(player1_position, player2_position, maze_size):
+    new_index = -1
+    new_index2 = -1
+
     if Settings.keyboard_s_press and player1_position.coordinate[0] < maze_size - 1:
         new_index = MazeFunctions.coordinate_to_index_square((player1_position.coordinate[0] + 1, \
                                                               player1_position.coordinate[1]), maze_size)
@@ -101,4 +97,6 @@ def multi_player(player1_position, player2_position, maze_size):
     if Settings.keyboard_right_press and player2_position.coordinate[1] < maze_size:
         new_index2 = MazeFunctions.coordinate_to_index_square((player2_position.coordinate[0] , \
                                                                player2_position.coordinate[1] + 1), maze_size)
+
+
     return new_index, new_index2

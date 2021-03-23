@@ -2,6 +2,7 @@ import random
 from Edge import Edge
 import MazeFunctions
 
+
 def region_index(cell, region_list):
     length = len(region_list)
     i = 0
@@ -10,6 +11,7 @@ def region_index(cell, region_list):
         if cell in region_list[i]:
             return i
         i += 1
+
 
 def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell, maze_type):
     edge_list[start_cell].remove(end_cell)
@@ -22,6 +24,7 @@ def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cel
     MazeFunctions.border_update(maze_type, cell_list[start_cell], cell_list[end_cell])
 
     maze_order.append((cell_list[start_cell], cell_list[end_cell]))
+
 
 #################################
 # Algorithms
@@ -38,9 +41,21 @@ def generate(algorithm, type_value, cell_list, edge_list):
         print('error: wrong type of algorithm')
         return None
 
+
 def kruskal(maze_type, cell_list, edge_list):
+    """
+    Generate maze with randomized Kruskal algorithm
+    :param int maze_type: 0 = square, 1 = circle, 2 = hexagon, 4 = triangle
+    :param list cell_list: list with cell type values
+    :param list edge_list: nested list for edges, edge list data structure
+    :return list maze_edge: edges of the maze, edges deleted from edge list
+    :return list maze_order: list of tuple (cell1, cell2), where in the i-th step (cell1, cell2) were selected
+    :return list maze_cell_borders: list of border points for cell states when they were selected
+    """
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
+    maze_cell_borders = []
+
     cell_number = len(cell_list)
     edge_number = 0
 
@@ -62,16 +77,10 @@ def kruskal(maze_type, cell_list, edge_list):
             end_region = False
 
         if start_region != end_region:
-            '''maze_edge[start_cell].append(end_cell)
-            maze_edge[end_cell].append(start_cell)
 
-            edge_list[start_cell].remove(end_cell)
-            edge_list[end_cell].remove(start_cell)
-
-            maze_order.append((cell_list[start_cell], cell_list[end_cell]))'''
-
+            maze_cell_borders.append(
+                ((cell_list[start_cell].walls_bool).copy(), (cell_list[end_cell].walls_bool).copy()))
             edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell, maze_type)
-
 
             edge_number += 1
 
@@ -84,7 +93,8 @@ def kruskal(maze_type, cell_list, edge_list):
 
     '''print("After generation:", maze_edge)
     print()'''
-    return maze_edge, maze_order
+    return maze_edge, maze_order, maze_cell_borders
+
 
 def prim(type, cell_list, edge_list):
     maze_edge = [[] for _ in range(0, len(edge_list))]
@@ -120,6 +130,7 @@ def prim(type, cell_list, edge_list):
         temp_cell = end_cell
 
     return maze_edge, maze_order
+
 
 def backtracker(type, cell_list, edge_list):
     maze_edge = [[] for _ in range(0, len(edge_list))]

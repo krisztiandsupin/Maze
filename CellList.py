@@ -8,15 +8,14 @@ PI = math.pi
 
 def graph_position(cell_position):
     """
-
-    :param cell_position:
-    :return:
+    calculates the position of a given vertex in the graph
+    :param tuple cell_position: position the the cell in the maze
+    :return: 
     """
     return (cell_position[0] + screen_settings.screen_size[0] // 2, cell_position[1])
 
 def generate(type_value, size):
     """
-
     :param type_value:
     :param size:
     :return:

@@ -31,9 +31,9 @@ class Maze:
         self.cell_list = CellList.generate(self.type_value, self.size)
         self.edge_list = EdgeList.generate(self.type_value, self.size)
 
-        #self.frame_list = MazeFunctions.frame_generation(self.type_value, self.cell_list)
-        self.maze_list, self.maze_order = Generation.generate(algorithm, self.type_value, self.cell_list, self.edge_list)
+        self.maze_list, self.maze_order, self.maze_cell_borders = Generation.generate(algorithm, self.type_value, self.cell_list, self.edge_list)
 
+        # solution lists
         self.solution_path = []
         self.visited = []
 
@@ -46,6 +46,7 @@ class Maze:
         self.start = self.cell_list[start]
         self.end = self.cell_list[end]
 
+        # maze colors
         self.color_background = Color.white
         self.color_line = Color.black
         self.color_start = Color.green_light
@@ -81,28 +82,11 @@ class Maze:
         CellList.create(self.cell_list, self.type_value, maze_position, display_type, graph_bool, self.cell_size)
         self.frame_list = Frame.generation(self.type_value, self.cell_list)
 
+    def draw_frame(self, screen, frame_size = 3):
+        for wall in self.frame_list:
+            pygame.draw.line(screen, Color.black, wall[0], wall[1], frame_size)
 
-    def draw(self, screen, graph_bool = True, step_bool = False, visibility_bool = True, delay = 100,
-             position = (screen_settings.screen_size[0] // 2, screen_settings.screen_size[1]), cell_text_bool = False, cell_text_type = 0):
-        """
-        :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
-        :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
-        :param bool graph_bool: if True displays the graph of the maze; delfault = True
-        :param bool step_bool: if True displays steps of generation; default = False
-        :param bool visibility_bool: if True all cells with walls can be seen
-        :param int delay: delay between steps in ms; default = 100
-        :param tuple position: center of position; default: middle of screen
-        :param bool cell_text_bool: display text in the middle of all the circles
-        :param int cell_text_type: coordinate = 0, index = 1
-        """
-
-        '''if graph_bool == True:
-            pygame.draw.line(screen, Color.navy, (screen_settings.screen_size[0] // 2, 50), position, 5)'''
-
-        if visibility_bool == True:
-            self.color_background = Color.grey_dark
-            self.color_line = Color.grey_dark
-
+    def draw_grid(self, screen, graph_bool = True, cell_text_bool = False, cell_text_type = 0):
         for cell in self.cell_list:
             cell.color_grid(screen, self.color_background, graph_bool, self.color_line)
             if cell_text_bool == True:
@@ -118,7 +102,21 @@ class Maze:
 
                 cell.text_display(screen, cell_text, 15)
 
-        MazeFunctions.system_pause()
+    def draw(self, screen, graph_bool = True, visibility_bool = True, cell_text_bool = False, cell_text_type = 0):
+        """
+        :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
+        :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
+        :param bool graph_bool: if True displays the graph of the maze; delfault = True
+        :param bool visibility_bool: if True all cells with walls can be seen
+        :param bool cell_text_bool: display text in the middle of all the circles
+        :param int cell_text_type: coordinate = 0, index = 1, hexagonal transformed cordinated = 2 (just in hexagonal type)
+        """
+
+        if visibility_bool == True:
+            self.color_background = Color.grey_dark
+            self.color_line = Color.grey_dark
+
+        self.draw_grid(screen, graph_bool, cell_text_bool, cell_text_type)
 
         for wall in self.frame_list:
             pygame.draw.line(screen, Color.black, wall[0], wall[1], 3)
@@ -126,10 +124,7 @@ class Maze:
         for edge in self.maze_order:
             MazeFunctions.edge_color(screen, edge, self.color_background, graph_bool, self.color_line)
             MazeFunctions.system_pause()
-
             # pygame.draw.line(screen, Color.green, edge[0].position, edge[1].position)
-            if step_bool == True:
-                MazeFunctions.updete_delay(delay)
 
         self.start.color(screen, self.color_start, graph_bool, self.color_line)
         self.end.color(screen, self.color_end, graph_bool, self.color_line)
@@ -144,9 +139,8 @@ class Maze:
 
         MazeFunctions.system_pause()
 
-
+    ############
     # maze solving visualisation
-
     def solve(self, algorithm):
         maze_list = self.maze_list.copy()
         cell_list = self.cell_list.copy()
