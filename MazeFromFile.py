@@ -1,15 +1,20 @@
 from Maze import Maze
 from Cell import Cell
 
+
 def read_from_file(file_name):
+    """
+
+    :param file_name:
+    :return:
+    """
     maze_file = open(file_name, "r+")
 
     size = int(maze_file.readline().split(':')[1][1:-2])
-    type = maze_file.readline().split(':')[1][1:-2]
+    maze_type = maze_file.readline().split(':')[1][1:-2]
     algorithm = maze_file.readline().split(':')[1][1:-2]
 
-    maze = Maze(size, type, algorithm)
-
+    maze = Maze(size, maze_type, algorithm)
 
     maze_file.readline()[:-2]
 
@@ -48,4 +53,3 @@ def read_from_file(file_name):
     print(f"maze is succefully opened from {file_name}")
 
     return maze
-

@@ -103,6 +103,7 @@ def frame_triangle(cell_list):
     # sides
     for i in range(0, size):
         first_of_row = i ** 2
+
         frame_list.append(cell_list[first_of_row].walls[0])
         frame_list.append(cell_list[first_of_row + 2 * i].walls[1])
 

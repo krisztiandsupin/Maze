@@ -1,6 +1,9 @@
 import math
 import MazeFunctions
 class cell_astar:
+    """
+
+    """
     def __init__(self, cell, parent, step, distance):
         self.cell = cell
         self.parent = parent
@@ -8,6 +11,13 @@ class cell_astar:
         self.distance = distance
 
 def distance(type, cell1, cell2):
+    """
+
+    :param type:
+    :param cell1:
+    :param cell2:
+    :return:
+    """
     if type == 0:
         return distance_square(cell1, cell2)
     elif type == 1:
@@ -18,15 +28,32 @@ def distance(type, cell1, cell2):
         return distance_triangle(cell1, cell2)
 
 def distance_square(cell1, cell2):
+    """
+
+    :param cell1:
+    :param cell2:
+    :return:
+    """
     return abs(cell1.coordinate[0] - cell2.coordinate[0]) + abs(cell1.coordinate[1] - cell2.coordinate[1])
 
 def elements_in_ring(k): #number of elements of k-th ring
+    """
+
+    :param k:
+    :return:
+    """
     if k == 0:
         return 1
     else:
         return 2 ** (math.floor(math.log(k, 2))  + 3)
 
 def distance_circle(cell1, cell2):
+    """
+
+    :param cell1:
+    :param cell2:
+    :return:
+    """
     if cell1.coordinate[0] >= cell2.coordinate[0]:
         outer_cell = cell1
         inner_cell = cell2
@@ -78,6 +105,12 @@ def distance_circle(cell1, cell2):
     return (min(distance_list))
 
 def distance_hexagon(cell1, cell2):
+    """
+
+    :param cell1:
+    :param cell2:
+    :return:
+    """
     # transform coordinates
     cell1_coordinate = MazeFunctions.coordinate_transform_hexagon(cell1.coordinate)
     cell2_coordinate = MazeFunctions.coordinate_transform_hexagon(cell2.coordinate)
@@ -113,6 +146,12 @@ def distance_hexagon(cell1, cell2):
         return abs(distance_vertical) + distance_horizontal
 
 def distance_triangle(cell1, cell2):
+    """
+
+    :param cell1:
+    :param cell2:
+    :return:
+    """
     distance_vertical =  abs(2 * (cell1.coordinate[0] - cell2.coordinate[0]))
 
     vertical_inliner1 = cell1.coordinate[1]
@@ -147,6 +186,15 @@ def distance_triangle(cell1, cell2):
 
 # Algorithms
 def astar(type, cell_list, edges, start, end):
+    """
+
+    :param type:
+    :param cell_list:
+    :param edges:
+    :param start:
+    :param end:
+    :return:
+    """
     weight = 2 # parameter for distance importance
     end_index = end.index
     start_astar = cell_astar(start.index, -1, 0, distance(type, start, end))
@@ -214,6 +262,15 @@ def astar(type, cell_list, edges, start, end):
     return shortest_path, highlight
 
 def endfiller(type, cell_list, edges, start, end):
+    """
+
+    :param type:
+    :param cell_list:
+    :param edges:
+    :param start:
+    :param end:
+    :return:
+    """
     start_index = start.index
     end_index = end.index
 

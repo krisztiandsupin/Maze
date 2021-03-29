@@ -10,6 +10,11 @@
 
 
 def write_to_file(maze, file_name):
+    """
+
+    :param maze:
+    :param file_name:
+    """
     maze_file = open(file_name, "w+")
 
     maze_file.write(f"size: {maze.size} \n")

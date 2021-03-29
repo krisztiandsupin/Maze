@@ -6,6 +6,7 @@ from Settings import screen as screen_settings
 
 PI = math.pi
 
+
 def graph_position(cell_position):
     """
     calculates the position of a given vertex in the graph
@@ -13,6 +14,7 @@ def graph_position(cell_position):
     :return: 
     """
     return (cell_position[0] + screen_settings.screen_size[0] // 2, cell_position[1])
+
 
 def generate(type_value, size):
     """
@@ -32,6 +34,7 @@ def generate(type_value, size):
         print('error: invalid maze type in cell list generation, cell type:', type_value)
         return []
 
+
 def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_size):
     """
 
@@ -50,7 +53,7 @@ def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_
     elif type_value == 2:
         return create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size)
     elif type_value == 3:
-        return generate_triangle(10)
+        return create_triangle(cell_list, maze_position, display_type, graph_bool, cell_size)
     else:
         print('error: invalid maze type in cell list creation, cell type:', type_value)
         return []
@@ -80,6 +83,7 @@ def generate_square(n):
 
     return cell_list
 
+
 def create_square(cell_list, maze_position, display_type, graph_bool, cell_size):
     """
 
@@ -90,7 +94,7 @@ def create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
     :param cell_size:
     """
     if bool(cell_list):
-        maze_size = int(math.sqrt(len(cell_list))) # number of rows and columns
+        maze_size = int(math.sqrt(len(cell_list)))  # number of rows and columns
 
         half_size = cell_size // 2
 
@@ -99,11 +103,11 @@ def create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
         grid_start_vertical = int((maze_position[1] - maze_size * cell_size / 2))
 
         for cell in cell_list:
-            cell_center_horizontal = grid_start_horizontal + int((cell.coordinate[1]+ 0.5) * cell_size)
+            cell_center_horizontal = grid_start_horizontal + int((cell.coordinate[1] + 0.5) * cell_size)
             cell_center_vertical = grid_start_vertical + int((cell.coordinate[0] + 0.5) * cell_size)
             cell.position = (cell_center_horizontal, cell_center_vertical)
 
-            if graph_bool == True:
+            if graph_bool:
                 translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
                 graph_center = (cell_center_horizontal + translation, cell_center_vertical)
                 cell.graph_position = graph_center
@@ -119,6 +123,7 @@ def create_square(cell_list, maze_position, display_type, graph_bool, cell_size)
 
     else:
         print('maze is not generated')
+
 
 def generate_circle(n):
     """
@@ -138,12 +143,12 @@ def generate_circle(n):
         cell_number = 2 ** (math.ceil(math.log(i + 1, 2)) + 2)  # cell number in a ring
 
         for j in range(0, cell_number):
-            if math.log(i, 2).is_integer() == True and i > 1:
+            if math.log(i, 2).is_integer() and i > 1:
                 cell_walls_bool = [True for _ in range(0, 4)]
 
             else:
-                if math.log(i + 1, 2).is_integer() == True:  # pentagon
-                     cell_walls_bool = [True for _ in range(0, 5)]
+                if math.log(i + 1, 2).is_integer():  # pentagon
+                    cell_walls_bool = [True for _ in range(0, 5)]
 
                 else:  # Quadrilateral
                     cell_walls_bool = [True for _ in range(0, 4)]
@@ -154,6 +159,7 @@ def generate_circle(n):
             cell_index += 1
 
     return cell_list
+
 
 def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size):
     """
@@ -167,7 +173,7 @@ def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
     """
     # center cell
     n = cell_list[-1].coordinate[0] + 1
-    (x,y) = maze_position
+    (x, y) = maze_position
 
     center_walls = []
     center_border_points = []
@@ -190,7 +196,7 @@ def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
         center_walls.append((start_wall_point, end_wall_point))
         center_border_points.append(start_wall_point)
 
-    cell_list[0].position = (x,y)
+    cell_list[0].position = (x, y)
     if graph_bool == True:
         translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
         graph_center = (x + translation, y)
@@ -212,34 +218,50 @@ def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
                 graph_center = graph_position(cell_center)
 
                 angle = j * ring_angle - 2 * (ring_angle / 2) - rotation_angle
-                border_point1 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
-                border_point2 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point1 = (
+                    round(x + (i - 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point2 = (
+                    round(x + (i + 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i + 0.5) * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle + 0 * (ring_angle / 2) - rotation_angle
-                border_point3 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
-                border_point4 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point3 = (
+                    round(x + (i + 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point4 = (
+                    round(x + (i - 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i - 0.5) * cell_size * math.sin(angle)))
 
                 cell_border_points = [border_point1, border_point2, border_point3, border_point4]
                 cell_walls = [(border_point1, border_point2), (border_point2, border_point3),
                               (border_point4, border_point3), (border_point1, border_point4)]
-                cell_walls_bool = [True for _ in range(0, 4)]
 
             else:
                 angle = j * ring_angle - rotation_angle
                 cell_center = (round(x + i * cell_size * math.cos(angle)), round(y + i * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle - 1 * (1 / cell_number * PI) - rotation_angle
-                border_point1 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
-                border_point2 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point1 = (
+                    round(x + (i - 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point2 = (
+                    round(x + (i + 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i + 0.5) * cell_size * math.sin(angle)))
 
                 angle = j * ring_angle + 1 * (1 / cell_number * PI) - rotation_angle
-                border_point3 = (round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
-                border_point4 = (round(x + (i - 0.5) * cell_size * math.cos(angle)), round(y + (i - 0.5) * cell_size * math.sin(angle)))
+                border_point3 = (
+                    round(x + (i + 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                border_point4 = (
+                    round(x + (i - 0.5) * cell_size * math.cos(angle)),
+                    round(y + (i - 0.5) * cell_size * math.sin(angle)))
 
                 if math.log(i + 1, 2).is_integer() == True:  # pentagon
                     angle = j * ring_angle - 0 * (1 / cell_number * PI) - rotation_angle
                     border_point5 = (
-                    round(x + (i + 0.5) * cell_size * math.cos(angle)), round(y + (i + 0.5) * cell_size * math.sin(angle)))
+                        round(x + (i + 0.5) * cell_size * math.cos(angle)),
+                        round(y + (i + 0.5) * cell_size * math.sin(angle)))
                     cell_border_points = [border_point1, border_point2, border_point5, border_point3, border_point4]
                     cell_walls = [(border_point1, border_point2), (border_point2, border_point5),
                                   (border_point5, border_point3), (border_point4, border_point3),
@@ -265,6 +287,7 @@ def create_circle(cell_list, maze_position, display_type, graph_bool, cell_size)
 
     return cell_list
 
+
 def cell_border_points_hexagon(cell_center, a):
     """
 
@@ -274,7 +297,8 @@ def cell_border_points_hexagon(cell_center, a):
     """
     base_angle = 150 * PI / 180
     return [(round(cell_center[0] + a * math.cos(base_angle + j * PI / 3)), \
-            round(cell_center[1] + a * math.sin(base_angle + j * PI / 3))) for j in range(0, 6)]
+             round(cell_center[1] + a * math.sin(base_angle + j * PI / 3))) for j in range(0, 6)]
+
 
 def cell_wall_hexagon(cell_border_points):
     """
@@ -282,9 +306,10 @@ def cell_wall_hexagon(cell_border_points):
     :param cell_border_points:
     :return:
     """
-    return [(cell_border_points[0], cell_border_points[1]), (cell_border_points[1], cell_border_points[2]), \
-            (cell_border_points[3], cell_border_points[2]), (cell_border_points[4], cell_border_points[3]), \
+    return [(cell_border_points[0], cell_border_points[1]), (cell_border_points[1], cell_border_points[2]),
+            (cell_border_points[3], cell_border_points[2]), (cell_border_points[4], cell_border_points[3]),
             (cell_border_points[5], cell_border_points[4]), (cell_border_points[5], cell_border_points[0])]
+
 
 def generate_hexagon(n):
     """
@@ -304,13 +329,14 @@ def generate_hexagon(n):
     cell_list.append(cell)
 
     for ring in range(1, n):
-        for j in range(0, 6*ring):
+        for j in range(0, 6 * ring):
             walls_bool = [True for _ in range(0, 6)]
             cell_coordinate = (ring, j)
             index = (ring * (ring - 1)) * 3 + 1 + j
             cell = Cell(cell_coordinate, index, walls_bool)
             cell_list.append(cell)
     return cell_list
+
 
 def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size):
     """
@@ -371,7 +397,7 @@ def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size
         cell_list[i].walls = cell_wall_hexagon(cell_list[i].border_points)
 
 
-def generate_triangle(n, a):
+'''def generate_triangle(n, a):
     """
 
     :param n:
@@ -380,15 +406,15 @@ def generate_triangle(n, a):
     """
     A = math.sqrt(3) / 2 * a
     B = 2 * A / 3
-    grid_upper_center = (screen_settings.screen_size[0]  // 4, \
-                        (screen_settings.screen_size[1] - n * A) // 2)
+    grid_upper_center = (screen_settings.screen_size[0] // 4,
+                         (screen_settings.screen_size[1] - n * A) // 2)
 
     cell_list = []
 
     for i in range(0, n):
         for j in range(0, 2 * i + 1):
-            cell_center = (grid_upper_center[0] + ((j - i) * a / 2), \
-                           grid_upper_center[1] + (i  + 0.5) * A)
+            cell_center = (grid_upper_center[0] + ((j - i) * a / 2),
+                           grid_upper_center[1] + (i + 0.5) * A)
 
             graph_center = graph_position(cell_center)
             cell_index = i ** 2 + j
@@ -402,15 +428,88 @@ def generate_triangle(n, a):
                 border_point1 = (round(cell_center[0]), round(cell_center[1] + A / 2))
                 border_point2 = (round(cell_center[0] + a / 2), round(cell_center[1] - A / 2))
 
-
             cell_border_points = [border_point0, border_point1, border_point2]
 
             cell_walls = [(cell_border_points[k], cell_border_points[(k + 1) % 3]) for k in range(0, 3)]
             cell_walls_bool = [True for _ in range(0, 3)]
 
-            cell = Cell((i, j), (round(cell_center[0]), round(cell_center[1])), \
-                        (round(graph_center[0]), round(graph_center[1])), cell_index, cell_walls,cell_walls_bool, \
+            cell = Cell((i, j), (round(cell_center[0]), round(cell_center[1])),
+                        (round(graph_center[0]), round(graph_center[1])), cell_index, cell_walls, cell_walls_bool,
                         cell_border_points)
             cell_list.append(cell)  # list of cell type objects
 
+    return cell_list'''
+
+def generate_triangle(n):
+    """
+
+    :param n:
+    :return:
+    """
+
+    # triangle walls_bool order
+    #                           2.
+    #       / \               -----
+    #   0./    \ 1.        0. \   /  1.
+    #     -----                \/
+    #       2.
+
+    cell_list = []
+
+    for row in range(0, n):
+        for column in range(0, 2 * row + 1):
+            cell_index = row ** 2 + column
+
+            cell_walls_bool = [True for _ in range(0, 3)]
+
+            cell = Cell((row, column), cell_index, cell_walls_bool)
+            cell_list.append(cell)  # list of cell type objects
+
     return cell_list
+
+
+def create_triangle(cell_list, maze_position, display_type, graph_bool, cell_size):
+    """
+
+    :param cell_list:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size:
+    """
+    maze_size = int(math.sqrt(len(cell_list)))  # number of rows and columns
+
+    a = math.sqrt(3) / 2 * cell_size # height of a triangle with 'cell_size' side size
+
+    grid_upper_center = (maze_position[0], maze_position[1] - (maze_size * a // 2))
+
+    for i in range(0, maze_size):
+        for j in range(0, 2 * i + 1):
+            cell_index = i ** 2 + j
+
+            cell_center = (grid_upper_center[0] + ((j - i) * a / 2), grid_upper_center[1] + (i + 0.5) * a)
+            cell_list[cell_index].position = cell_center
+
+            if graph_bool:
+                translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
+                graph_center = (round(cell_center[0] + translation), round(cell_center[1]))
+                cell_list[cell_index].graph_position = graph_center
+
+            if j % 2 == 0:
+                border_point0 = (round(cell_center[0] - a / 2), round(cell_center[1] + a / 2))
+                border_point1 = (round(cell_center[0]), round(cell_center[1] - a / 2))
+                border_point2 = (round(cell_center[0] + a / 2), round(cell_center[1] + a / 2))
+            else:
+                border_point0 = (round(cell_center[0] - a / 2), round(cell_center[1] - a / 2))
+                border_point1 = (round(cell_center[0]), round(cell_center[1] + a / 2))
+                border_point2 = (round(cell_center[0] + a / 2), round(cell_center[1] - a / 2))
+
+            cell_border_points = [border_point0, border_point1, border_point2]
+            cell_list[cell_index].border_points = cell_border_points
+
+            cell_list[cell_index].walls = [(cell_border_points[k], cell_border_points[(k + 1) % 3]) for k in range(0, 3)]
+
+    return cell_list
+
+
+

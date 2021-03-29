@@ -21,6 +21,9 @@ text_size = 25
 
 
 def settings():
+    """
+
+    """
     maze_size = Settings.maze_size
 
     game_display.fill(Color.white)

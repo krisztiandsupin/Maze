@@ -24,6 +24,9 @@ text_size = 50
 
 
 def generation():
+    """
+
+    """
     game_display.fill(Color.white)
     text_title = Text((screen_size[0] // 2, int(screen_size[1] * 0.1)), 'Maze game', int(text_size * 1.5), text_color, text_color_light)
     text_title.show(game_display)
@@ -56,11 +59,20 @@ def generation():
         break
 
 def timer_display(time):
+    """
+
+    :param time:
+    """
     timer_position = (int(screen_size[0] * 0.5), int(screen_size[1] * 0.9))
     text_time = Text(timer_position, time, int(text_size * 0.8), text_color, text_color_light)
     text_time.show(game_display)
 
 def maze_game(maze1, maze2):
+    """
+
+    :param maze1:
+    :param maze2:
+    """
     maze_sign_size = int(maze1.cell_size * 0.3)
 
     player1_position = maze1.start
@@ -205,6 +217,13 @@ def maze_game(maze1, maze2):
         Functions.update_delay(50)
 
 def maze_end(maze1, maze2, player1_position, player2_position):
+    """
+
+    :param maze1:
+    :param maze2:
+    :param player1_position:
+    :param player2_position:
+    """
     solution_list = maze1.solution_path
     solution_list.reverse()
 

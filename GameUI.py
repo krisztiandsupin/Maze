@@ -2,6 +2,12 @@ import MazeFunctions
 import Settings
 
 def single_player(type, position_cell, maze_size):
+    """
+    :param type:
+    :param position_cell:
+    :param maze_size:
+    :return:
+    """
     # is square
     if type == 'square':
         if (Settings.keyboard_down_press or Settings.keyboard_s_press) and position_cell.coordinate[0] < maze_size - 1:
@@ -62,6 +68,13 @@ def single_player(type, position_cell, maze_size):
 
 # player1 movments with w,s,a,d
 def multi_player(player1_position, player2_position, maze_size):
+    """
+
+    :param player1_position:
+    :param player2_position:
+    :param maze_size:
+    :return:
+    """
     new_index = -1
     new_index2 = -1
 

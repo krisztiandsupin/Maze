@@ -4,7 +4,9 @@ from Color import Color
 from Settings import screen as screen_settings
 from Settings import maze as maze_settings
 
-def text_display(screen, x, y, string, size, color = Color.black, background = Color.white, allign = 'center'):  # centered text display
+
+def text_display(screen, x, y, string, size, color=Color.black, background=Color.white,
+                 allign='center'):  # centered text display
     """
 
     :param screen:
@@ -19,15 +21,16 @@ def text_display(screen, x, y, string, size, color = Color.black, background = C
     myfont = pygame.font.SysFont('cabria', size)
     text = myfont.render(string, True, color, background)
 
-    if allign == 'center': #text display in center allignment
-        textrect = text.get_rect()  #center of textbox
+    if allign == 'center':  # text display in center allignment
+        textrect = text.get_rect()  # center of textbox
         textrect.centerx = x
         textrect.centery = y
         screen.blit(text, textrect)
 
     elif allign == 'left':
-        text = myfont.render(string, True, color, background) #(x,y): upper left corner of textbox
+        text = myfont.render(string, True, color, background)  # (x,y): upper left corner of textbox
         screen.blit(text, (x, y))
+
 
 def graph_position(position):
     """
@@ -37,7 +40,8 @@ def graph_position(position):
     """
     x = position[0] + screen_settings.screen_size[0] // 2
     y = position[1]
-    return (x,y)
+    return (x, y)
+
 
 def wall_between(cell1, cell2):
     """
@@ -51,6 +55,7 @@ def wall_between(cell1, cell2):
             return wall
 
     print('error: not adjacent cells')
+
 
 def sort(cell1, cell2):
     """
@@ -69,12 +74,14 @@ def sort(cell1, cell2):
     else:
         return cell2, cell1
 
+
 '''def cell_with_coordinate(cell_list, coordinate):
     for cell in cell_list:
         if cell.coordinate == coordinate:
             return cell'''
 
-def max_ring_index(n): #return the index of the first element of the n-th ring in a circle
+
+def max_ring_index(n):  # return the index of the first element of the n-th ring in a circle
     """
 
     :param n:
@@ -84,7 +91,8 @@ def max_ring_index(n): #return the index of the first element of the n-th ring i
     # 1 + sum of complete rings + remained rings
     return 1 + 8 * (4 ** k - 1) // 3 + ((n + 1) - 2 ** k) * (2 ** (k + 3))
 
-def first_index_circle(n): #return the first index of the n + 1-th ring
+
+def first_index_circle(n):  # return the first index of the n + 1-th ring
     """
 
     :param n:
@@ -93,6 +101,7 @@ def first_index_circle(n): #return the first index of the n + 1-th ring
     k = math.floor(math.log(n + 1, 2))
     # 1 + sum of complete rings + remained rings
     return 1 + 8 * (4 ** k - 1) // 3 + ((n + 1) - 2 ** k) * (2 ** (k + 3))
+
 
 def adjacent_cells(type, cell, cell_list):
     """
@@ -114,6 +123,7 @@ def adjacent_cells(type, cell, cell_list):
         print('error: not adjacent cells')
         return []
 
+
 def adjacent_cells_square(cell, cell_list):
     """
 
@@ -125,7 +135,7 @@ def adjacent_cells_square(cell, cell_list):
     adjacent_list = []
 
     if cell.coordinate[0] == 0 or cell.coordinate[0] == size - 1 or \
-        cell.coordinate[1] == 0 or cell.coordinate[1] == size - 1: # in the first or last row or coolumn
+            cell.coordinate[1] == 0 or cell.coordinate[1] == size - 1:  # in the first or last row or coolumn
         # first row
         if cell.coordinate[0] == 0:
             if cell.coordinate[1] == 0:
@@ -150,9 +160,9 @@ def adjacent_cells_square(cell, cell_list):
 
         # in first or last column
         else:
-            if cell.coordinate[1] == 0: #first column
+            if cell.coordinate[1] == 0:  # first column
                 adjacent_list.append(cell_list[cell.index + 1])
-            elif cell.coordinate[1] == size - 1:    #last column
+            elif cell.coordinate[1] == size - 1:  # last column
                 adjacent_list.append(cell_list[cell.index - 1])
             adjacent_list.append(cell_list[cell.index - size])
             adjacent_list.append(cell_list[cell.index + size])
@@ -164,6 +174,7 @@ def adjacent_cells_square(cell, cell_list):
         adjacent_list.append(cell_list[cell.index + size])
 
     return adjacent_list
+
 
 def adjacent_cells_circle(cell, cell_list):
     """
@@ -180,7 +191,7 @@ def adjacent_cells_circle(cell, cell_list):
 
     else:
         # elements from the same ring
-        if cell.coordinate[1] == 0: # first in the ring
+        if cell.coordinate[1] == 0:  # first in the ring
             adjacent_list.append(cell_list[cell.index + 1])
             adjacent_list.append(cell_list[max_ring_index(cell.coordinate[0]) - 1])
         elif 2 ** (math.floor(math.log(cell.coordinate[0], 2)) + 3) == cell.coordinate[1] + 1:  # last element of a ring
@@ -225,6 +236,7 @@ def adjacent_cells_circle(cell, cell_list):
 
     return adjacent_list
 
+
 def coordinate_to_index_square(cell_coordinate, maze_size):
     """
 
@@ -234,6 +246,7 @@ def coordinate_to_index_square(cell_coordinate, maze_size):
     """
     return cell_coordinate[0] * maze_size + cell_coordinate[1]
 
+
 def coordinate_to_index_hexagonal(cell_coordinate: tuple) -> int:
     """
 
@@ -241,7 +254,8 @@ def coordinate_to_index_hexagonal(cell_coordinate: tuple) -> int:
     :return:
     """
     return ((12 + 6 * (cell_coordinate[0] - 2)) * (cell_coordinate[0] - 1)) // 2 + cell_coordinate[1] + \
-                math.ceil(cell_coordinate[0] / (cell_coordinate[0] + 1))
+           math.ceil(cell_coordinate[0] / (cell_coordinate[0] + 1))
+
 
 def coordinate_to_index_circle(cell_coordinate):
     """
@@ -271,51 +285,58 @@ def adjacent_cells_hexagon(cell, cell_list):
 
     else:
         # elements from same ring
-        temp_index = coordinate_to_index_hexagonal((cell.coordinate[0], (cell.coordinate[1] - 1) % (cell.coordinate[0] * 6)))
+        temp_index = coordinate_to_index_hexagonal(
+            (cell.coordinate[0], (cell.coordinate[1] - 1) % (cell.coordinate[0] * 6)))
         adjacent_list.append(cell_list[temp_index])
 
-        temp_index = coordinate_to_index_hexagonal((cell.coordinate[0], (cell.coordinate[1] + 1) % (cell.coordinate[0] * 6)))
+        temp_index = coordinate_to_index_hexagonal(
+            (cell.coordinate[0], (cell.coordinate[1] + 1) % (cell.coordinate[0] * 6)))
         adjacent_list.append(cell_list[temp_index])
-
 
         # elements from other rings
         if cell.coordinate[1] % cell.coordinate[0] == 0:
             temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] - 1, \
-                                                        (cell.coordinate[0] - 1) * (cell.coordinate[1] // cell.coordinate[0])))
+                                                        (cell.coordinate[0] - 1) * (
+                                                                cell.coordinate[1] // cell.coordinate[0])))
             adjacent_list.append(cell_list[temp_index])
 
         else:
             temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] - 1, \
-                                                        (cell.coordinate[1] // cell.coordinate[0]) * (cell.coordinate[0] - 1) + \
+                                                        (cell.coordinate[1] // cell.coordinate[0]) * (
+                                                                cell.coordinate[0] - 1) + \
                                                         cell.coordinate[1] % cell.coordinate[0] - 1))
             adjacent_list.append(cell_list[temp_index])
 
-
             temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] - 1, \
-                                                        ((cell.coordinate[1] // cell.coordinate[0]) * (cell.coordinate[0] - 1) + \
-                                           cell.coordinate[1] % cell.coordinate[0]) % ((cell.coordinate[0] - 1) * 6)))
+                                                        ((cell.coordinate[1] // cell.coordinate[0]) * (
+                                                                cell.coordinate[0] - 1) + \
+                                                         cell.coordinate[1] % cell.coordinate[0]) % (
+                                                                (cell.coordinate[0] - 1) * 6)))
             adjacent_list.append(cell_list[temp_index])
 
         if cell.coordinate[0] != size - 1:
             temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] + 1, \
-                                                        (cell.coordinate[1] // cell.coordinate[0]) * (cell.coordinate[0] + 1) + \
+                                                        (cell.coordinate[1] // cell.coordinate[0]) * (
+                                                                cell.coordinate[0] + 1) + \
                                                         cell.coordinate[1] % cell.coordinate[0]))
             adjacent_list.append(cell_list[temp_index])
 
             temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] + 1, \
-                                                        (cell.coordinate[1] // cell.coordinate[0]) * (cell.coordinate[0] + 1) + \
+                                                        (cell.coordinate[1] // cell.coordinate[0]) * (
+                                                                cell.coordinate[0] + 1) + \
                                                         cell.coordinate[1] % cell.coordinate[0] + 1))
             adjacent_list.append(cell_list[temp_index])
 
             if cell.coordinate[1] % cell.coordinate[0] == 0:
                 temp_index = coordinate_to_index_hexagonal((cell.coordinate[0] + 1, \
                                                             ((cell.coordinate[1] // cell.coordinate[0]) * (
-                                                          cell.coordinate[0] + 1) + \
-                                               cell.coordinate[1] % cell.coordinate[0] - 1) % (
-                                                          (cell.coordinate[0] + 1) * 6)))
+                                                                    cell.coordinate[0] + 1) + \
+                                                             cell.coordinate[1] % cell.coordinate[0] - 1) % (
+                                                                    (cell.coordinate[0] + 1) * 6)))
                 adjacent_list.append(cell_list[temp_index])
 
     return adjacent_list
+
 
 def coordinate_transform_hexagon(coordinate):
     """
@@ -355,7 +376,8 @@ def coordinate_transform_hexagon(coordinate):
         x = (enum % (3 * ring)) - ring
         y = -6 * ring + enum
 
-    return (x,-1 * y)
+    return (x, -1 * y)
+
 
 def coordinate_transform_inverse_hexagon(points):
     """
@@ -363,7 +385,7 @@ def coordinate_transform_inverse_hexagon(points):
     :param tuple points: (x,y) pair
     :return tuple coordinate: (ring, enum) format
     """
-    (x,y) = points
+    (x, y) = points
 
     ring_cand = (abs(x) + abs(y)) // 2
     if ring_cand <= abs(x):
@@ -432,6 +454,7 @@ def adjacent_cells_triangle(cell, cell_list):
 
     return adjacent_list
 
+
 def edge_wall(edge):
     """
 
@@ -443,7 +466,8 @@ def edge_wall(edge):
 
     return list(start_cell_walls.intersection(end_cell_walls))[0]
 
-def edge_color(screen, edge, color, graph = True, graph_color = Color.black):
+
+def edge_color(screen, edge, color, graph=True, graph_color=Color.black):
     """
     :param int screen: display
     :param tuple edge: edge = (start_cell [cell type], end_cell [cell_type])
@@ -457,6 +481,7 @@ def edge_color(screen, edge, color, graph = True, graph_color = Color.black):
     if graph == True:
         pygame.draw.line(screen, graph_color, edge[0].graph_position, edge[1].graph_position)
 
+
 def updete_delay(milisecond):
     """
 
@@ -464,6 +489,7 @@ def updete_delay(milisecond):
     """
     pygame.display.flip()
     pygame.time.delay(milisecond)
+
 
 def system_pause():
     """
@@ -481,7 +507,6 @@ def system_pause():
                     if state == RUNNING:
                         state = PAUSE
 
-
         while state == PAUSE:
             for e in pygame.event.get():
                 if e.type == pygame.KEYDOWN:
@@ -491,9 +516,6 @@ def system_pause():
                     elif e.key == pygame.K_SPACE:
                         state = RUNNING
         break
-
-
-
 
 
 def cell_endpoints_calculate(type, size):
@@ -506,7 +528,7 @@ def cell_endpoints_calculate(type, size):
         return (0, size ** 2 - 1)
     elif type == 1:
         k = int(math.log(size - 1, 2))
-        return (coordinate_to_index_circle((size - 1,  (2 ** (k + 2)) + k)), \
+        return (coordinate_to_index_circle((size - 1, (2 ** (k + 2)) + k)), \
                 coordinate_to_index_circle((size - 1, k)))
     elif type == 2:
         return (coordinate_to_index_hexagonal((size - 1, 3 * (size - 1))), \
@@ -516,6 +538,7 @@ def cell_endpoints_calculate(type, size):
     else:
         print('error: invalid type in cell endpoint calculator')
         return []
+
 
 # border update
 def border_update(maze_type, start_cell, end_cell):
@@ -537,6 +560,7 @@ def border_update(maze_type, start_cell, end_cell):
     else:
         print('error: wrong type in border update')
         return None
+
 
 def border_update_square(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
     """
@@ -564,8 +588,6 @@ def border_update_square(cell1, cell2):  # suppose that they are adjacent, and c
             cell2.walls_bool[3] = False
 
 
-
-
 def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
     """
 
@@ -573,7 +595,7 @@ def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and c
     :param cell2:
     """
     # in the same ring
-    if cell2.coordinate[0] < cell1.coordinate[0] or (cell2.coordinate[0] == cell1.coordinate[0] and \
+    if cell2.coordinate[0] < cell1.coordinate[0] or (cell2.coordinate[0] == cell1.coordinate[0] and
                                                      cell2.coordinate[1] < cell1.coordinate[1]):
         cell1, cell2 = cell2, cell1
 
@@ -607,6 +629,7 @@ def border_update_circle(cell1, cell2):  # suppose that they are adjacent, and c
             cell1.walls_bool[1] = False
             cell2.walls_bool[3] = False
 
+
 def border_update_hexagon(cell1, cell2):
     """
 
@@ -629,7 +652,7 @@ def border_update_hexagon(cell1, cell2):
             cell1.walls_bool[5] = False
             cell2.walls_bool[2] = False
 
-        else :  # decreasing diagonal
+        else:  # decreasing diagonal
             cell1.walls_bool[4] = False
             cell2.walls_bool[1] = False
 
@@ -638,9 +661,10 @@ def border_update_hexagon(cell1, cell2):
             cell1.walls_bool[1] = False
             cell2.walls_bool[4] = False
 
-        else :  # decreasing diagonal
+        else:  # decreasing diagonal
             cell1.walls_bool[2] = False
             cell2.walls_bool[5] = False
+
 
 def border_update_triangle(cell1, cell2):
     """
@@ -649,8 +673,23 @@ def border_update_triangle(cell1, cell2):
     :param cell2:
     :return:
     """
-    print("border update triangle not contructed yet")
-    return None
+    # triangle walls_bool order
+    #                           2.
+    #       / \               -----
+    #   0./    \ 1.        0. \   /  1.
+    #     -----                \/
+    #       2.
+
+    if cell1.coordinate[0] == cell2.coordinate[0]:   # in same row
+        if cell1.coordinate[1] < cell2.coordinate[1]:
+            cell1.walls_bool[1] = False
+            cell2.walls_bool[0] = False
+        else:
+            cell1.walls_bool[0] = False
+            cell2.walls_bool[1] = False
+    else:
+        cell1.walls_bool[2] = False
+        cell2.walls_bool[2] = False
 
 
 '''def border_update(start_cell, end_cell):
@@ -686,6 +725,7 @@ def cell_size_calculate(display_type, type_value, maze_size, graph_bool):
     elif type_value == 3:
         return int((screen_settings.screen_size[0] * 0.8) / (maze_size * 2 + 1) / division)
 
+
 def graph_cell_size_calculate(type, cell_size):
     """
 
@@ -705,6 +745,7 @@ def graph_cell_size_calculate(type, cell_size):
     maze_settings.graph_cell_size = graph_cell_size
     return graph_cell_size
 
+
 def visible_cells(Maze, cell):
     """
 
@@ -717,6 +758,7 @@ def visible_cells(Maze, cell):
 
     else:
         print('error: wrong type in visible cells')
+
 
 def visible_cells_square(maze, cell):
     """
@@ -757,3 +799,22 @@ def visible_cells_square(maze, cell):
 
     return set(visible_cells_list)
 
+def highlight_edge_delete(display, maze, cell0, cell1, highlight_color, graph_bool, index_text_size, step):
+    """
+
+    :type highlight_color: tuple
+    :param display:
+    :param maze:
+    :param cell0:
+    :param cell1:
+    :param highlight_color:
+    :param graph_bool:
+    :param index_text_size:
+    :param step:
+    """
+    cell0.color_grid(display, highlight_color, graph_bool, line_color=Color.black,
+                     coordinate_text_bool=False, walls_bool=maze.maze_cell_borders[step][0])
+    cell1.color_grid(display, highlight_color, graph_bool, line_color=Color.black, coordinate_text_bool=False,
+                     walls_bool=maze.maze_cell_borders[step][1])
+    cell0.text_display(display, str(cell0.index), index_text_size, background_color=highlight_color)
+    cell1.text_display(display, str(cell1.index), index_text_size, background_color=highlight_color)

@@ -14,19 +14,27 @@
       <change afterPath="$PROJECT_DIR$/../.idea/Maze.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Concentration/.idea/Concentration.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Manim/.idea/Manim.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GenerateMenuBackground.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MazeFromFile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MazeToFile.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Maze_backup/.idea/Maze.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Mthree/.idea/Mthree.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Scripts/.idea/Scripts.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Algorithms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Color.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/AlgorithmSlides.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cell.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CellList.py" beforeDir="false" afterPath="$PROJECT_DIR$/CellList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdgeList.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdgeList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/Frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameUI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/Maze.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MazeFromFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeFromFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MazeFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MazeToFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeToFile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Solving.py" beforeDir="false" afterPath="$PROJECT_DIR$/Solving.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +70,28 @@
       <recent name="C:\Users\kdchr\Desktop\Python\Maze" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Menu (1)">
+  <component name="RunManager" selected="Python.Main">
+    <configuration name="AlgorithmSettings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Maze" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AlgorithmSettings.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="GenerateMenuBackground" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Maze" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -97,27 +126,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="MazeFromFile" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Maze" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MazeFromFile.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -170,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Main" />
+        <item itemvalue="Python.Menu" />
+        <item itemvalue="Python.AlgorithmSettings" />
         <item itemvalue="Python.Menu (1)" />
         <item itemvalue="Python.GenerateMenuBackground" />
-        <item itemvalue="Python.Menu" />
-        <item itemvalue="Python.MazeFromFile" />
-        <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -217,6 +225,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="181" width="816" height="723" key="#Intentions" timestamp="1616592593363">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="181" width="816" height="723" key="#Intentions/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616592593363" />
     <state x="392" y="0" key="#Menu" timestamp="1613035913557">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -225,69 +237,69 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613423054315" />
-    <state x="666" y="227" key="FileChooserDialogImpl" timestamp="1616510595965">
+    <state x="666" y="227" key="FileChooserDialogImpl" timestamp="1616757729993">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="474" y="159" key="FileChooserDialogImpl/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613685422312" />
     <state x="474" y="159" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1613520875382" />
     <state x="500" y="188" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1612898153048" />
-    <state x="666" y="227" key="FileChooserDialogImpl/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616510595965" />
-    <state width="1877" height="272" key="GridCell.Tab.0.bottom" timestamp="1616539866474">
+    <state x="666" y="227" key="FileChooserDialogImpl/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616757729993" />
+    <state width="1877" height="272" key="GridCell.Tab.0.bottom" timestamp="1617054847818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610640" />
     <state width="1345" height="208" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614208070615" />
     <state width="1397" height="215" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616539866474" />
-    <state width="1877" height="272" key="GridCell.Tab.0.center" timestamp="1616539866474">
+    <state width="1877" height="272" key="GridCell.Tab.0.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
+    <state width="1877" height="272" key="GridCell.Tab.0.center" timestamp="1617054847818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610639" />
     <state width="1345" height="208" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1614208070614" />
     <state width="1397" height="215" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616539866474" />
-    <state width="1877" height="272" key="GridCell.Tab.0.left" timestamp="1616539866474">
+    <state width="1877" height="272" key="GridCell.Tab.0.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
+    <state width="1877" height="272" key="GridCell.Tab.0.left" timestamp="1617054847818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610638" />
     <state width="1345" height="208" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1614208070612" />
     <state width="1397" height="215" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616539866474" />
-    <state width="1877" height="272" key="GridCell.Tab.0.right" timestamp="1616539866474">
+    <state width="1877" height="272" key="GridCell.Tab.0.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
+    <state width="1877" height="272" key="GridCell.Tab.0.right" timestamp="1617054847818">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610639" />
     <state width="1345" height="208" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1614208070614" />
     <state width="1397" height="215" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616539866474" />
-    <state width="1877" height="270" key="GridCell.Tab.1.bottom" timestamp="1616536541219">
+    <state width="1877" height="272" key="GridCell.Tab.0.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
+    <state width="1877" height="315" key="GridCell.Tab.1.bottom" timestamp="1617049654136">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="208" key="GridCell.Tab.1.bottom/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
     <state width="1345" height="208" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614208070627" />
     <state width="1419" height="275" key="GridCell.Tab.1.bottom/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="270" key="GridCell.Tab.1.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616536541219" />
-    <state width="1877" height="270" key="GridCell.Tab.1.center" timestamp="1616536541219">
+    <state width="1877" height="315" key="GridCell.Tab.1.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
+    <state width="1877" height="315" key="GridCell.Tab.1.center" timestamp="1617049654136">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="208" key="GridCell.Tab.1.center/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
     <state width="1345" height="208" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1614208070625" />
     <state width="1419" height="275" key="GridCell.Tab.1.center/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="270" key="GridCell.Tab.1.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616536541219" />
-    <state width="1877" height="270" key="GridCell.Tab.1.left" timestamp="1616536541219">
+    <state width="1877" height="315" key="GridCell.Tab.1.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
+    <state width="1877" height="315" key="GridCell.Tab.1.left" timestamp="1617049654136">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="208" key="GridCell.Tab.1.left/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
     <state width="1345" height="208" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1614208070622" />
     <state width="1419" height="275" key="GridCell.Tab.1.left/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="270" key="GridCell.Tab.1.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616536541219" />
-    <state width="1877" height="270" key="GridCell.Tab.1.right" timestamp="1616536541219">
+    <state width="1877" height="315" key="GridCell.Tab.1.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
+    <state width="1877" height="315" key="GridCell.Tab.1.right" timestamp="1617049654136">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1345" height="208" key="GridCell.Tab.1.right/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
     <state width="1345" height="208" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1614208070626" />
     <state width="1419" height="275" key="GridCell.Tab.1.right/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="270" key="GridCell.Tab.1.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616536541219" />
+    <state width="1877" height="315" key="GridCell.Tab.1.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1613685078135">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -309,6 +321,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Cell.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

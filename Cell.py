@@ -32,6 +32,12 @@ class Cell:
         self.visible = None         # used in discovery of a maze
 
     def color_graph(self, screen, color, size = maze_settings.graph_cell_size):
+        """
+
+        :param screen:
+        :param color:
+        :param size:
+        """
         pygame.draw.circle(screen, color, self.graph_position, size)
 
     def color(self, screen, color, graph_bool = False, line_color = Color.black, coordinate_text_bool = False):

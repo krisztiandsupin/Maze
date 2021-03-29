@@ -3,6 +3,17 @@ import Settings
 from Color import Color
 
 def text_display(screen, x, y, string, size, color = Color.black, background = Color.white, allign = 'center'):  # centered text display
+    """
+
+    :param screen:
+    :param x:
+    :param y:
+    :param string:
+    :param size:
+    :param color:
+    :param background:
+    :param allign:
+    """
     myfont = pygame.font.SysFont('cabria', size)
     text = myfont.render(string, True, color, background)
 
@@ -17,6 +28,14 @@ def text_display(screen, x, y, string, size, color = Color.black, background = C
         screen.blit(text, (x, y))
 
 def text_box(x, y, string, size):
+    """
+
+    :param x:
+    :param y:
+    :param string:
+    :param size:
+    :return:
+    """
     myfont = pygame.font.SysFont('cabria', size)
     text = myfont.render(string, True, (0,0,0), (0,0,0))
 
@@ -27,11 +46,18 @@ def text_box(x, y, string, size):
     return textrect
 
 def update_delay(milisecond):
+    """
+
+    :param milisecond:
+    """
     pygame.display.flip()
     pygame.time.delay(milisecond)
 
 
 def buttonpress_detect():
+    """
+
+    """
     RUNNING, PAUSE = 0, 1
     state = RUNNING
     while True:
@@ -89,6 +115,9 @@ def buttonpress_detect():
         break
 
 def buttonpress_reset():
+    """
+
+    """
     Settings.keyboard_space_press = None
     Settings.keyboard_left_press = None
     Settings.keyboard_right_press = None
@@ -102,9 +131,16 @@ def buttonpress_reset():
     Settings.keyboard_d_press = None
 
 def mouse_reset():
+    """
+
+    """
     Settings.mouse_click_position = None
 
 def wait_for_arrow():
+    """
+
+    :return:
+    """
     if Settings.keyboard_left_press or \
             Settings.keyboard_right_press or \
             Settings.keyboard_up_press or \

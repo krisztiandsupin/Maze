@@ -21,6 +21,11 @@ def generate(type, size):
 
 # edge list data type
 def square(n):
+    """
+
+    :param n:
+    :return:
+    """
     edge_list = [[] for _ in range(0, n ** 2)]
 
     # corners
@@ -54,6 +59,11 @@ def square(n):
     return edge_list
 
 def circle(n):
+    """
+
+    :param n:
+    :return:
+    """
     edge_list = [[] for _ in range(0, MazeFunctions.first_index_circle(n - 1))]
     edge_list[0].extend((i for i in range(1, 9)))
 
@@ -166,6 +176,11 @@ def circle(n):
     return edge_list
 
 def hexagon(n):
+    """
+
+    :param n:
+    :return:
+    """
     edge_list = [[] for _ in range(0, 3 * ((n - 1) ** 2 + n  - 1) + 1)]
 
     # edges from center cell to first ring
@@ -232,6 +247,11 @@ def hexagon(n):
     return edge_list
 
 def triangle(n):
+    """
+
+    :param n:
+    :return:
+    """
     edge_list = [[] for _ in range(0, n ** 2)]
 
     edge_list[0].append(2)

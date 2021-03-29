@@ -4,6 +4,12 @@ import MazeFunctions
 
 
 def region_index(cell, region_list):
+    """
+
+    :param cell:
+    :param region_list:
+    :return:
+    """
     length = len(region_list)
     i = 0
 
@@ -14,6 +20,16 @@ def region_index(cell, region_list):
 
 
 def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell, maze_type):
+    """
+
+    :param edge_list:
+    :param maze_edge:
+    :param maze_order:
+    :param cell_list:
+    :param start_cell:
+    :param end_cell:
+    :param maze_type:
+    """
     edge_list[start_cell].remove(end_cell)
     edge_list[end_cell].remove(start_cell)
 
@@ -29,6 +45,14 @@ def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cel
 #################################
 # Algorithms
 def generate(algorithm, type_value, cell_list, edge_list):
+    """
+
+    :param algorithm:
+    :param type_value:
+    :param cell_list:
+    :param edge_list:
+    :return:
+    """
     if algorithm == 'kruskal':
         return kruskal(type_value, cell_list, edge_list)
     elif algorithm == 'prim':
@@ -61,7 +85,7 @@ def kruskal(maze_type, cell_list, edge_list):
 
     region_list = [[i] for i in range(0, cell_number)]
 
-    '''print("Before generation:", edge_list)'''
+
 
     while edge_number != cell_number - 1:
         start_cell = random.randint(0, cell_number - 1)
@@ -94,6 +118,13 @@ def kruskal(maze_type, cell_list, edge_list):
 
 
 def prim(maze_type, cell_list, edge_list):
+    """
+
+    :param maze_type:
+    :param cell_list:
+    :param edge_list:
+    :return:
+    """
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
     maze_cell_borders = []
@@ -127,6 +158,13 @@ def prim(maze_type, cell_list, edge_list):
 
 
 def backtracker(maze_type, cell_list, edge_list):
+    """
+
+    :param maze_type:
+    :param cell_list:
+    :param edge_list:
+    :return:
+    """
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
     maze_cell_borders = []
