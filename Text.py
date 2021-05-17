@@ -8,7 +8,7 @@ class Text:
     """
 
     """
-    def __init__(self, position: tuple, text: str, size: int, color: tuple, color_click: tuple):
+    def __init__(self, position: tuple, text: str, size: int, color: tuple, color_click: tuple = Color.white):
         """
         :param tuple position: center of the text
         :param str text: text string

@@ -31,8 +31,8 @@ class Box:
                           self.size, self.size], 3)
         if self.is_active:
             self.x.show(screen, self.color)
-
-        Functions.text_display(screen, self.position[0], self.position[1], 'X', self.size, color)
+        else:
+            self.x.show(screen, self.color_click)
 
     def is_clicked(self):
         """
@@ -63,3 +63,6 @@ class Box:
             self.x.show(screen, self.color)
         else:
             self.x.show(screen, self.color_click)
+
+    def change_active(self):
+        self.is_active = not self.is_active

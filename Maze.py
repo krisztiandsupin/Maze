@@ -17,6 +17,13 @@ class Maze:
 
     """
 
+    maze_type_dict = {
+        'square' : 0,
+        'circle' : 1,
+        'hexagon' : 2,
+        'triangle' : 3
+    }
+
     class Type:
         square = 0
         circle = 1

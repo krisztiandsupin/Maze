@@ -104,7 +104,7 @@ while True:
     if text_algorithm.is_clicked():
         text_algorithm.show_click(gameDisplay)
         Functions.mouse_reset()
-        AlgorithmSettings.set()
+        AlgorithmSettings.algorithms_set()
 
     if text_game.is_clicked():
         text_game.show_click(gameDisplay)
