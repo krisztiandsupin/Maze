@@ -14,6 +14,11 @@ def generation(type, cell_list):
         return frame_hexagon(cell_list)
     elif type == 3:
         return frame_triangle(cell_list)
+    elif type == 4:
+        return frame_octagon(cell_list)
+    else:
+        print('ERROR: invalid type in cell size calculator')
+        return 0
 
 def size_from_cell(cell_list):
     """
@@ -110,5 +115,51 @@ def frame_triangle(cell_list):
     # last row
     for j in range(0, 2 * (size - 1) + 1, 2):
         frame_list.append(cell_list[i ** 2 + j].walls[2])
+
+    return frame_list
+
+def frame_octagon(cell_list):
+    """
+
+    :param cell_list:
+    :return:
+    """
+    size = size_from_cell(cell_list)
+    frame_list = []
+
+    # first row
+    for j in range(0, size):
+        frame_list.append(cell_list[j].walls[1]) # square
+        if j % 2 == 0: # additionally if octagon
+            frame_list.append(cell_list[j].walls[2])
+            frame_list.append(cell_list[j].walls[3])
+
+    # sides
+    for i in range(0, size):
+        # additionally if octagon
+        if i % 2 == 0: # octagon
+            # left side
+            frame_list.append(cell_list[i*size].walls[-1])
+            frame_list.append(cell_list[i*size].walls[0])  # left side
+            frame_list.append(cell_list[i*size].walls[1])
+
+            # right side
+            frame_list.append(cell_list[(i + 1) * size - 1].walls[3])
+            frame_list.append(cell_list[(i + 1) * size - 1].walls[4])
+            frame_list.append(cell_list[(i + 1) * size - 1].walls[5])
+
+        else: # square
+            frame_list.append(cell_list[i * size].walls[0])  # left side
+            frame_list.append(cell_list[(i + 1) * size - 1].walls[2])  # right side
+
+    # last row
+    for j in range(0, size):
+        if j % 2 == 0: # octagon
+            frame_list.append(cell_list[(size - 1)*size + j].walls[5])
+            frame_list.append(cell_list[(size - 1)*size + j].walls[6])
+            frame_list.append(cell_list[(size - 1) * size + j].walls[7])
+
+        else: # square
+            frame_list.append(cell_list[(size - 1) * size + j].walls[3])
 
     return frame_list

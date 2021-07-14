@@ -1,7 +1,5 @@
 import time
-
 import pygame
-
 import AlgorithmSettings
 import Functions
 import GameSettings

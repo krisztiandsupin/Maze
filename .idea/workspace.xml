@@ -11,14 +11,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="043550d8-e4e6-44e2-89bf-502c46b33b6b" name="Default Changelist" comment="first commit">
+      <change afterPath="$PROJECT_DIR$/../.idea/Maze.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Concentration/.idea/Concentration.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Manim/.idea/Manim.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Maze_backup/.idea/Maze.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mthree/.idea/Mthree.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Scripts/.idea/Scripts.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AlgorithmSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AlgorithmSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AlgorithmSlides.py" beforeDir="false" afterPath="$PROJECT_DIR$/AlgorithmSlides.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Box.py" beforeDir="false" afterPath="$PROJECT_DIR$/Box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KruskalSlide.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slides/KruskalSlide.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CellList.py" beforeDir="false" afterPath="$PROJECT_DIR$/CellList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EdgeList.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdgeList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/Frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/Maze.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MazeFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text.py" beforeDir="false" afterPath="$PROJECT_DIR$/Text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Solving.py" beforeDir="false" afterPath="$PROJECT_DIR$/Solving.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +66,7 @@
       <recent name="C:\Users\balazs\Desktop\python\Maze" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Main">
+  <component name="RunManager" selected="Python.Test_random">
     <configuration name="AlgorithmSettings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Maze" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -72,27 +80,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AlgorithmSettings.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="GenerateMenuBackground" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Maze" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GenerateMenuBackground.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,16 +151,38 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Test_random" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Maze" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_random.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Main" />
-        <item itemvalue="Python.Menu" />
-        <item itemvalue="Python.AlgorithmSettings" />
+        <item itemvalue="Python.Test_random" />
         <item itemvalue="Python.Menu (1)" />
-        <item itemvalue="Python.GenerateMenuBackground" />
+        <item itemvalue="Python.Menu" />
+        <item itemvalue="Python.Main" />
+        <item itemvalue="Python.AlgorithmSettings" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -210,101 +219,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <option name="LAST_COMMIT_MESSAGE" value="first commit" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="552" y="181" width="816" height="723" key="#Intentions" timestamp="1616592593363">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="181" width="816" height="723" key="#Intentions/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616592593363" />
-    <state x="392" y="0" key="#Menu" timestamp="1613035913557">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="392" y="0" key="#Menu/0.0.1366.728@0.0.1366.728" timestamp="1613035913557" />
-    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613423054315">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613423054315" />
-    <state x="474" y="159" key="FileChooserDialogImpl" timestamp="1617523881162">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="474" y="159" key="FileChooserDialogImpl/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613685422312" />
-    <state x="474" y="159" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1617523881162" />
-    <state x="500" y="188" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1612898153048" />
-    <state x="666" y="227" key="FileChooserDialogImpl/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1616757729993" />
-    <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1618528499200">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610640" />
-    <state width="1345" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1618528499200" />
-    <state width="1397" height="215" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
-    <state width="1345" height="179" key="GridCell.Tab.0.center" timestamp="1618528499200">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610639" />
-    <state width="1345" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1618528499200" />
-    <state width="1397" height="215" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
-    <state width="1345" height="179" key="GridCell.Tab.0.left" timestamp="1618528499200">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610638" />
-    <state width="1345" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1618528499200" />
-    <state width="1397" height="215" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
-    <state width="1345" height="179" key="GridCell.Tab.0.right" timestamp="1618528499200">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613856610639" />
-    <state width="1345" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1618528499200" />
-    <state width="1397" height="215" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1612986313282" />
-    <state width="1877" height="272" key="GridCell.Tab.0.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617054847818" />
-    <state width="1877" height="315" key="GridCell.Tab.1.bottom" timestamp="1617049654136">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1345" height="208" key="GridCell.Tab.1.bottom/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
-    <state width="1345" height="208" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1614208070627" />
-    <state width="1419" height="275" key="GridCell.Tab.1.bottom/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="315" key="GridCell.Tab.1.bottom/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
-    <state width="1877" height="315" key="GridCell.Tab.1.center" timestamp="1617049654136">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1345" height="208" key="GridCell.Tab.1.center/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
-    <state width="1345" height="208" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1614208070625" />
-    <state width="1419" height="275" key="GridCell.Tab.1.center/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="315" key="GridCell.Tab.1.center/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
-    <state width="1877" height="315" key="GridCell.Tab.1.left" timestamp="1617049654136">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1345" height="208" key="GridCell.Tab.1.left/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
-    <state width="1345" height="208" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1614208070622" />
-    <state width="1419" height="275" key="GridCell.Tab.1.left/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="315" key="GridCell.Tab.1.left/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
-    <state width="1877" height="315" key="GridCell.Tab.1.right" timestamp="1617049654136">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1345" height="208" key="GridCell.Tab.1.right/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613851257722" />
-    <state width="1345" height="208" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1614208070626" />
-    <state width="1419" height="275" key="GridCell.Tab.1.right/0.0.1440.860@0.0.1440.860" timestamp="1612966408802" />
-    <state width="1877" height="315" key="GridCell.Tab.1.right/1920.0.1440.860/0.0.1920.1040@0.0.1920.1040" timestamp="1617049654136" />
-    <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1613685078135">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613685078135" />
-    <state x="293" y="169" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1612964389604">
-      <screen x="0" y="0" width="1440" height="860" />
-    </state>
-    <state x="293" y="169" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1440.860@0.0.1440.860" timestamp="1612964389604" />
-    <state width="600" height="428" key="javadoc.popup" timestamp="1613685788202">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state width="600" height="428" key="javadoc.popup/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613685788202" />
-    <state width="600" height="428" key="javadoc.popup/0.0.1366.728@0.0.1366.728" timestamp="1613431628901" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1613685652331">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/0.-900.1440.860@0.0.1366.728" timestamp="1613685652331" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1613606579730" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -21,7 +21,8 @@ class Maze:
         'square' : 0,
         'circle' : 1,
         'hexagon' : 2,
-        'triangle' : 3
+        'triangle' : 3,
+        'octagon' : 4
     }
 
     class Type:
@@ -29,8 +30,16 @@ class Maze:
         circle = 1
         hexagon = 2
         triangle = 3
+        octagon = 4
 
     def __init__(self, size, maze_type, algorithm, auto_generation=True):
+        """
+
+        :param size:
+        :param maze_type:
+        :param algorithm:
+        :param auto_generation: if False, then reading from file
+        """
         self.size = size
         self.maze_type = maze_type
         self.type_value = getattr(self.Type, maze_type)
@@ -42,7 +51,6 @@ class Maze:
         if auto_generation:
             self.cell_list = CellList.generate(self.type_value, self.size)
             self.edge_list = EdgeList.generate(self.type_value, self.size)
-
             self.maze_list, self.maze_order, self.maze_cell_borders = Generation.generate(algorithm, self.type_value,
                                                                                           self.cell_list,
                                                                                           self.edge_list)
@@ -171,12 +179,20 @@ class Maze:
         self.end.color(screen, self.color_end, graph_bool, self.color_line)
 
         if graph_bool:
+            for wall in self.maze_order:
+                pygame.draw.line(screen, Color.black, wall[0].graph_position, wall[1].graph_position, 1)
+
             pygame.draw.circle(screen, self.color_start, self.start.graph_position, self.graph_cell_size + 2)
             pygame.draw.circle(screen, self.color_end, self.end.graph_position, self.graph_cell_size + 2)
 
         self.draw_frame(screen)
 
         MazeFunctions.system_pause()
+
+    def draw_graph(self, screen):
+        for wall in self.maze_order:
+            pygame.draw.line(screen, Color.black, wall[0].graph_position, wall[1].graph_position, 1)
+
 
     ############
     # maze solving visualisation
@@ -241,11 +257,11 @@ class Maze:
                     MazeFunctions.system_pause()
 
         # del self.solution_path[0]
-
-        for cell in self.solution_path:
-            self.cell_list[cell].color(screen, color_path)
+        print(self.solution_path)
+        for cell_index in self.solution_path:
+            self.cell_list[cell_index].color(screen, color_path)
             if self.graph_bool:
-                cell.color_graph(screen, color_path)
+                self.cell_list[cell_index].color_graph(screen, color_path)
             # pygame.draw.circle(screen, color_path, self.cell_list[cell].graph_position, self.graph_cell_size + 2)
             if delay > 0:
                 MazeFunctions.updete_delay(delay)
@@ -258,3 +274,4 @@ class Maze:
             pygame.draw.line(screen, Color.black, wall[0], wall[1], 3)
         MazeFunctions.updete_delay(1000)
         MazeFunctions.system_pause()
+

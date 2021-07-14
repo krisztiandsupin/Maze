@@ -4,6 +4,7 @@ from Color import Color
 from Settings import screen as screen_settings
 from Settings import maze as maze_settings
 
+PI = math.pi
 
 def text_display(screen, x, y, string, size, color=Color.black, background=Color.white,
                  allign='center'):  # centered text display
@@ -269,6 +270,15 @@ def coordinate_to_index_circle(cell_coordinate):
         k = math.floor(math.log(cell_coordinate[0], 2))
         return 1 + 8 * (4 ** k - 1) // 3 + ((cell_coordinate[0]) - 2 ** k) * (2 ** (k + 3)) + cell_coordinate[1]
 
+def coordinate_to_index_octagon(cell_coordinate, maze_size):
+    """
+
+    :param cell_coordinate:
+    :param maze_size:
+    :return:
+    """
+    return cell_coordinate[0] * (2*maze_size - 1) + cell_coordinate[1]
+
 
 def adjacent_cells_hexagon(cell, cell_list):
     """
@@ -518,25 +528,28 @@ def system_pause():
         break
 
 
-def cell_endpoints_calculate(type, size):
+def cell_endpoints_calculate(maze_type, size):
     """
-    :param int type: square = 0, circle = 1, hexagon = 2, triangle = 3
+    :param int maze_type: square = 0, circle = 1, hexagon = 2, triangle = 3
     :param int size: size of the maze
     :return: tuple of (start_index, end_index)
     """
-    if type == 0:
+    if maze_type == 0:
         return (0, size ** 2 - 1)
-    elif type == 1:
+    elif maze_type == 1:
         k = int(math.log(size - 1, 2))
-        return (coordinate_to_index_circle((size - 1, (2 ** (k + 2)) + k)), \
-                coordinate_to_index_circle((size - 1, k)))
-    elif type == 2:
+        return (coordinate_to_index_circle((size - 1, (2 ** (k + 2)) + k + 1)), \
+                coordinate_to_index_circle((size - 1, k + 1)))
+    elif maze_type == 2:
         return (coordinate_to_index_hexagonal((size - 1, 3 * (size - 1))), \
                 coordinate_to_index_hexagonal((size - 1, 0)))
-    elif type == 3:
+    elif maze_type == 3:
         return (0, (size - 1) ** 2 + size - 1)
+
+    elif maze_type == 4:
+        return (0, (2*size - 1)**2 - 1)
     else:
-        print('error: invalid type in cell endpoint calculator')
+        print('ERROR: invalid type in cell endpoint calculator')
         return []
 
 
@@ -557,8 +570,10 @@ def border_update(maze_type, start_cell, end_cell):
         border_update_hexagon(start_cell, end_cell)
     elif maze_type == 3:
         border_update_triangle(start_cell, end_cell)
+    elif maze_type ==4:
+        border_update_octagon(start_cell, end_cell)
     else:
-        print('error: wrong type in border update')
+        print('ERROR: wrong type in border update')
         return None
 
 
@@ -692,14 +707,52 @@ def border_update_triangle(cell1, cell2):
         cell2.walls_bool[2] = False
 
 
-'''def border_update(start_cell, end_cell):
-    wall = wall_between(start_cell, end_cell)
+def border_update_octagon(cell1, cell2):  # suppose that they are adjacent, and cell1 < cell2
+    """
 
-    start_wall_index = start_cell.walls.index(wall)
-    end_wall_index = end_cell.walls.index(wall)
+    :param cell1:
+    :param cell2:
+    """
+    # in the same row
+    # cell.coordinate[0] + cell.coordinate[1]) % 2 = 0 if octagon
+    # cell.coordinate[0] + cell.coordinate[1]) % 2 = 1 if square
+    if cell1.coordinate[0] == cell2.coordinate[0]:
+        if cell1.coordinate[1] < cell2.coordinate[1]:
+            2 ** (3 - ((cell1.coordinate[0] + cell1.coordinate[1]) % 2))
+            cell1.walls_bool[2 ** (3 - ((cell1.coordinate[0] + cell1.coordinate[1]) % 2)) // 2] = False
+            cell2.walls_bool[0] = False
+        else:
+            cell1.walls_bool[0] = False
+            cell2.walls_bool[2 ** (3 - ((cell2.coordinate[0] + cell2.coordinate[1]) % 2)) // 2] = False
 
-    start_cell.walls_bool[start_wall_index] = False
-    end_cell.walls_bool[end_wall_index] = False'''
+    # in the same column
+    elif cell1.coordinate[1] == cell2.coordinate[1]:
+        if cell1.coordinate[0] < cell2.coordinate[0]:
+            cell1.walls_bool[3*(2 ** (3 - ((cell1.coordinate[0] + cell1.coordinate[1]) % 2))) // 4] = False
+            cell2.walls_bool[(2 ** (3 - ((cell2.coordinate[0] + cell2.coordinate[1]) % 2))) // 4] = False
+        else:
+            cell1.walls_bool[(2 ** (3 - ((cell1.coordinate[0] + cell1.coordinate[1]) % 2))) // 4] = False
+            cell2.walls_bool[3*(2 ** (3 - ((cell2.coordinate[0] + cell2.coordinate[1]) % 2))) // 4] = False
+
+    # diagonals
+    elif cell1.coordinate[0] - cell2.coordinate[0] == 1 and cell1.coordinate[1] - cell2.coordinate[1] == 1:
+        cell1.walls_bool[1] = False
+        cell2.walls_bool[5] = False
+
+    elif cell1.coordinate[0] - cell2.coordinate[0] == -1 and cell1.coordinate[1] - cell2.coordinate[1] == 1:
+        cell1.walls_bool[7] = False
+        cell2.walls_bool[3] = False
+
+    elif cell1.coordinate[0] - cell2.coordinate[0] == 1 and cell1.coordinate[1] - cell2.coordinate[1] == -1:
+        cell1.walls_bool[3] = False
+        cell2.walls_bool[7] = False
+
+    elif cell1.coordinate[0] - cell2.coordinate[0] == -1 and cell1.coordinate[1] - cell2.coordinate[1] == -1:
+        cell1.walls_bool[5] = False
+        cell2.walls_bool[1] = False
+
+    else:
+        print("ERROR: wring cases in border_update_octagon")
 
 
 def cell_size_calculate(display_type, type_value, maze_size, graph_bool):
@@ -724,6 +777,12 @@ def cell_size_calculate(display_type, type_value, maze_size, graph_bool):
         return int((screen_settings.screen_size[0] / 2) * 0.8 / (maze_size * 2 - 1) * (1 / math.sqrt(3)) / division)
     elif type_value == 3:
         return int((screen_settings.screen_size[0] * 0.8) / (maze_size * 2 + 1) / division)
+    elif type_value == 4:
+        return 16
+        return int((screen_settings.screen_size[0] * 0.8) / (maze_size * 2 + 1) / division)
+    else:
+        print('ERROR: invalid type in cell endpoint calculator')
+        return 0
 
 
 def graph_cell_size_calculate(type, cell_size):
@@ -741,6 +800,12 @@ def graph_cell_size_calculate(type, cell_size):
         graph_cell_size = int(math.sqrt(0.7 * cell_size))
     elif type == 3:
         graph_cell_size = int(math.sqrt(0.8 * cell_size)) - 1
+    elif type == 4:
+        graph_cell_size = int(math.sqrt(0.7 * cell_size))
+    else:
+        print('ERROR: invalid type in cell size calculator')
+        return 0
+
 
     maze_settings.graph_cell_size = graph_cell_size
     return graph_cell_size
@@ -818,3 +883,22 @@ def highlight_edge_delete(display, maze, cell0, cell1, highlight_color, graph_bo
                      walls_bool=maze.maze_cell_borders[step][1])
     cell0.text_display(display, str(cell0.index), index_text_size, background_color=highlight_color)
     cell1.text_display(display, str(cell1.index), index_text_size, background_color=highlight_color)
+
+def polygon_points(number_of_verteces, center, radius, rotation = 0):
+    """
+    Calculates the coordinate of vertices of a polygon given by it's center and radius
+    :param number_of_verteces:
+    :param center: center coordinate of polygon
+    :param radius: distance between center and verteces
+    :param rotation: rotation of the polygon, default = 0 rad
+    :return: list of points about poligon vertex coordinates
+    """
+    point_list = [(round(center[0] + radius * math.cos(2 * i * PI / number_of_verteces + rotation)),
+                   round(center[1] + radius * math.sin(2 * i * PI / number_of_verteces + rotation))) for
+                  i in range(number_of_verteces)]
+
+    point_list = [(center[0] + radius * math.cos(2 * i * PI / number_of_verteces + rotation),
+                    center[1] + radius * math.sin(2 * i * PI / number_of_verteces + rotation)) for
+                   i in range(number_of_verteces)]
+
+    return point_list

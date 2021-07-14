@@ -4,20 +4,24 @@ import time
 import timeit
 import math
 
-def generate(type, size):
+def generate(type_int, size):
     """
-    :param int type: square = 0, circle = 1, hexagon = 2, triangle = 3
+    :param int type_int: square = 0, circle = 1, hexagon = 2, triangle = 3
     :param int size: size of the maze
     :return: edge list with list of indexes of edge cells in the cell list
     """
-    if type == 0:
+    if type_int == 0:
         return square(size)
-    elif type == 1:
+    elif type_int == 1:
         return circle(size)
-    elif type == 2:
+    elif type_int == 2:
         return hexagon(size)
-    elif type == 3:
+    elif type_int == 3:
         return triangle(size)
+    elif type_int == 4:
+        return octagon(size)
+    else:
+        print(f"ERROR: invalid maze type {type_int}")
 
 # edge list data type
 def square(n):
@@ -280,5 +284,49 @@ def triangle(n):
             edge_list[(n - 1) ** 2 + j].append(((n - 2) ** 2 + j - 1))
 
     edge_list[n ** 2 - 1].append(n ** 2 - 2)
+
+    return edge_list
+
+def octagon(n):
+    k = 2*n - 1 # number of cells in a row (and column)
+    edge_list = [[] for _ in range(k**2)]
+
+    # corners
+    edge_list[0].extend((1, k, k+1))
+    edge_list[k-1].extend((k-2, 2*k - 2, 2*k - 1))
+    edge_list[k**2 - k].extend((k**2 - 2*k, k**2 - 2*k + 1,  k**2 - k + 1))
+    edge_list[k**2 - 1].extend((k**2 - k - 2, k**2 - k - 1, k**2 - 2))
+
+    # frames
+    # i = 0 first row
+    for j in range(1, k - 1):
+        edge_list[j].extend((j - 1, j + 1, k + j))
+        if j % 2 == 0: # octagon
+            edge_list[j].extend((j + k - 1, j + k + 1))
+
+    # i = k - 1 last row
+    for j in range(1, k - 1):
+        edge_list[k**2 - k + j].extend((k**2 - 2*k + j, k**2 - k + j - 1, k** 2 - k + j + 1))
+        if j % 2 == 0:  # octagon
+            edge_list[k**2 - k + j].extend((k**2 - 2*k + j - 1, k**2 - 2*k + j + 1))
+
+    # j = 0 first column
+    for i in range(1, k - 1):
+        edge_list[i * k].extend(((i - 1)*k, i*k + 1, (i + 1)*k))
+        if i % 2 == 0:  # octagon
+            edge_list[i * k].extend(((i - 1)*k + 1, (i + 1)*k + 1))
+
+    # j = k - 1 last column
+    for i in range(1, k - 1):
+        edge_list[(i + 1)*k - 1].extend((i*k - 1, (i + 1)*k - 2, (i + 2)*k - 1))
+        if i % 2 == 0:  # octagon
+            edge_list[(i + 1) * k - 1].extend((i*k - 2, (i + 2)*k - 2))
+
+    # else
+    for i  in range(1, k - 1):
+        for j in range(1, k - 1):
+            edge_list[i*k + j].extend(((i - 1)*k + j, i*k + j - 1, i*k + j + 1, (i + 1)*k + j))
+            if  (i + j) % 2 == 0: # octagon
+                edge_list[i * k + j].extend(((i - 1)*k + j - 1, (i - 1)*k + j + 1, (i + 1)*k + j - 1, (i + 1)*k + j + 1))
 
     return edge_list

@@ -53,7 +53,6 @@ def update_delay(milisecond):
     pygame.display.flip()
     pygame.time.delay(milisecond)
 
-
 def buttonpress_detect():
     """
 

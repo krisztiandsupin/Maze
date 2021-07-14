@@ -26,6 +26,8 @@ def distance(type, cell1, cell2):
         return distance_hexagon(cell1, cell2)
     elif type == 3:
         return distance_triangle(cell1, cell2)
+    elif type == 4:
+        return distance_octagon(cell1, cell2)
 
 def distance_square(cell1, cell2):
     """
@@ -184,6 +186,16 @@ def distance_triangle(cell1, cell2):
 
         return distance_vertical + distance_horizontal
 
+def distance_octagon(cell1, cell2):
+    """
+
+    :param cell1:
+    :param cell2:
+    :return:
+    """
+    return abs(cell1.coordinate[0] - cell2.coordinate[0]) + abs(cell1.coordinate[1] - cell2.coordinate[1])
+
+##############################################
 # Algorithms
 def astar(type, cell_list, edges, start, end):
     """

@@ -22,6 +22,7 @@ def generate(type_value, size):
     :param size:
     :return:
     """
+    print(f" type value in generate: {type_value}")
     if type_value == 0:
         return generate_square(size)
     elif type_value == 1:
@@ -30,9 +31,12 @@ def generate(type_value, size):
         return generate_hexagon(size)
     elif type_value == 3:
         return generate_triangle(size)
+    elif type_value == 4:
+        print("generate octagon")
+        return generate_octagon(size)
     else:
-        print('error: invalid maze type in cell list generation, cell type:', type_value)
-        return []
+        print(f"ERROR: invalid maze type in cell list generation, cell type: {type_value}")
+        return None
 
 
 def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_size):
@@ -54,8 +58,11 @@ def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_
         return create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size)
     elif type_value == 3:
         return create_triangle(cell_list, maze_position, display_type, graph_bool, cell_size)
+    elif type_value == 4:
+        print("create octagon")
+        return create_octagon(cell_list, maze_position, display_type, graph_bool, cell_size)
     else:
-        print('error: invalid maze type in cell list creation, cell type:', type_value)
+        print('ERROR: invalid maze type in cell list creation, cell type:', type_value)
         return []
 
 
@@ -75,7 +82,7 @@ def generate_square(n):
     #       3.
     for row in range(0, n):
         for column in range(0, n):
-            cell_walls_bool = [True, True, True, True]  # order: [left, up, right, down]
+            cell_walls_bool = [True]*4  # order: [left, up, right, down]
             cell_index = row * n + column
             cell = Cell((row, column), cell_index, cell_walls_bool)
 
@@ -133,7 +140,7 @@ def generate_circle(n):
     """
     cell_index = 0
 
-    center_walls_bool = [True for _ in range(0, 8)]
+    center_walls_bool = [True]*8
     cell_center = Cell((0, 0), cell_index, center_walls_bool)
 
     cell_list = [cell_center]
@@ -144,14 +151,14 @@ def generate_circle(n):
 
         for j in range(0, cell_number):
             if math.log(i, 2).is_integer() and i > 1:
-                cell_walls_bool = [True for _ in range(0, 4)]
+                cell_walls_bool = [True]*4
 
             else:
                 if math.log(i + 1, 2).is_integer():  # pentagon
-                    cell_walls_bool = [True for _ in range(0, 5)]
+                    cell_walls_bool = [True]*5
 
                 else:  # Quadrilateral
-                    cell_walls_bool = [True for _ in range(0, 4)]
+                    cell_walls_bool = [True]*4
 
             cell = Cell((i, j), cell_index, cell_walls_bool)
             cell_list.append(cell)  # list of cell type objects
@@ -323,14 +330,14 @@ def generate_hexagon(n):
     #    1 / \ 2
     #   0 |  | 3
     #   5 \ / 4
-    walls_bool = [True for _ in range(0, 6)]
+    walls_bool = [True]*6
     cell = Cell((0, 0), 0, walls_bool)
 
     cell_list.append(cell)
 
     for ring in range(1, n):
         for j in range(0, 6 * ring):
-            walls_bool = [True for _ in range(0, 6)]
+            walls_bool = [True]*6
             cell_coordinate = (ring, j)
             index = (ring * (ring - 1)) * 3 + 1 + j
             cell = Cell(cell_coordinate, index, walls_bool)
@@ -460,7 +467,7 @@ def generate_triangle(n):
         for column in range(0, 2 * row + 1):
             cell_index = row ** 2 + column
 
-            cell_walls_bool = [True for _ in range(0, 3)]
+            cell_walls_bool = [True]*3
 
             cell = Cell((row, column), cell_index, cell_walls_bool)
             cell_list.append(cell)  # list of cell type objects
@@ -511,5 +518,129 @@ def create_triangle(cell_list, maze_position, display_type, graph_bool, cell_siz
 
     return cell_list
 
+def generate_octagon(n):
+    """
+    Create cells of octagonal maze
+    :param n: number of octagons on a row
+    :return: list of maze cell
+    """
+    cell_list = []
 
+    # octagon walls_bool order
+    #          2.
+    #         ---             1.
+    #    1. /    \ 3.        ---
+    #   0. |     | 4.    0.|    | 2.
+    #    7.\    / 5.        ---
+    #       ---              3.
+    #        6.
+
+    for row in range(2*n - 1):
+        for column in range(2*n - 1):
+
+            if (row + column) % 2 == 0:  # octagon
+                cell_walls_bool = [True]*8
+
+            else: # square
+                cell_walls_bool = [True]*4  # order: [left, up, right, down]
+
+            cell_index = row*(2*n - 1) + column
+            cell = Cell((row, column), cell_index, cell_walls_bool)
+            cell_list.append(cell)  # list of cell type objects
+
+    return cell_list
+
+
+def create_octagon(cell_list, maze_position, display_type, graph_bool, cell_size):
+    """
+    Specify cell position data based on window settings
+    :param cell_list:
+    :param maze_position:
+    :param display_type:
+    :param graph_bool:
+    :param cell_size: length of a octagon (and also square) size
+    """
+
+    if bool(cell_list):
+        maze_size = (int(math.sqrt(len(cell_list)))+1) // 2  # number octagons in a row
+        cell_radius = cell_size / (2 * math.sin(PI / 8)) # distance of center and vertex
+        cell_height = cell_size / (2 * math.tan(PI / 8)) # distance of center and midpoint of a side
+        octagonal_constant = cell_height + cell_size / 2
+        '''print('cell size:', cell_size)
+        print('cell radius:', cell_radius)
+        print('cell heigth:', cell_height)
+        print('octagonal constant:', octagonal_constant)'''
+
+        half_size = cell_size // 2
+
+        # upper center of upper left octagonal cell
+        grid_start_horizontal = round(maze_position[0] - (maze_size - 1) * octagonal_constant)
+        grid_start_vertical = round(maze_position[1] - (maze_size - 1) * octagonal_constant)
+
+        for cell in cell_list:
+            cell.position = (grid_start_horizontal + cell.coordinate[1] * octagonal_constant,
+                             grid_start_vertical + cell.coordinate[0] * octagonal_constant)
+
+            if graph_bool:
+                translation = int(screen_settings.screen_size[0] / (2 ** (display_type + 1)))
+                graph_center = (cell.position[0] + translation, cell.position[1])
+                cell.graph_position = graph_center
+
+            if (cell.coordinate[0] + cell.coordinate[1]) % 2 == 0: # octagon
+                octagon_radius = cell_radius
+
+                cell.border_points = MazeFunctions.polygon_points(8, cell.position, octagon_radius, (PI - PI / 8))
+
+                # let border_point1 be P1, etc
+                #  if row number is even (clockwise)          if row number is odd (counter clockwise)
+                #    P2 ---> P3                              P2 <--- P2
+                #  P1 /       \ P4                         P1/       \ P4
+                #    /\       |                             |        /\
+                #    |       \/                            \/        |
+                # P0 \       / P5                         P0 \      / P5
+                #  P7 <--- P6                               P7 ---> P6
+                # based on wall ordering:
+                #          2.
+                #         ---
+                #    1. /    \ 3.
+                #   0. |     | 4.
+                #    7.\    / 5.
+                #        6.
+
+                if cell.position[0] % 2 == 0: # row number is even
+                    cell.walls = tuple(((cell.border_points[i], cell.border_points[(i+1) % 8]) for i in range(8)))
+
+                else: # row number is odd
+                    cell.walls = tuple(((cell.border_points[(i+1) % 8], cell.border_points[i]) for i in range(8)))
+
+            else: # square
+                border_point0 = (cell.position[0] - half_size, cell.position[1] + half_size)
+                border_point1 = (cell.position[0] - half_size, cell.position[1] - half_size)
+                border_point2 = (cell.position[0] + half_size, cell.position[1] - half_size)
+                border_point3 = (cell.position[0] + half_size, cell.position[1] + half_size)
+
+                cell.border_points = (border_point0, border_point1, border_point2, border_point3)
+                # let border_point1 be P1, etc
+                #  if row number is even                  if row number is odd
+                #  P1 ----> P2                             P1 <--- P2
+                #    |      /\                AND          /\       |
+                #   \/      |                              |       \/
+                #  P0 <---- P3                            P0 ----> P3
+                #
+                # based on wall ordering:
+                #      1.
+                #     ---
+                # 0.|    | 2.
+                #    ---
+                #     3.
+
+                if cell.position[0] % 2 == 0: # row number is even
+                    cell.walls = ((border_point1, border_point0), (border_point1, border_point2),
+                          (border_point3, border_point2), (border_point3, border_point0))
+                else: # row number is odd
+                    cell.walls = ((border_point0, border_point1), (border_point2, border_point1),
+                                  (border_point2, border_point3), (border_point0, border_point3))
+
+    else:
+        print('ERROR: maze is not generated')
 

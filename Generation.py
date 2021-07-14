@@ -18,7 +18,6 @@ def region_index(cell, region_list):
             return i
         i += 1
 
-
 def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell, maze_type):
     """
 
@@ -30,6 +29,7 @@ def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cel
     :param end_cell:
     :param maze_type:
     """
+
     edge_list[start_cell].remove(end_cell)
     edge_list[end_cell].remove(start_cell)
 
@@ -40,7 +40,6 @@ def edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cel
     MazeFunctions.border_update(maze_type, cell_list[start_cell], cell_list[end_cell])
 
     maze_order.append((cell_list[start_cell], cell_list[end_cell]))
-
 
 #################################
 # Algorithms
@@ -62,7 +61,7 @@ def generate(algorithm, type_value, cell_list, edge_list):
     elif algorithm == 'eller':
         return None
     else:
-        print('error: wrong type of algorithm')
+        print('ERROR: wrong type of algorithm')
         return None
 
 
