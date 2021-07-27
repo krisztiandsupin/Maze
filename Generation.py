@@ -61,7 +61,7 @@ def generate(algorithm, type_value, cell_list, edge_list):
     elif algorithm == 'eller':
         return None
     else:
-        print('ERROR: wrong type of algorithm')
+        print('ERROR: wrong maze_type of algorithm')
         return None
 
 
@@ -69,7 +69,7 @@ def kruskal(maze_type, cell_list, edge_list):
     """
     Generate maze with randomized Kruskal algorithm
     :param int maze_type: 0 = square, 1 = circle, 2 = hexagon, 4 = triangle
-    :param list cell_list: list with cell type values
+    :param list cell_list: list with cell maze_type values
     :param list edge_list: nested list for edges, edge list data structure
     :return list maze_edge: edges of the maze, edges deleted from edge list
     :return list maze_order: list of tuple (cell1, cell2), where in the i-th step (cell1, cell2) were selected
@@ -78,6 +78,7 @@ def kruskal(maze_type, cell_list, edge_list):
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
     maze_cell_borders = []
+    maze_candidates = []
 
     cell_number = len(cell_list)
     edge_number = 0
@@ -113,7 +114,7 @@ def kruskal(maze_type, cell_list, edge_list):
             region_list[start_region] += region_list[end_region]
             region_list.remove(region_list[end_region])
 
-    return maze_edge, maze_order, maze_cell_borders
+    return maze_edge, maze_order, maze_cell_borders, maze_candidates
 
 
 def prim(maze_type, cell_list, edge_list):
@@ -127,6 +128,7 @@ def prim(maze_type, cell_list, edge_list):
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
     maze_cell_borders = []
+    maze_candidates = []
     cell_number = len(cell_list)
 
     start = MazeFunctions.cell_endpoints_calculate(maze_type, cell_list[-1].coordinate[0] - 1)[0]
@@ -142,6 +144,11 @@ def prim(maze_type, cell_list, edge_list):
         candidates = candidates.union(neighbor_cells.difference(visited_cells))
 
         end_cell = random.choice(tuple(candidates))
+
+        # list of tuples [(cell_index, cell's walls_bool state at that point)] about neighbor cells in every step
+        candidates_list = list(candidates)
+        candidates_info = [(candidates_list[i], cell_list[candidates_list[i]].walls_bool.copy()) for i in range(len(candidates))]
+        maze_candidates.append(candidates_info)
         start_cell = random.choice(tuple(set(edge_list[end_cell]).intersection(visited_cells)))
 
         # edge_modify(edge_list, maze_edge, maze_order, cell_list, start_cell, end_cell)
@@ -153,7 +160,7 @@ def prim(maze_type, cell_list, edge_list):
         candidates.remove(end_cell)
         temp_cell = end_cell
 
-    return maze_edge, maze_order, maze_cell_borders
+    return maze_edge, maze_order, maze_cell_borders, maze_candidates
 
 
 def backtracker(maze_type, cell_list, edge_list):
@@ -167,6 +174,7 @@ def backtracker(maze_type, cell_list, edge_list):
     maze_edge = [[] for _ in range(0, len(edge_list))]
     maze_order = []
     maze_cell_borders = []
+    maze_candidates = []
     cell_number = len(cell_list)
 
     start = MazeFunctions.cell_endpoints_calculate(maze_type, cell_list[-1].coordinate[0] - 1)[0]
@@ -180,14 +188,12 @@ def backtracker(maze_type, cell_list, edge_list):
         while bool(candidates) == True:
             visited_cells.add(temp_cell)
             start_cell = temp_cell
+            candidates_list = list(candidates)
+            candidates_info = [(candidates_list[i], cell_list[candidates_list[i]].walls_bool.copy()) for i in
+                               range(len(candidates_list))]
+            maze_candidates.append(candidates_info)
             end_cell = random.choice(tuple(candidates))
 
-            '''edge_list[start_cell].remove(end_cell)
-            edge_list[end_cell].remove(start_cell)
-
-            maze_edge[start_cell].append(end_cell)
-            maze_edge[end_cell].append(start_cell)
-            maze_order.append((cell_list[start_cell], cell_list[end_cell]))'''
             maze_cell_borders.append(
                 ((cell_list[start_cell].walls_bool).copy(), (cell_list[end_cell].walls_bool).copy()))
 
@@ -208,4 +214,4 @@ def backtracker(maze_type, cell_list, edge_list):
             candidates = neighbor_cells.difference(visited_cells)
             i += 1
 
-    return maze_edge, maze_order, maze_cell_borders
+    return maze_edge, maze_order, maze_cell_borders, maze_candidates

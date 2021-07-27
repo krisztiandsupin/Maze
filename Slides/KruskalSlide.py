@@ -3,6 +3,7 @@ import MazeFunctions
 
 from Color import Color
 from Maze import Maze
+from Slides import SlideFunctions
 from Text import Text
 from Settings import screen as screen_settings
 
@@ -15,9 +16,9 @@ def kruskal_slide(screen, display_settings):
     text_title.show(screen)
     kruskal_slide1(screen)
 
-    screen.fill(Color.white)
-    text_title.show(screen)
-    kruskal_slide2(screen)
+    # screen.fill(Color.white)
+    # text_title.show(screen)
+    # kruskal_slide2(screen)
 
 def kruskal_slide1(screen):
     """
@@ -27,30 +28,10 @@ def kruskal_slide1(screen):
     maze_kruskal.create((screen_size[0] // 4, screen_size[1] // 2), graph_bool=True)
     maze_kruskal.draw_grid(screen, graph_bool=True, cell_text_bool=True, cell_text_type=1)
 
-    highlight_color = Color.red_light
-    delay = 100
-    index_text_size = 15
-
     maze_kruskal.draw_frame(screen)
 
-    for i in range(0, len(maze_kruskal.maze_order)):
-        cell0, cell1 = maze_kruskal.maze_order[i][0], maze_kruskal.maze_order[i][1]
+    SlideFunctions.slide_animation(screen, maze_kruskal, candidates_bool=False)
 
-        MazeFunctions.highlight_edge_delete(screen, maze_kruskal, cell0, cell1, highlight_color, True, index_text_size, i)
-
-        Functions.update_delay(delay)
-        MazeFunctions.edge_color(screen, (cell0, cell1), highlight_color, graph=True,
-                                 graph_color=maze_kruskal.color_line)
-
-        MazeFunctions.highlight_edge_delete(screen, maze_kruskal, cell0, cell1, maze_kruskal.color_background, True,
-                              index_text_size, i)
-        MazeFunctions.edge_color(screen, (cell0, cell1), maze_kruskal.color_background, graph=True,
-                                 graph_color=maze_kruskal.color_line)
-
-        maze_kruskal.draw_frame(screen)
-
-        Functions.update_delay(delay)
-        Functions.buttonpress_detect()
 
     Functions.update_delay(500)
     maze_kruskal.draw(screen, True, False)

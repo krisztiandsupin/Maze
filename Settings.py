@@ -14,6 +14,11 @@ keyboard_a_press = None
 keyboard_s_press = None
 keyboard_d_press = None
 
+def keyboard_arrows_pressed():
+    return keyboard_up_press or keyboard_down_press or keyboard_left_press or keyboard_right_press
+
+def keyboard_wsad_pressed():
+    return keyboard_w_press or keyboard_s_press or keyboard_a_press or keyboard_d_press
 
 back_to_menu = False
 maze_size = 10

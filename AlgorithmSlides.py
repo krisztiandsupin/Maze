@@ -3,6 +3,7 @@ import pygame
 import Functions
 
 from Color import Color
+from Maze import Maze
 from Settings import screen
 from Text import Text
 
@@ -10,6 +11,8 @@ from Text import Text
 from Slides import KruskalSlide
 from Slides import PrimSlide
 from Slides import BacktrackerSlide
+from Slides import AstarSlide
+from Slides import EndfillerSlide
 
 screen_size = screen.screen_size
 
@@ -30,12 +33,24 @@ def slides_set(selected_algorithms, display_settings):
     text_title.show(algorithm_display)
 
     generation_algoritms = selected_algorithms['generation']
+    solving_algoritms = selected_algorithms['solving']
 
     while True:
         # generation algorithms
         for algorithm in generation_algoritms.keys():
             if generation_algoritms[algorithm]:
                 slidename = f"{str(algorithm).capitalize()}Slide.{algorithm}_slide(algorithm_display, display_settings)"
+                print(slidename)
+                eval(slidename)
+
+                Functions.update_delay(1000)
+
+        for algorithm in solving_algoritms.keys():
+            maze_solve = Maze(8, 'square', 'kruskal')
+            maze_solve.create((screen_size[0] // 4, screen_size[1] // 2), graph_bool=True)
+            if solving_algoritms[algorithm]:
+                slidename = f"{str(algorithm).capitalize()}Slide.{algorithm}_slide(algorithm_display, display_settings, maze_solve)"
+                print(slidename)
                 eval(slidename)
 
                 Functions.update_delay(1000)

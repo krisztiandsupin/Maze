@@ -22,7 +22,7 @@ def generate(type_value, size):
     :param size:
     :return:
     """
-    print(f" type value in generate: {type_value}")
+
     if type_value == 0:
         return generate_square(size)
     elif type_value == 1:
@@ -35,7 +35,7 @@ def generate(type_value, size):
         print("generate octagon")
         return generate_octagon(size)
     else:
-        print(f"ERROR: invalid maze type in cell list generation, cell type: {type_value}")
+        print(f"ERROR: invalid maze maze_type in cell list generation, cell maze_type: {type_value}")
         return None
 
 
@@ -62,7 +62,7 @@ def create(cell_list, type_value, maze_position, display_type, graph_bool, cell_
         print("create octagon")
         return create_octagon(cell_list, maze_position, display_type, graph_bool, cell_size)
     else:
-        print('ERROR: invalid maze type in cell list creation, cell type:', type_value)
+        print('ERROR: invalid maze maze_type in cell list creation, cell maze_type:', type_value)
         return []
 
 
@@ -86,7 +86,7 @@ def generate_square(n):
             cell_index = row * n + column
             cell = Cell((row, column), cell_index, cell_walls_bool)
 
-            cell_list.append(cell)  # list of cell type objects
+            cell_list.append(cell)  # list of cell maze_type objects
 
     return cell_list
 
@@ -161,7 +161,7 @@ def generate_circle(n):
                     cell_walls_bool = [True]*4
 
             cell = Cell((i, j), cell_index, cell_walls_bool)
-            cell_list.append(cell)  # list of cell type objects
+            cell_list.append(cell)  # list of cell maze_type objects
 
             cell_index += 1
 
@@ -443,7 +443,7 @@ def create_hexagon(cell_list, maze_position, display_type, graph_bool, cell_size
             cell = Cell((i, j), (round(cell_center[0]), round(cell_center[1])),
                         (round(graph_center[0]), round(graph_center[1])), cell_index, cell_walls, cell_walls_bool,
                         cell_border_points)
-            cell_list.append(cell)  # list of cell type objects
+            cell_list.append(cell)  # list of cell maze_type objects
 
     return cell_list'''
 
@@ -470,7 +470,7 @@ def generate_triangle(n):
             cell_walls_bool = [True]*3
 
             cell = Cell((row, column), cell_index, cell_walls_bool)
-            cell_list.append(cell)  # list of cell type objects
+            cell_list.append(cell)  # list of cell maze_type objects
 
     return cell_list
 
@@ -546,7 +546,7 @@ def generate_octagon(n):
 
             cell_index = row*(2*n - 1) + column
             cell = Cell((row, column), cell_index, cell_walls_bool)
-            cell_list.append(cell)  # list of cell type objects
+            cell_list.append(cell)  # list of cell maze_type objects
 
     return cell_list
 

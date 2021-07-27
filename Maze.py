@@ -9,7 +9,6 @@ import MazeFunctions
 import Solving
 
 global coordinate_text_size
-coordinate_text_size = 10
 
 
 class Maze:
@@ -18,11 +17,11 @@ class Maze:
     """
 
     maze_type_dict = {
-        'square' : 0,
-        'circle' : 1,
-        'hexagon' : 2,
-        'triangle' : 3,
-        'octagon' : 4
+        'square': 0,
+        'circle': 1,
+        'hexagon': 2,
+        'triangle': 3,
+        'octagon': 4
     }
 
     class Type:
@@ -51,9 +50,10 @@ class Maze:
         if auto_generation:
             self.cell_list = CellList.generate(self.type_value, self.size)
             self.edge_list = EdgeList.generate(self.type_value, self.size)
-            self.maze_list, self.maze_order, self.maze_cell_borders = Generation.generate(algorithm, self.type_value,
-                                                                                          self.cell_list,
-                                                                                          self.edge_list)
+            self.maze_list, self.maze_order, self.maze_cell_borders, self.maze_candidates = Generation.generate(
+                algorithm, self.type_value,
+                self.cell_list,
+                self.edge_list)
 
         else:
             self.cell_list = None
@@ -93,13 +93,12 @@ class Maze:
 
         """
         print('size:', self.size)
-        print('type: {0} ({1})'.format(type, self.type_value))
+        print('maze_type: {0} ({1})'.format(type, self.type_value))
         print('algorithm:', self.algorithm)
         print('cell_size:', self.cell_size)
         print('cell list:', len(self.cell_list))
         print('edge list:', len(self.edge_list))
         print('frame number:', len(self.frame_list))
-        print('graph number:', len(self.graph_list))
         print()
 
     def create(self, maze_position=(screen_settings.screen_size[0] // 2, screen_settings.screen_size[1]),
@@ -152,20 +151,19 @@ class Maze:
                 elif cell_text_type == 2 and self.type_value == 2:
                     cell_text = str(MazeFunctions.coordinate_transform_hexagon(cell.coordinate))
                 else:
-                    print("error: invalid cell_text_bool type")
+                    print("error: invalid cell_text_bool maze_type")
                     cell_text = ''
 
                 cell.text_display(screen, cell_text, 15)
 
     def draw(self, screen, graph_bool=True, visibility_bool=True, cell_text_bool=False, cell_text_type=0):
         """
-        :param screem: square = 0, circle = 1, hexagon = 2, triangle = 3
-        :param int display_type: fullscreen = 0, half screen = 1, quarter_screen
+        :param screen: square = 0, circle = 1, hexagon = 2, triangle = 3
         :param bool graph_bool: if True displays the graph of the maze; delfault = True
         :param bool visibility_bool: if True all cells with walls can be seen
         :param bool cell_text_bool: display text in the middle of all the circles
         :param int cell_text_type: coordinate = 0, index = 1,
-            hexagonal transformed cordinated = 2 (just in hexagonal type)
+            hexagonal transformed cordinated = 2 (just in hexagonal maze_type)
         """
 
         if visibility_bool:
@@ -193,7 +191,6 @@ class Maze:
         for wall in self.maze_order:
             pygame.draw.line(screen, Color.black, wall[0].graph_position, wall[1].graph_position, 1)
 
-
     ############
     # maze solving visualisation
     def solve(self, algorithm):
@@ -206,17 +203,17 @@ class Maze:
         cell_list = self.cell_list.copy()
 
         if algorithm == 'astar':
-            self.solution_path, self.visited = Solving.astar(self.type_value, cell_list, maze_list, self.start,
+            self.solution_path, self.visited, self.maze_candidates = Solving.astar(self.type_value, cell_list, maze_list, self.start,
                                                              self.end)
         elif algorithm == 'endfiller':
-            self.solution_path, self.visited = Solving.endfiller(self.type_value, cell_list, maze_list, self.start,
+            self.solution_path, self.visited, self.maze_candidates = Solving.endfiller(self.type_value, cell_list, maze_list, self.start,
                                                                  self.end)
         elif algorithm == 'backtracker':
             return []
         elif algorithm == 'eller':
             return []
         else:
-            print('error: wrong type of algorithm')
+            print('error: wrong maze_type of algorithm')
             return None
 
         return self.solution_path, self.visited
@@ -243,7 +240,7 @@ class Maze:
                     cell.color_graph(screen, color_visited)
                 # pygame.draw.circle(screen, color_visited, cell.graph_position, self.graph_cell_size + 2)
                 if delay > 0:
-                    MazeFunctions.updete_delay(delay)
+                    MazeFunctions.update_delay(delay)
                     MazeFunctions.system_pause()
 
             for cell in deadend:
@@ -253,7 +250,7 @@ class Maze:
                 # pygame.draw.circle(screen, color_deadend, cell.graph_position, self.graph_cell_size + 2)
 
                 if delay > 0:
-                    MazeFunctions.updete_delay(delay)
+                    MazeFunctions.update_delay(delay)
                     MazeFunctions.system_pause()
 
         # del self.solution_path[0]
@@ -264,7 +261,7 @@ class Maze:
                 self.cell_list[cell_index].color_graph(screen, color_path)
             # pygame.draw.circle(screen, color_path, self.cell_list[cell].graph_position, self.graph_cell_size + 2)
             if delay > 0:
-                MazeFunctions.updete_delay(delay)
+                MazeFunctions.update_delay(delay)
                 MazeFunctions.system_pause()
 
         self.start.color(screen, Color.green_light)
@@ -272,6 +269,5 @@ class Maze:
 
         for wall in self.frame_list:
             pygame.draw.line(screen, Color.black, wall[0], wall[1], 3)
-        MazeFunctions.updete_delay(1000)
+        MazeFunctions.update_delay(1000)
         MazeFunctions.system_pause()
-

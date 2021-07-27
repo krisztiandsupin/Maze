@@ -118,4 +118,4 @@ while True:
         Settings.back_to_menu = False
 
     Functions.mouse_reset()
-    MazeFunctions.updete_delay(10)
+    MazeFunctions.update_delay(10)

@@ -17,7 +17,7 @@ def generation(type, cell_list):
     elif type == 4:
         return frame_octagon(cell_list)
     else:
-        print('ERROR: invalid type in cell size calculator')
+        print('ERROR: invalid maze_type in cell size calculator')
         return 0
 
 def size_from_cell(cell_list):

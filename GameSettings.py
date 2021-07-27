@@ -54,10 +54,10 @@ def settings():
     visibility_box = Box((int(screen_size[0] * 0.65), text_visibility_vertical), int(text_size * 1.25), text_color,
                          text_color_light, Settings.invisible_mode)
 
-    # maze type
+    # maze maze_type
     maze_type_vertical = int(screen_size[1] * 0.6)
 
-    text_type = Text((int(screen_size[0] * 0.3), maze_type_vertical), 'Maze type', int(text_size * 1.5), text_color,
+    text_type = Text((int(screen_size[0] * 0.3), maze_type_vertical), 'Maze maze_type', int(text_size * 1.5), text_color,
                      text_color_light)
     text_square = Text((int(screen_size[0] * 0.58), maze_type_vertical), 'Square', int(text_size * 1.25),
                               text_color,

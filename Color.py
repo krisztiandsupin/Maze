@@ -30,8 +30,8 @@ class Color:
 
     yellow_light = (240, 230, 140)
 
-    gold = (219, 186, 0)
-    gold_light = (255, 215, 0)
+    gold = (255,215,0)
+    gold_light = (247,233,142)#FFED8A
 
 
 class MazeColor:

@@ -23,7 +23,7 @@ def generate(type_int, size):
     else:
         print(f"ERROR: invalid maze type {type_int}")
 
-# edge list data type
+# edge list data maze_type
 def square(n):
     """
 

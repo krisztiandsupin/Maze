@@ -28,7 +28,7 @@ def algorithms_set():
                       int(display_settings.title_size),
                       display_settings.text_color, display_settings.text_color_light)
     #       column1     column2     column3     column4
-    # row1 generation algoritms | solving algorithms
+    # row1 generation algorithms | solving algorithms
     # row2  kruskal |   box     | A*        |    box
     # row3  prim    |   box     | lefthand  |    box
     # row4  backtr. |   box     | tremaux   |    box
@@ -61,7 +61,7 @@ def algorithms_set():
     text_kruskal = Text((column1_position, row2_position), 'Kruskal', display_settings.text_size,
                         display_settings.text_color, display_settings.text_color_light)
     box_kruskal = Box((column2_position, row2_position), display_settings.text_size,
-                      display_settings.text_color, display_settings.text_color_light, is_active=True)
+                      display_settings.text_color, display_settings.text_color_light, is_active=False)
     text_astar = Text((column3_position, row2_position), 'A*', display_settings.text_size,
                       display_settings.text_color, display_settings.text_color_light)
     box_astar = Box((column4_position, row2_position), display_settings.text_size,
@@ -71,7 +71,7 @@ def algorithms_set():
     text_prim = Text((column1_position, row3_position), 'Prim', display_settings.text_size,
                      display_settings.text_color, display_settings.text_color_light)
     box_prim = Box((column2_position, row3_position), display_settings.text_size,
-                   display_settings.text_color, display_settings.text_color_light, is_active=True)
+                   display_settings.text_color, display_settings.text_color_light, is_active=False)
     text_lefthand = Text((column3_position, row3_position), 'Lefthands rule', display_settings.text_size,
                          display_settings.text_color, display_settings.text_color_light)
     box_lefthand = Box((column4_position, row3_position), display_settings.text_size,
@@ -81,7 +81,7 @@ def algorithms_set():
     text_backtracker = Text((column1_position, row4_position), 'Backtracker', display_settings.text_size,
                             display_settings.text_color, display_settings.text_color_light)
     box_backtracker = Box((column2_position, row4_position), display_settings.text_size,
-                          display_settings.text_color, display_settings.text_color_light, is_active=True)
+                          display_settings.text_color, display_settings.text_color_light, is_active=False)
     text_tremaux = Text((column3_position, row4_position), 'Tremaux', display_settings.text_size,
                         display_settings.text_color_inprogress, display_settings.text_color_light)
     box_tremaux = Box((column4_position, row4_position), display_settings.text_size,
@@ -93,9 +93,9 @@ def algorithms_set():
     box_eller = Box((column2_position, row5_position), display_settings.text_size,
                     display_settings.text_color_inprogress, display_settings.text_color_light, is_active=False)
     text_endfiller = Text((column3_position, row5_position), 'Endfiller', display_settings.text_size,
-                          display_settings.text_color_inprogress, display_settings.text_color_light)
+                          display_settings.text_color, display_settings.text_color_light)
     box_endfiller = Box((column4_position, row5_position), display_settings.text_size,
-                        display_settings.text_color_inprogress, display_settings.text_color_light, is_active=False)
+                        display_settings.text_color, display_settings.text_color_light, is_active=True)
 
     text_start = Text((screen_size[0] // 2, int(screen_size[1] * 0.8)), 'Start', int(display_settings.text_size * 2.5),
                       display_settings.text_color, display_settings.text_color_light)
@@ -132,7 +132,7 @@ def algorithms_set():
     text_back.show(game_display)
 
     # clickable boxes
-    box_list = (box_kruskal, box_prim, box_backtracker, box_astar)
+    box_list = (box_kruskal, box_prim, box_backtracker, box_astar, box_endfiller)
     Functions.mouse_reset()
 
     while True:

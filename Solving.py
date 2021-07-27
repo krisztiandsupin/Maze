@@ -1,6 +1,8 @@
 import math
 import MazeFunctions
-class cell_astar:
+
+
+class CellAstar:
     """
 
     """
@@ -10,24 +12,26 @@ class cell_astar:
         self.step = step
         self.distance = distance
 
-def distance(type, cell1, cell2):
+
+def distance(maze_type, cell1, cell2):
     """
 
-    :param type:
+    :param maze_type:
     :param cell1:
     :param cell2:
     :return:
     """
-    if type == 0:
+    if maze_type == 0:
         return distance_square(cell1, cell2)
-    elif type == 1:
+    elif maze_type == 1:
         return distance_circle(cell1, cell2)
-    elif type == 2:
+    elif maze_type == 2:
         return distance_hexagon(cell1, cell2)
-    elif type == 3:
+    elif maze_type == 3:
         return distance_triangle(cell1, cell2)
-    elif type == 4:
+    elif maze_type == 4:
         return distance_octagon(cell1, cell2)
+
 
 def distance_square(cell1, cell2):
     """
@@ -38,7 +42,8 @@ def distance_square(cell1, cell2):
     """
     return abs(cell1.coordinate[0] - cell2.coordinate[0]) + abs(cell1.coordinate[1] - cell2.coordinate[1])
 
-def elements_in_ring(k): #number of elements of k-th ring
+
+def elements_in_ring(k):  # number of elements of k-th ring
     """
 
     :param k:
@@ -47,7 +52,8 @@ def elements_in_ring(k): #number of elements of k-th ring
     if k == 0:
         return 1
     else:
-        return 2 ** (math.floor(math.log(k, 2))  + 3)
+        return 2 ** (math.floor(math.log(k, 2)) + 3)
+
 
 def distance_circle(cell1, cell2):
     """
@@ -137,11 +143,11 @@ def distance_hexagon(cell1, cell2):
         return abs(distance_vertical)
 
     else:
-        distance_horizontal = min(abs((cell2_coordinate[0] - vertical_inliner1) // 2), \
-                                abs((cell2_coordinate[0] - vertical_inliner2) // 2))
+        distance_horizontal = min(abs((cell2_coordinate[0] - vertical_inliner1) // 2),
+                                  abs((cell2_coordinate[0] - vertical_inliner2) // 2))
 
         '''print('outside inliners')
-        print('horizonal dist:', distance_horizontal)
+        print('horizontal dist:', distance_horizontal)
         print('distance:', abs(distance_vertical) + distance_horizontal)
         print()'''
 
@@ -176,11 +182,11 @@ def distance_triangle(cell1, cell2):
         return dist
 
     else:
-        distance_horizontal = min(abs((cell2.coordinate[0] - vertical_inliner1)), \
+        distance_horizontal = min(abs((cell2.coordinate[0] - vertical_inliner1)),
                                   abs((cell2.coordinate[0] - vertical_inliner2)))
 
         '''print('outside inliners')
-        print('horizonal dist:', distance_horizontal)
+        print('horizontal dist:', distance_horizontal)
         print('distance:', abs(distance_vertical) + distance_horizontal)
         print()'''
 
@@ -209,7 +215,7 @@ def astar(type, cell_list, edges, start, end):
     """
     weight = 2 # parameter for distance importance
     end_index = end.index
-    start_astar = cell_astar(start.index, -1, 0, distance(type, start, end))
+    start_astar = CellAstar(start.index, -1, 0, distance(type, start, end))
 
     '''print(start.index, end.index)
     print(edges)'''
@@ -217,6 +223,7 @@ def astar(type, cell_list, edges, start, end):
     visited_index = set()
     visited_cells = []
     candidates = [start_astar]
+    candidates_list = []    # lift of candidates in each step in for (cell (cell type), disance from end (int type))
     temp_cell = candidates.pop()
 
     while temp_cell.cell != end_index:
@@ -237,10 +244,10 @@ def astar(type, cell_list, edges, start, end):
         '''print('next:', next_cells)'''
 
         for next in next_cells:
-            candidates.append(cell_astar(cell_list[next].index, cell_list[temp_cell.cell].index, temp_cell.step + 1,
-                                         weight * distance(type, cell_list[next], end) + temp_cell.step + 1))
+            candidates.append(CellAstar(cell_list[next].index, cell_list[temp_cell.cell].index, temp_cell.step + 1,
+                                        weight * distance(type, cell_list[next], end) + temp_cell.step + 1))
 
-
+        candidates_list.append([(cell_list[cell_astar.cell], cell_astar.distance) for cell_astar in candidates])
         candidates.sort(key=lambda x: x.distance, reverse=True)
         temp_cell = candidates.pop()
 
@@ -271,9 +278,9 @@ def astar(type, cell_list, edges, start, end):
     del highlight[-1]
     del shortest_path[0]
 
-    return shortest_path, highlight
+    return shortest_path, highlight, candidates_list
 
-def endfiller(type, cell_list, edges, start, end):
+def endfiller(maze_type, cell_list, edges, start, end):
     """
 
     :param type:
@@ -299,7 +306,7 @@ def endfiller(type, cell_list, edges, start, end):
 
             edges[start_cell].remove(end_cell)
             edges[end_cell].remove(start_cell)
-            highlight.append(([], [cell_list[start_cell]]))
+            highlight.append(cell_list[start_cell])
 
             start_cell = end_cell
 
@@ -312,4 +319,4 @@ def endfiller(type, cell_list, edges, start, end):
 
     del shortest_path[-1]
 
-    return shortest_path, highlight
+    return shortest_path, highlight, []

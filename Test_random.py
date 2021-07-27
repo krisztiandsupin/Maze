@@ -1,16 +1,11 @@
-import time
 import pygame
-import AlgorithmSettings
 import Functions
-import GameSettings
 import MazeFunctions
 import Settings
 from Color import Color
 from Maze import Maze
 from Settings import screen as screen_settings
-from Text import Text
 import math
-import pyautogui
 
 screen_size = screen_settings.screen_size
 
@@ -66,7 +61,7 @@ for column in range(2*n - 1):
 gameDisplay.fill(Color.white)
 pygame.display.update()
 
-maze_hexagon1 = Maze(10, "hexagon", "kruskal")
+'''maze_hexagon1 = Maze(10, "hexagon", "kruskal")
 maze_hexagon2 = Maze(10, "hexagon", "kruskal")
 maze_hexagon1.create((int(screen_size[0] * 0.25), screen_size[1] // 2), 1, graph_bool=False)
 maze_hexagon2.create((int(screen_size[0] * 0.75), screen_size[1] // 2), 1, graph_bool=False)
@@ -85,9 +80,9 @@ maze_triangle1 = Maze(20, "triangle", "kruskal")
 maze_triangle2 = Maze(20, "triangle", "kruskal")
 maze_triangle1.create((int(screen_size[0] * 0.25), screen_size[1] // 2), 1, graph_bool=False)
 maze_triangle2.create((int(screen_size[0] * 0.75), screen_size[1] // 2), 1, graph_bool=False)
+'''
 
-
-maze_hexagon1.draw(gameDisplay, graph_bool=False, visibility_bool=False)
+'''maze_hexagon1.draw(gameDisplay, graph_bool=False, visibility_bool=False)
 maze_octagon2.draw(gameDisplay, graph_bool=False, visibility_bool=False)
 pygame.image.save(gameDisplay, "maze1.png")
 
@@ -125,6 +120,28 @@ gameDisplay.fill(Color.white)
 maze_circle1.draw(gameDisplay, graph_bool=False, visibility_bool=False)
 maze_octagon2.draw(gameDisplay, graph_bool=False, visibility_bool=False)
 pygame.image.save(gameDisplay, "maze6.png")
+'''
+
+
+maze_print1 = Maze(4, "hexagon", "kruskal")
+maze_print1.create((int(screen_size[0] * 0.25), screen_size[1] // 2), 0, graph_bool=False)
+maze_print1.color_start=Color.white
+maze_print1.color_end=Color.white
+maze_print1.draw_grid(gameDisplay, graph_bool=False)
+
+maze_print2 = Maze(4, "hexagon", "kruskal")
+maze_print2.create((int(screen_size[0] * 0.75), screen_size[1] // 2), 0, graph_bool=False)
+maze_print2.color_start=Color.white
+maze_print2.color_end=Color.white
+maze_print2.draw_grid(gameDisplay, graph_bool=False)
+
+for i in range(len(maze_print1.cell_list)):
+    maze_print1.cell_list[i].text_display(gameDisplay, str(maze_print1.cell_list[i].coordinate), 25)
+    maze_print2.cell_list[i].text_display(gameDisplay, str(MazeFunctions.coordinate_transform_hexagon(maze_print2.cell_list[i].coordinate)), 25)
+
+
+pygame.display.update()
+pygame.image.save(gameDisplay, f"maze_print13.png")
 
 while True:
     Functions.buttonpress_detect()
@@ -136,6 +153,6 @@ while True:
 
 
     Functions.mouse_reset()
-    MazeFunctions.updete_delay(10)
+    MazeFunctions.update_delay(10)
 
 

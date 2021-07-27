@@ -159,7 +159,7 @@ def maze_game(maze1, maze2):
             new_index, new_index2 = GameUI.multi_player(player1_position, player2_position, maze1.size)
 
         else:
-            print('error: invalid game mode type in Game')
+            print('error: invalid game mode maze_type in Game')
 
         if new_index >= 0 and new_index in maze1.maze_list[player1_position.index]:
             pygame.draw.circle(game_display, Color.yellow_light, player1_position.position, int(maze1.cell_size * 0.3))

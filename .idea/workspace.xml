@@ -18,15 +18,25 @@
       <change afterPath="$PROJECT_DIR$/../Mthree/.idea/Mthree.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Scripts/.idea/Scripts.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AlgorithmSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/AlgorithmSettings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AlgorithmSlides.py" beforeDir="false" afterPath="$PROJECT_DIR$/AlgorithmSlides.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cell.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CellList.py" beforeDir="false" afterPath="$PROJECT_DIR$/CellList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EdgeList.py" beforeDir="false" afterPath="$PROJECT_DIR$/EdgeList.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/Frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameSettings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Generation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Maze.py" beforeDir="false" afterPath="$PROJECT_DIR$/Maze.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MazeFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MazeFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slides/BacktrackerSlide.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slides/BacktrackerSlide.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slides/KruskalSlide.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slides/KruskalSlide.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slides/PrimSlide.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slides/PrimSlide.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Solving.py" beforeDir="false" afterPath="$PROJECT_DIR$/Solving.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_random.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test_random.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +76,7 @@
       <recent name="C:\Users\balazs\Desktop\python\Maze" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Test_random">
+  <component name="RunManager" selected="Python.Main">
     <configuration name="AlgorithmSettings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Maze" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -174,10 +184,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Test_random" />
-        <item itemvalue="Python.Menu (1)" />
-        <item itemvalue="Python.Menu" />
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.Menu (1)" />
+        <item itemvalue="Python.Test_random" />
+        <item itemvalue="Python.Menu" />
         <item itemvalue="Python.AlgorithmSettings" />
       </list>
     </recent_temporary>
@@ -222,13 +232,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Cell.py</url>
-          <line>63</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
