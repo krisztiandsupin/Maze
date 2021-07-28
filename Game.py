@@ -79,8 +79,9 @@ def maze_game(maze1, maze2):
     player_color = Color.blue_dark
     player1_position.draw_sign(game_display, player_color, maze_sign_size)
 
-    player2_position = maze2.start
+
     if not Settings.player_mode: # multiplayer
+        player2_position = maze2.start
         player2_color = Color.green_dark
         player2_position.draw_sign(game_display, player2_color, maze_sign_size)
 

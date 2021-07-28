@@ -57,13 +57,13 @@ def settings():
     # maze maze_type
     maze_type_vertical = int(screen_size[1] * 0.6)
 
-    text_type = Text((int(screen_size[0] * 0.3), maze_type_vertical), 'Maze maze_type', int(text_size * 1.5), text_color,
+    text_type = Text((int(screen_size[0] * 0.3), maze_type_vertical), 'Maze type', int(text_size * 1.5), text_color,
                      text_color_light)
     text_square = Text((int(screen_size[0] * 0.58), maze_type_vertical), 'Square', int(text_size * 1.25),
                               text_color,
                               text_color_light)
 
-    text_hexagon = Text((int(screen_size[0] * 0.72), maze_type_vertical), 'Hexagon', int(text_size * 1.25),
+    text_octagon = Text((int(screen_size[0] * 0.72), maze_type_vertical), 'octagon', int(text_size * 1.25),
                             text_color_light,
                             text_color)
     text_slash2 = Text((int(screen_size[0] * 0.65), maze_type_vertical), '/', int(text_size * 1.35), text_color,
@@ -97,7 +97,7 @@ def settings():
     text_type.show(game_display)
     text_square.show(game_display)
     text_slash2.show(game_display)
-    text_hexagon.show(game_display)
+    text_octagon.show(game_display)
 
     text_maze_size.show(game_display)
     text_maze_size_actual.show(game_display)
@@ -171,16 +171,16 @@ def settings():
             break
 
         if text_square.is_clicked() and Settings.maze_type != 'square':
-            text_hexagon.show(game_display, text_color_light)
+            text_octagon.show(game_display, text_color_light)
             text_square.show(game_display, text_color)
 
             Settings.maze_type = 'square'
 
-        if text_hexagon.is_clicked() and Settings.maze_type != 'hexagon':
-            text_hexagon.show(game_display, text_color)
+        if text_octagon.is_clicked() and Settings.maze_type != 'octagon':
+            text_octagon.show(game_display, text_color)
             text_square.show(game_display, text_color_light)
 
-            Settings.maze_type = 'hexagon'
+            Settings.maze_type = 'octagon'
 
         Functions.mouse_reset()
         Functions.update_delay(10)
